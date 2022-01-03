@@ -1,5 +1,6 @@
 import { ObjectType, Field } from "type-graphql";
-import {prop} from "@typegoose/typegoose";
+
+import {prop,getModelForClass} from "@typegoose/typegoose";
 
 @ObjectType()
 export class Comment{
@@ -28,5 +29,5 @@ export class Comment{
     @prop()
     content !:string;
 
-    
 }
+export const CommentModel = getModelForClass(Comment, { schemaOptions: { timestamps: true } });
