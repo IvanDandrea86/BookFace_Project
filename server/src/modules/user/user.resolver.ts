@@ -7,12 +7,13 @@ import * as bcrypt from 'bcrypt';
 @Resolver(() => User)
 export default class UserResolver {
 
-    @Query(() => [User], { name: 'users' })
+    @Query(() => [User], { name: 'findById' })
     async findById(
         @Arg('user_id') user_id: number
     ) {
       return await UserModel.find({user_id:user_id});
     }
+
     @Mutation(() => User, { name: 'createUser' })
     async create(
       @Arg('username') username: string,
