@@ -7,5 +7,4 @@ export const resolvers: [Function, ...Function[]] = [
   UserResolver,
   PostResolver,
   CommentResolver,
-  
 ];
