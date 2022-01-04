@@ -1,25 +1,32 @@
 ### User:
-- UpdateUser
-- CreateUser
-- Login
-- Logout
-- FindUserById
-- FindUserbyUsername
-- DeleteUser
+- UpdateUser (Mutation)
+- CreateUser (Mutation)
+- Login (Mutation)
+- Logout (Mutation)
+- FindUserById (Query)
+- FindUserbyUsername (Query)
+- FindAllUser (Query)
+- DeleteUser (Mutation)
+- AddFriend (Mutation)
+- RemoveFriend (Mutation)
 
 
 ### Post:
-- AddPost
-- ModifyPost
-- LikePost
-- UnlikePost 
-- FindPostById
-- FindPostByUser
-- DeletePOst
+- AddPost (Mutation)
+- ModifyPost (Mutation)
+- LikePost (Mutation)
+- UnlikePost (Mutation) 
+- FindPostById (Query)
+- FindPostByUser (Query)
+- FindAllPost (Query)
+- DeletePost (Mutation)
 
 ### Comment:
-- AddComment
-- ModifyComment
-- DeleteComment
-- LikeComment
-- UnlikeComment
+- AddComment (Mutation)
+- ModifyComment (Mutation)
+- DeleteComment (Mutation)
+- LikeComment (Mutation)
+- UnlikeComment (Mutation)
+- FindCommentById (Query)
+- FindCommentByUser (Query)
+- FindAllComment (Query)
