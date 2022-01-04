@@ -25,7 +25,7 @@ app.use('/', express.static(path.resolve(__dirname,'../public')))
 
 app.listen(PORT,()=>{
     console.log(`🚀 Server running at http://localhost:${PORT}`);
-    console.log(__dirname)
+    
 })
 
 

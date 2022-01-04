@@ -1,18 +1,22 @@
 import { ObjectType, Field } from "type-graphql";
 import {prop, getModelForClass} from "@typegoose/typegoose";
+import { LikeState } from "../types/types";
 
 @ObjectType()
 export class Post{
 
     @Field()
     @prop()
-    readonly post_id!: number;
+    _id!:string;
+
+    @Field()
+    @prop()
+     post_id : string = this._id;
     
     @Field()
-    @prop()    
-    user_id !:string;
+    @prop()
+     user_id!:String;
     
-
     @Field()
     @prop()
     createAt: Date =new Date;
@@ -24,6 +28,10 @@ export class Post{
     @Field()
     @prop()
     content !:string;
+
+    @Field(type=>[LikeState])
+    @prop()
+    likeComment :LikeState[];
 
 }
 

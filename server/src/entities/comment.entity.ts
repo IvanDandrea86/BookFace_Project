@@ -1,20 +1,25 @@
 import { ObjectType, Field } from "type-graphql";
 import {prop,getModelForClass} from "@typegoose/typegoose";
+import { LikeState } from "../types/types";
 
 @ObjectType()
 export class Comment{
 
     @Field()
     @prop()
-    readonly comment_id!: number;
+     _id !: string;
+
+    @Field()
+    @prop()
+     comment_id : string =this._id;
+
+    @Field()
+    @prop()
+    post_id !: String;
     
     @Field()
-    @prop()    
-    post_id !:string;
-    
-    @Field()
-    @prop()    
-    user_id !:string;
+    @prop()
+    user_id !: String;
     
     @Field()
     @prop()
@@ -27,6 +32,10 @@ export class Comment{
     @Field()
     @prop()
     content !:string;
+
+    @Field(type=>[LikeState])
+    @prop()
+    likeComment :LikeState;
 
 }
 export const CommentModel = getModelForClass(Comment, { schemaOptions: { timestamps: true } });

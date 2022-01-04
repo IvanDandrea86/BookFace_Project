@@ -1,12 +1,17 @@
 import { ObjectType, Field } from "type-graphql";
 import {prop, getModelForClass} from "@typegoose/typegoose";
 
+
 @ObjectType()
 export class User{
 
     @Field()
     @prop()
-    readonly user_id!: number;
+     _id !: string;
+
+    @Field()
+    @prop()
+     user_id : string = this._id;
     
     @Field()
     @prop()
@@ -14,12 +19,11 @@ export class User{
 
     @Field()
     @prop()
-
     updatedAt: Date = new Date;
 
     @Field()
     @prop()    
-    user_name !:string;
+    username !:string;
     
     @Field()
     @prop()
@@ -28,5 +32,11 @@ export class User{
     @Field()
     @prop()
     email !:string;
+
+    @Field(type => [String])
+    @prop()
+    friendList :string[];
+
+
 }
 export const UserModel = getModelForClass(User, { schemaOptions: { timestamps: true } });
