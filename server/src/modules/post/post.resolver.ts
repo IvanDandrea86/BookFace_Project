@@ -22,11 +22,13 @@ export default class PostResolver {
 
       let _id=new ObjectId()
       let post_id=_id
+      
       return await PostModel.create({
         _id,
         post_id,
         content,
         user_id,
+        
       });
 
 }

@@ -33,7 +33,7 @@ export class Comment{
     @prop()
     content !:string;
 
-    @Field(type=>[LikeState])
+    @Field()
     @prop()
     likeComment :LikeState;
 

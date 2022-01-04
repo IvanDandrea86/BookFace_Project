@@ -1,24 +1,25 @@
 ### User:
-- modifier nom
-- modifier prenom
-- modifier mdp
-- modifier email
-- find by id
-- find by user
-- supprimer compte
+- UpdateUser
+- CreateUser
+- Login
+- Logout
+- FindUserById
+- FindUserbyUsername
+- DeleteUser
+
 
 ### Post:
-- ajouter post
-- modifier post
-- post like
-- post unlike 
-- find by id
-- find by user
-- supprimer post
+- AddPost
+- ModifyPost
+- LikePost
+- UnlikePost 
+- FindPostById
+- FindPostByUser
+- DeletePOst
 
 ### Comment:
-- ajouter comment
-- modifier comment
-- supprimer comment
-- comment like
-- comment unlike
+- AddComment
+- ModifyComment
+- DeleteComment
+- LikeComment
+- UnlikeComment

@@ -29,9 +29,9 @@ export class Post{
     @prop()
     content !:string;
 
-    @Field(type=>[LikeState])
+    @Field()
     @prop()
-    likeComment :LikeState[];
+    likeComment :LikeState;
 
 }
 
