@@ -20,7 +20,6 @@ apolloLoader().catch(err=>{
     console.error(err)
 })
 
-
 app.use('/', express.static(path.resolve(__dirname,'../public')))
 
 app.listen(PORT,()=>{

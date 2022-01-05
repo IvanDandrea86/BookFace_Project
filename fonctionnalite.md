@@ -30,3 +30,10 @@
 - FindCommentById (Query)
 - FindCommentByUser (Query)
 - FindAllComment (Query)
+
+### FriendRequest
+
+- createFriendRequest (@Mutation)
+- acceptFriedRequest (@Mutation)
+- refuseFriendRequest (@Mutation)
+

@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import { Resolver, Arg, Query, Mutation} from "type-graphql";
 import { Service } from "typedi";
-import {Comment, CommentModel}  from "../entities/comment.entity";
+import {Comment, CommentModel}  from "../../entities/comment.entity";
 
 
 @Service() // Dependencies injection

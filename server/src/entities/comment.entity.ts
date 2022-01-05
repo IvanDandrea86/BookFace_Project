@@ -7,7 +7,7 @@ export class Comment{
 
     @Field()
     @prop()
-     _id !: string;
+    _id !: string;
 
     @Field()
     @prop()

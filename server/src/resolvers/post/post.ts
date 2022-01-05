@@ -1,6 +1,6 @@
 import { Resolver, Arg, Query, Mutation } from "type-graphql";
 import { Service } from "typedi";
-import {Post, PostModel}  from "../entities/post.entity";
+import {Post, PostModel}  from "../../entities/post.entity";
 import { ObjectId } from "mongodb";
 
 
