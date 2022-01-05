@@ -142,7 +142,7 @@ export default class UserResolver {
   async updateUser(
     @Arg("options") options: UserInput,
     @Arg("_id") id:string
-    ):Promise<User> 
+    ):Promise<User | null>
   {
     await UserModel.where({_id:id}).updateOne({username:options.username}).exec()
     const user = await UserModel.findOne({_id:id}).exec();
@@ -151,25 +151,55 @@ export default class UserResolver {
        
    
   }
-  @Mutation(() => UserResponse, { name: "login" })
-  async login() //Params here
+ 
+  @Mutation(() => Boolean, { name: "addFriend" })
+  async addFriend(
+    @Arg("user_id") user_id:string,
+    @Arg("reciver_id") reciver_id:string,
+  ):Promise<boolean> 
   {
-    //Logic Here
+    const user = await UserModel.where({_id:user_id})
+    if(!user){
+      return false
+    }
+    else{
+      //Add controll already friend
+      await UserModel.updateOne({ _id: user_id }, { $push: { friendList: reciver_id } })
+      await UserModel.updateOne({ _id: reciver_id }, { $push: { friendList: user_id } })
+      return true
+    }
+    
   }
-  @Mutation(() => UserResponse, { name: "logout" })
-  async logout() //Params here
+  @Mutation(() => Boolean, { name: "removeFriend" })
+  async removeFriend(
+    @Arg("user_id") user_id:string,
+    @Arg("reciver_id") reciver_id:string,
+  ) 
   {
-    //Logic Here
+    const user = await UserModel.where({_id:user_id})
+    if(!user){
+      return false
+    }
+    else{
+      await UserModel.updateOne({ _id: user_id }, { $pull: { friendList: reciver_id } })
+      await UserModel.updateOne({ _id: reciver_id }, { $pull: { friendList: user_id } })
+      return true
+    }
+    
   }
-  
-  @Mutation(() => FriendResponse, { name: "addFriend" })
-  async addFriend() //Params here
-  {
-    //Logic Here
-  }
-  @Mutation(() => FriendResponse, { name: "removeFriend" })
-  async removeFriend() //Params here
-  {
-    //Logic Here
-  }
+
+
+
+@Mutation(() => UserResponse, { name: "login" })
+async login() //Params here
+{
+  //Logic Here
+}
+@Mutation(() => UserResponse, { name: "logout" })
+async logout() //Params here
+{
+  //Logic Here
+}
+
+
 }

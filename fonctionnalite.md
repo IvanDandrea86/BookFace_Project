@@ -7,6 +7,7 @@
 - FindUserbyUsername (Query)
 - FindAllUser (Query)
 - DeleteUser (Mutation)
+- DeleteAllUser (Mutation)
 - AddFriend (Mutation)
 - RemoveFriend (Mutation)
 
