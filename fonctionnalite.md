@@ -7,6 +7,7 @@
 - FindUserbyUsername (Query)
 - FindAllUser (Query)
 - DeleteUser (Mutation)
+- DeleteAllUser (Mutation)
 - AddFriend (Mutation)
 - RemoveFriend (Mutation)
 
@@ -30,3 +31,10 @@
 - FindCommentById (Query)
 - FindCommentByUser (Query)
 - FindAllComment (Query)
+
+### FriendRequest
+
+- createFriendRequest (@Mutation)
+- acceptFriedRequest (@Mutation)
+- refuseFriendRequest (@Mutation)
+
