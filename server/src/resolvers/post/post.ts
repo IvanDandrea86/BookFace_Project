@@ -1,71 +1,96 @@
 import { Resolver, Arg, Query, Mutation } from "type-graphql";
 import { Service } from "typedi";
-import {Post, PostModel}  from "../../entities/post.entity";
+import { Post, PostModel } from "../../entities/post.entity";
 import { ObjectId } from "mongodb";
+import { LikeState } from "../../types/types";
 
 
 @Service() // Dependencies injection
 @Resolver(() => Post)
 export default class PostResolver {
-    @Query(() => [Post], { name: 'findPostById' })
-    async findPostById(
-        @Arg('post_id') post_id: string
-    ) {
-      return await PostModel.find({_id:post_id});
+  @Query(() => Post, { name: "findPostById" })
+  async findPostById(@Arg("post_id") post_id: string) {
+    return await PostModel.findOne({ _id: post_id });
+  }
+  @Query(() => [Post], { name: "findPostByUser" })
+  async findPostByUser(@Arg("user_id") user_id: string): Promise<Post[]> {
+    return PostModel.find({ user_id: user_id });
+  }
+  @Query(() => [Post], { name: "findAllPost" })
+  async findAllPost(): Promise<Post[]> {
+    return await PostModel.find({});
+  }
+
+  @Mutation(() => Post, { name: "addPost" })
+  async addPost(
+    @Arg("content") content: string,
+    @Arg("userId") user_id: string
+  ) {
+    const _id = new ObjectId();
+    const likeComment =new LikeState();
+    const comments = new Array();
+    const post = new PostModel({
+      _id,
+      post_id: _id,
+      user_id:user_id,
+      content: content,
+      likeComment:likeComment,
+      comments:comments,
+    })
+
+    return await post.save()
+  }
+
+  @Mutation(() => Post, { name: "modifyPost" })
+  async modifyPost(
+    @Arg('post_id') post_id:string,
+    @Arg('content') content:string
+    ) :Promise<Post>
+  {
+    try{
+      await PostModel.findOneAndUpdate({_id: post_id},{content:content}).exec();
+  }
+  catch(err){
+    console.error(err);
+  }
+  const post = await PostModel.findOne({ _id: post_id }).exec();
+  return  post!.toObject()
+}
+  @Mutation(() => Boolean, { name: "deletePost" })
+  async deletePost(@Arg("post_id") post_id: string): Promise<Boolean> {
+    try {
+      await PostModel.findOneAndDelete({ _id: post_id }).exec();
+    } catch (err) {
+      console.error(err);
+      return false;
     }
-    @Query(()=>Post , { name: 'findPostByUser'})
-    async findPostByUser(
-      //Arg
-    ){
-      //Logic
-    }
-    @Query(()=>Post , { name: 'findAllPost'})
-    async findAllPost(
-      //Arg
-    ){
-      //Logic
+    return true;
+  }
+
+  @Mutation(() => Post, { name: "likePost" })
+  async likePost(
+    @Arg("post_it") post_id :string,
+    @Arg("user_id") user_id:string
+  )
+  {
+    await PostModel.findOneAndUpdate({_id:post_id},{$inc:{"likeComment.count":1}}).exec();
+    await PostModel.findOneAndUpdate({_id:post_id},{$push:{"likeComment.likelist":user_id}})
+    return PostModel.findOne({_id:post_id})
+  }
+  @Mutation(() => Post, { name: "unlikePost" })
+  async unlikePost(
+    @Arg("post_it") post_id :string,
+    @Arg("user_id") user_id:string
+  ) 
+  {
+    {
+      const post = await PostModel.findOneAndUpdate({_id:post_id},{$inc:{"likeComment.count":-1}}).exec();
+      if (post!.likeComment.count<0){
+        await PostModel.findOneAndUpdate({_id:post_id},{$set:{"likeComment.count":0}}).exec();
+      }
+      await PostModel.findOneAndUpdate({_id:post_id},{$pull:{"likeComment.likelist":user_id}});
+      return PostModel.findOne({_id:post_id});
     }
     
-    @Mutation(() => Post, { name: 'addPost' })
-    async addPost(
-      @Arg('content') content: string,
-      @Arg('userId') user_id: string  
-    ) {
-
-      let _id=new ObjectId()
-      let post_id=_id
-      
-      return await PostModel.create({
-        _id,
-        post_id,
-        content,
-        user_id, 
-      });
-}
-
-@Mutation(()=> Post, { name: 'modifyPost'})
-async modifyPost(
-  //Args
-){
-  //Logic
-}
-@Mutation(()=> Post, { name: 'deletePost'})
-async deletePost(
-  //Args
-){
-  //Logic
-}
-@Mutation(()=> Post, { name: 'likePost'})
-async likePost(
-  //Args
-){
-  //Logic
-}
-@Mutation(()=> Post, { name: 'unlikePost'})
-async unlikePost(
-  //Args
-){
-  //Logic
-}
-
+  }
 }
