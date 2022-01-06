@@ -1,6 +1,7 @@
 import { ObjectType, Field } from "type-graphql";
 import {prop, getModelForClass} from "@typegoose/typegoose";
 import { LikeState } from "../types/types";
+import { Comment } from "./comment.entity";
 
 @ObjectType()
 export class Post{
@@ -11,7 +12,7 @@ export class Post{
 
     @Field()
     @prop()
-     post_id : string = this._id;
+     post_id : string;
     
     @Field()
     @prop()
@@ -19,7 +20,7 @@ export class Post{
     
     @Field()
     @prop()
-    createAt: Date =new Date;
+    createdAt: Date =new Date;
 
     @Field()
     @prop()
@@ -29,9 +30,17 @@ export class Post{
     @prop()
     content !:string;
 
-    @Field()
+    @Field({nullable:true})
     @prop()
-    likeComment :LikeState;
+    likeComment :LikeState=new LikeState;
+
+    @Field(()=>[Comment])
+    @prop({type:[Comment]})
+    comments :Comment[]
+
+    constructor (){
+        this.comments= new Array<Comment>();
+        }
 
 }
 

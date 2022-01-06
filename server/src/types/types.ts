@@ -2,6 +2,7 @@ import { prop } from "@typegoose/typegoose";
 import { Field, ObjectType,} from "type-graphql";
 import {User} from '../entities/user.entity'
 
+
 @ObjectType()
 export class LikeState {
 
@@ -14,24 +15,11 @@ export class LikeState {
     likelist :string[]
 
     constructor (){
-    this.count= this.likelist.length
+    this.count= 0;
+    this.likelist=new Array();
     }
 }
-@ObjectType()
-export class FriendRequestStatus {
-    
-    @Field({ defaultValue: false })
-    @prop()
-    accepted : boolean;
 
-    @Field({ defaultValue: false })
-    @prop()
-    pending :boolean;
-
-    @Field({ defaultValue: false })
-    @prop()
-    refused :boolean;
-}
 
 @ObjectType()
 export class FieldError {
