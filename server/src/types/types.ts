@@ -1,8 +1,13 @@
 import { prop } from "@typegoose/typegoose";
 import { Field, ObjectType,} from "type-graphql";
 import {User} from '../entities/user.entity'
+import { Request,Response } from "express";
 
 
+export type MyContext={
+  res:Response
+  req:Request
+}
 @ObjectType()
 export class LikeState {
 

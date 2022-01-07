@@ -1,9 +1,9 @@
-import { Resolver, Arg, Field, Query, Mutation, InputType } from "type-graphql";
+import { Resolver, Arg, Field, Query, Mutation, InputType, Ctx } from "type-graphql";
 import { Service } from "typedi";
 import { User, UserModel } from "../../entities/user.entity";
 import * as bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
-import { UserResponse, FieldError } from "../../types/types";
+import { UserResponse, FieldError, MyContext } from "../../types/types";
 import { PostModel } from "../../entities/post.entity";
 
 @InputType()
@@ -160,7 +160,10 @@ export default class UserResolver {
     }
   }
   @Mutation(() => UserResponse, { name: "login" })
-  async login(@Arg("options") options: UserInput): Promise<UserResponse> {
+  async login(
+    @Arg("options") options: UserInput,
+    @Ctx() {req}:MyContext
+  ): Promise<UserResponse> {
     const userUsername = await UserModel.findOne({
       username: options.username,
     });
@@ -202,6 +205,7 @@ export default class UserResolver {
         };
       } else {
         const user = userUsername.toObject();
+        req.session.userId=user.id;
         return { user };
         // add session auth logic
       }
@@ -222,6 +226,7 @@ export default class UserResolver {
         };
       } else {
         const user = userEmail.toObject();
+        req.session.userId=user.id;
         return { user };
       }
     }
