@@ -12,7 +12,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
+import PersonPinRoundedIcon from '@mui/icons-material/PersonPinRounded';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -95,8 +95,10 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
+
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
+
     </Menu>
   );
 
@@ -117,7 +119,8 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem 
+        href="/">
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -129,7 +132,8 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
-      <MenuItem>
+      <MenuItem 
+        href="/profile">
         <IconButton
           size="large"
           aria-label=""
@@ -147,15 +151,17 @@ export default function PrimarySearchAppBar() {
       <AppBar position="static">
         <Toolbar>
           <IconButton
+            href="/home"
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: 1 }}
           >
-            <FacebookRoundedIcon />
+            <PersonPinRoundedIcon />
           </IconButton>
           <Typography
+            href="/home"
             variant="h6"
             noWrap
             component="div"
@@ -168,7 +174,7 @@ export default function PrimarySearchAppBar() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Find friends…"
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
@@ -178,6 +184,7 @@ export default function PrimarySearchAppBar() {
               size="large"
               aria-label=""
               color="inherit"
+              href="/"
             >
                 <ExitToAppIcon />
             </IconButton>
@@ -187,7 +194,7 @@ export default function PrimarySearchAppBar() {
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
+              href="/profile"
               color="inherit"
             >
               <AccountCircle />

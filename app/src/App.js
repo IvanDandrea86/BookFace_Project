@@ -7,6 +7,7 @@ import Home from './Home';
 import Profile from './Profile';
 import NotFound from './NotFound';
 import { grey } from '@mui/material/colors';
+import FindingFriends from './FindingFriends';
 
 const bg_grey = grey[50]; // really light grey
 
@@ -18,7 +19,7 @@ function App() {
           <Route exact path="/">
               <PageLoginSubscribe />
           </Route>
-          <div className="Only_when_logged">
+          <div className="Only_when_logged" sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}} >
             <Header />
             <Switch>
               <Route path="/home">
@@ -27,11 +28,14 @@ function App() {
               <Route path="/profile">
                 <Profile />
               </Route>
+              <Route path="/finding">
+                <FindingFriends />
+              </Route>
               <Route path="*">
                 <NotFound />
               </Route>
             </Switch>
-              <Footer />
+              <Footer sx={{ alignSelf: 'flex-end' }} />
           </div>
           </Switch>
       </div>
