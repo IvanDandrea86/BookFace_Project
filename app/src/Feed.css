@@ -1,9 +1,18 @@
-.feed {
-    flex: 1;
-    padding: 30px 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+@media only screen and (max-width: 450px) {
+    .feed {
+     width: 100%;
+    }
+  }
 
-}
+  @media only screen and (min-width: 401px) and (max-width: 700%) {
+    .feed {
+     width: 80%;
+    }
+  }
+
+  @media only screen and (min-width: 701%) {
+    .feed {
+     width: 50%;
+    }
+  }
+

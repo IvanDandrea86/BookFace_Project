@@ -6,7 +6,7 @@ import Sidebar from './Sidebar';
 
 function Home() {
     return ( 
-        <div className='home_body'>
+        <div className='home_body'sx={{width:"100%"}}>
             {/*<Sidebar />*/}
             <Feed />
         </div>

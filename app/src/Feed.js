@@ -1,5 +1,4 @@
 import React from 'react';
-import './Feed.css';
 import StoryReel from './StoryReel';
 import MessageSender from './MessageSender';
 import Post from './Post';
@@ -8,61 +7,36 @@ import Grid from '@mui/material/Grid';
 import Test from './Test';
 
 function Feed() {
+
+    const photo = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80";
+
     return (
-    <Container /*maxWidth="xs"*/>  
-    <div className='feed'>
+    <Container className='feed' sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>  
 
-
-        <Grid container> 
-        <Grid item xs={12} sm={12}> 
         <StoryReel />
-        </Grid>
-        </Grid>
-
-        <Grid container>
-        <Grid item xs={12} sm={12} lg={10}>
         <MessageSender />
-        </Grid>
-        </Grid>
-        
-       
-        <Grid container> 
-        <Grid item xs={12} sm={12}> 
+
+        <Grid item className="post_container" sx={{my: 6, width:"100%" }}>
         <Post 
             profilePic="https://source.unsplash.com/random"
             message="Wow this works"
             timestamp="This is a timestamp"
             username= "John Doe"
-            image= "https://image.freepik.com/photos-gratuite/gros-plan-belle-fleur-daisy-oxeye_181624-11106.jpg"          
+            image= {photo}          
         /> 
-        </Grid>
-        </Grid>
-  
 
-        <Grid container> 
-        <Grid  items xs={12} sm={12} md={12}>
         <Post 
          profilePic="https://source.unsplash.com/random"
          message="What's Up BROO"
          username= "Someone Cool"
          /> 
-         </Grid>
-         </Grid>
-  
 
-         <Grid container> 
-        <Grid item xs={12} sm={12}> 
         <Post 
         profilePic="https://source.unsplash.com/random"
         message="Heyooo Bookface !"
         username= "Interesting Guy"
         /> 
         </Grid>
-        </Grid>
-  
-    
-        
-    </div>
     </Container>
     );
 }

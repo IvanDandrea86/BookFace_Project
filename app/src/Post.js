@@ -4,9 +4,9 @@ import './Post.css';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import SendIcon from '@mui/icons-material/Send';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
 
 
 
@@ -14,66 +14,54 @@ import Container from '@mui/material/Container';
 function Post({ profilePic, image, username, timestamp, message }) 
 {
     return (
-        <Grid 
-        container
-         direction="column" 
-         alignItems="center" 
-         justify="center"
-         style={{minWidth:"50vh"}}
-         >
-
              
-        <Grid item xs={12} sm={12} >
-        <div className='post'>
-        
-            <div className="post_top">
-                <Avatar src={profilePic}
-                    className="post_avatar" />
-                <div className="post_topInfo">
-                    <h3>{username}</h3>
-                    <p>Timestamp...</p>
+        <Grid container sx={{width: "100%", justifyContent: "center", alignItems: "center"}}>
+            <div item className='post' sx={{width: "100%", flexDirection:"column", flexWrap:"wrap", justifyContent: "center", alignItems: "center"}} >
+            
+                <div className="post_top" sx={{flexDirection:"column", flexWrap:"wrap", justifyContent: "center"}}>
+                    <Avatar src={profilePic}
+                        className="post_avatar" />
+                    <div className="post_topInfo">
+                        <h3>{username}</h3>
+                        <p>Timestamp...</p>
+                    </div>
+                    
                 </div>
+            
+            
+                <div className="post_bottom" sx={{display: "flex", flexDirection:"column", flexWrap:"wrap", justifyContent: "center"}}>
+                    <p>{message}</p>
+                </div>
+
+                <div className="post_image" sx={{width: "100%", flexWrap:"wrap", justifyContent: "end", flexDirection:"column"}}>
+                    <img src={image} alt="" />
+                </div>
+                <Divider />
+
+            
+                
+                    <Grid container sx={{width:"100%", display: "flex", flexDirection:"row", justifyContent:"space-between"}}>
+                        <Grid item sx={{ ml:1, display: "flex", justifyContent:"flex-start", flexDirection:"row", alignItems:"center"}}>
+                            <IconButton size="large" sx={{  m: 0.5, bgcolor: "#dedede", justifyContent: "center"}}>
+                                <ThumbUpIcon  sx={{width: 16, height: "auto", justify: "center"}} />
+                            </IconButton>
+                            <IconButton size="large" sx={{ bgcolor: "#dedede", m: 0.5, justifyContent: "center"}}>
+                                <AddCommentIcon  sx={{width: 16, height: "auto", justify: "center"}} />
+                            </IconButton>
+                            <IconButton size="large"  sx={{ bgcolor: "#dedede", m: 0.5, justifyContent: "center"}}>
+                                <SendIcon  sx={{width: 16, height: "auto", justify: "center"}} />
+                            </IconButton>
+
+                        </Grid>
+                        <Grid item sx={{display: "flex", flexDirection:"row", flexWrap:"wrap", justifyContent: "flex-end"}}>
+                            <Avatar src={profilePic} sx={{ m:2, }}/>
+                        </Grid>
+                    </Grid>
+
                 
             </div>
-        
-          
-            <div className="post_bottom">
-                <p>{message}</p>
-            </div>
-
-            <div className="post_image">
-                <img src={image} alt="" />
-            </div>
-
-         
-            <div className="post_options">
-    
-                <div className="post_option">
-                    <ThumbUpIcon style={{ color: "gray" }} />
-                    <p>Like</p>
-                </div>
-       
-
-
-                <div className="post_option">
-                    <AddCommentIcon style={{ color: "gray" }} />
-                    <p>Comment</p>
-                </div>
-
-
-                <div className="post_option">
-                    <SendIcon style={{ color: "gray" }} />
-                    <p>Share</p>
-                </div>
-
-                <div className="post_option">
-                <Avatar src={profilePic} />
-                    <ExpandMoreIcon style={{ color: "gray" }} />
-                </div>
-            </div>
-        </div>
         </Grid>
-        </Grid>
+
     );
 }
 
