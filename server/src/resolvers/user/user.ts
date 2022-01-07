@@ -1,9 +1,10 @@
-import { Resolver, Arg, Field, Query, Mutation, InputType} from "type-graphql";
+import { Resolver, Arg, Field, Query, Mutation, InputType } from "type-graphql";
 import { Service } from "typedi";
 import { User, UserModel } from "../../entities/user.entity";
 import * as bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
-import {  UserResponse, FieldError } from "../../types/types";
+import { UserResponse, FieldError } from "../../types/types";
+import { PostModel } from "../../entities/post.entity";
 
 @InputType()
 class UserInput {
@@ -20,7 +21,7 @@ class UserInput {
 export default class UserResolver {
   @Query(() => User, { name: "findUserById" })
   async findUserById(@Arg("user_id") _id: string) {
-    return await UserModel.find({ _id: _id });
+    return await UserModel.findOne({ _id: _id });
   }
   @Query(() => User, { name: "findUserByUsername" })
   async findUserByUsername(@Arg("username") username: string) {
@@ -33,7 +34,7 @@ export default class UserResolver {
   @Mutation(() => Boolean, { name: "deleateAllUser" })
   async deleteAllUser() {
     try {
-      await UserModel.deleteMany();
+      await UserModel.deleteMany({});
     } catch (err) {
       return false;
     }
@@ -43,6 +44,15 @@ export default class UserResolver {
   async deleteUser(@Arg("_id") id: string) {
     try {
       await UserModel.deleteOne({ _id: id }).exec();
+      await PostModel.deleteMany({user_id:id}).exec();
+      const document=await UserModel.find({})
+      document.forEach(element => {
+        if (element.friendList.includes(id)){
+         element.friendList = element.friendList.filter(e=> e!==id);
+        element.save();
+        }
+      });
+      console.log(document);
     } catch (err) {
       console.error(err);
       return false;
@@ -58,8 +68,7 @@ export default class UserResolver {
         errors: [error],
       };
     }
-
-    if (
+   if (
       !options.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)
     ) {
       const error = new FieldError(
@@ -78,7 +87,7 @@ export default class UserResolver {
       email: options.email,
       username: options.username,
       password: hashPassword,
-    })
+    });
     try {
       await user.save();
     } catch (err) {
@@ -96,7 +105,7 @@ export default class UserResolver {
         errors: x,
       };
     }
-    return { user };
+    return {user};
   }
   @Mutation(() => User, { name: "updateUser", nullable: true })
   async updateUser(
@@ -152,15 +161,11 @@ export default class UserResolver {
     }
   }
   @Mutation(() => UserResponse, { name: "login" })
-  async login(
-    @Arg("options") options: UserInput
-     ): Promise<UserResponse> {
-
+  async login(@Arg("options") options: UserInput): Promise<UserResponse> {
     const userUsername = await UserModel.findOne({
       username: options.username,
     });
     const userEmail = await UserModel.findOne({ email: options.email });
-   
 
     if (!userUsername && options.username != null) {
       return {
@@ -186,7 +191,7 @@ export default class UserResolver {
       const validUsernamePassword = await bcrypt.compare(
         options.password,
         userUsername!.password
-      )
+      );
       if (!validUsernamePassword) {
         return {
           errors: [
@@ -196,10 +201,9 @@ export default class UserResolver {
             },
           ],
         };
-      }
-      else {
-        const user =userUsername.toObject()
-        return {user}
+      } else {
+        const user = userUsername.toObject();
+        return { user };
         // add session auth logic
       }
     }
@@ -207,7 +211,7 @@ export default class UserResolver {
       const validEmailPassword = await bcrypt.compare(
         options.password,
         userEmail!.password
-      )
+      );
       if (!validEmailPassword) {
         return {
           errors: [
@@ -217,22 +221,18 @@ export default class UserResolver {
             },
           ],
         };
+      } else {
+        const user = userEmail.toObject();
+        return { user };
       }
-      else {
-        const user =userEmail.toObject()
-        return {user}
-      }
-    } 
-  return{}
+    }
+    return {};
   }
 
   @Mutation(() => Boolean, { name: "logout" })
-  async logout(
-    @Arg("user_id") user_id: string,
-  ) {
-    if(user_id){
+  async logout(@Arg("user_id") user_id: string) {
+    if (user_id) {
       return true;
-    }
-    else return false;
+    } else return false;
   }
 }

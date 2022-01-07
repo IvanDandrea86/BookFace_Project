@@ -19,8 +19,6 @@ export class LikeState {
     this.likelist=new Array();
     }
 }
-
-
 @ObjectType()
 export class FieldError {
   @Field(() => String)

@@ -3,7 +3,7 @@ import { Service } from "typedi";
 import { Post, PostModel } from "../../entities/post.entity";
 import { ObjectId } from "mongodb";
 import { LikeState } from "../../types/types";
-
+import { CommentModel } from "../../entities/comment.entity";
 
 @Service() // Dependencies injection
 @Resolver(() => Post)
@@ -27,39 +27,41 @@ export default class PostResolver {
     @Arg("userId") user_id: string
   ) {
     const _id = new ObjectId();
-    const likeComment =new LikeState();
+    const likes = new LikeState();
     const comments = new Array();
     const post = new PostModel({
       _id,
       post_id: _id,
-      user_id:user_id,
+      user_id: user_id,
       content: content,
-      likeComment:likeComment,
-      comments:comments,
-    })
+      likes: likes,
+      comments: comments,
+    });
 
-    return await post.save()
+    return await post.save();
   }
 
   @Mutation(() => Post, { name: "modifyPost" })
   async modifyPost(
-    @Arg('post_id') post_id:string,
-    @Arg('content') content:string
-    ) :Promise<Post>
-  {
-    try{
-      await PostModel.findOneAndUpdate({_id: post_id},{content:content}).exec();
+    @Arg("post_id") post_id: string,
+    @Arg("content") content: string
+  ): Promise<Post> {
+    try {
+      await PostModel.findOneAndUpdate(
+        { _id: post_id },
+        { content: content }
+      ).exec();
+    } catch (err) {
+      console.error(err);
+    }
+    const post = await PostModel.findOne({ _id: post_id }).exec();
+    return post!.toObject();
   }
-  catch(err){
-    console.error(err);
-  }
-  const post = await PostModel.findOne({ _id: post_id }).exec();
-  return  post!.toObject()
-}
   @Mutation(() => Boolean, { name: "deletePost" })
   async deletePost(@Arg("post_id") post_id: string): Promise<Boolean> {
     try {
       await PostModel.findOneAndDelete({ _id: post_id }).exec();
+      await CommentModel.deleteMany({post_id:post_id}).exec();
     } catch (err) {
       console.error(err);
       return false;
@@ -69,28 +71,40 @@ export default class PostResolver {
 
   @Mutation(() => Post, { name: "likePost" })
   async likePost(
-    @Arg("post_it") post_id :string,
-    @Arg("user_id") user_id:string
-  )
-  {
-    await PostModel.findOneAndUpdate({_id:post_id},{$inc:{"likeComment.count":1}}).exec();
-    await PostModel.findOneAndUpdate({_id:post_id},{$push:{"likeComment.likelist":user_id}})
-    return PostModel.findOne({_id:post_id})
+    @Arg("post_id") post_id: string,
+    @Arg("user_id") user_id: string
+  ) {
+    await PostModel.findOneAndUpdate(
+      { _id: post_id },
+      { $inc: { "likes.count": 1 } }
+    ).exec();
+    await PostModel.findOneAndUpdate(
+      { _id: post_id },
+      { $push: { "likes.likelist": user_id } }
+    );
+    return PostModel.findOne({ _id: post_id });
   }
   @Mutation(() => Post, { name: "unlikePost" })
   async unlikePost(
-    @Arg("post_it") post_id :string,
-    @Arg("user_id") user_id:string
-  ) 
-  {
+    @Arg("post_id") post_id: string,
+    @Arg("user_id") user_id: string
+  ) {
     {
-      const post = await PostModel.findOneAndUpdate({_id:post_id},{$inc:{"likeComment.count":-1}}).exec();
-      if (post!.likeComment.count<0){
-        await PostModel.findOneAndUpdate({_id:post_id},{$set:{"likeComment.count":0}}).exec();
+      const post = await PostModel.findOneAndUpdate(
+        { _id: post_id },
+        { $inc: { "likes.count": -1 } }
+      ).exec();
+      if (post!.likes.count < 0) {
+        await PostModel.findOneAndUpdate(
+          { _id: post_id },
+          { $set: { "likes.count": 0 } }
+        ).exec();
       }
-      await PostModel.findOneAndUpdate({_id:post_id},{$pull:{"likeComment.likelist":user_id}});
-      return PostModel.findOne({_id:post_id});
+      await PostModel.findOneAndUpdate(
+        { _id: post_id },
+        { $pull: { "likes.likelist": user_id } }
+      );
+      return PostModel.findOne({ _id: post_id });
     }
-    
   }
 }
