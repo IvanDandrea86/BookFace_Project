@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import PendingIcon from '@mui/icons-material/Pending';
 
@@ -11,10 +10,6 @@ export default function ButtonAddCard() {
   const [pending, setPending] = React.useState(<AddCircleIcon />);
 
   const handleClick = () => {
-    console.info('You clicked the button.');
-  };
-
-  const handleClickAdd = () => {
     console.info('Wait for the response.');
     setDis(true);
     setAdd("Pending...");
@@ -27,7 +22,7 @@ export default function ButtonAddCard() {
   return (
       <Button 
         disabled={dis}
-        onClick={handleClickAdd}
+        onClick={handleClick}
         variant="contained" 
         endIcon={pending}
         color="primary"
