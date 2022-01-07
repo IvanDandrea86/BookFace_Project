@@ -8,15 +8,16 @@ import Profile from './Profile';
 import NotFound from './NotFound';
 import { grey } from '@mui/material/colors';
 
+
 const bg_grey = grey[50]; // really light grey
 
 function App() {
   return (
     <Router>
-      <div className="App" styles={{backgroundColor: bg_grey}}>
-          <Switch>
+      <div className="App" styles={{ backgroundColor: bg_grey }}>
+        <Switch>
           <Route exact path="/">
-              <PageLoginSubscribe />
+            <PageLoginSubscribe />
           </Route>
           <div className="Only_when_logged">
             <Header />
@@ -31,9 +32,9 @@ function App() {
                 <NotFound />
               </Route>
             </Switch>
-              <Footer />
+            <Footer />
           </div>
-          </Switch>
+        </Switch>
       </div>
     </Router>
   );
