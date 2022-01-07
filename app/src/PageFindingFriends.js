@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { useQuery } from 'urql';
 
+
 const NewFriends = `
   
     {findAllUser
