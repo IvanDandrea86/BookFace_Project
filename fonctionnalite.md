@@ -1,16 +1,15 @@
 ### User(Completed):
+- FindUserById (Query)
+- FindUserbyUsername (Query)
+- FindAllUser (Query)
 - UpdateUser (Mutation)
 - CreateUser (Mutation)
 - Login (Mutation)
 - Logout (Mutation)
-- FindUserById (Query)
-- FindUserbyUsername (Query)
-- FindAllUser (Query)
 - DeleteUser (Mutation)
 - DeleteAllUser (Mutation)
 - AddFriend (Mutation)
 - RemoveFriend (Mutation)
-
 
 ### Post(Completed):
 - FindPostById (Query)
@@ -29,10 +28,9 @@
 - AddComment (Mutation)
 - ModifyComment (Mutation)
 - DeleteComment (Mutation)
-- LikeComment (Mutation)
-- UnlikeComment (Mutation)
-
-
+- likes (Mutation)
+- Unlikes (Mutation)
+ 
 ### FriendRequest (Completed)
 - findFriendRequestByUser(Query)
 - findAllFriendRequest(Query)
