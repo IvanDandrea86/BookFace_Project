@@ -23,7 +23,7 @@ export class Comment{
     
     @Field()
     @prop()
-    createAt: Date =new Date;
+    createdAt: Date =new Date;
 
     @Field()
     @prop()
@@ -35,7 +35,7 @@ export class Comment{
 
     @Field()
     @prop()
-    likeComment :LikeState;
+    likes :LikeState;
 
 }
 export const CommentModel = getModelForClass(Comment, { schemaOptions: { timestamps: true } });

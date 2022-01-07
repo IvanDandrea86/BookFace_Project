@@ -35,8 +35,8 @@ export class User{
     email !:string;
 
     @Field(()=>[String])
-    @prop({type:[String]})
-    friendList :string[];
+    @prop({type:String})
+    friendList :Array<String>;
 
     
 }
