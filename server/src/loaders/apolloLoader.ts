@@ -3,6 +3,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import {resolvers} from '../resolvers/index';
 import {PORT} from '../constants/const'
+import { MyContext } from 'src/types/types';
 
 
 export const apolloLoader=async():Promise<void>=>{
@@ -13,6 +14,10 @@ export const apolloLoader=async():Promise<void>=>{
             validate:false, 
     
         }),
+        context: ({ req, res }):MyContext => ({
+            req,
+            res,
+        })
     }); 
     await apolloServer.start()
     .then(()=>{
