@@ -3,13 +3,11 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import ButtonFriendCard from './ButtonFriendCard';
 
 export default function AddFriendCard(props) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ width: "100%" }}>
       <CardMedia
         component="img"
         alt="green iguana"
@@ -17,8 +15,8 @@ export default function AddFriendCard(props) {
         image="https://source.unsplash.com/random"
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          First Name Last Name
+        <Typography gutterBottom variant="subtitle1" component="div">
+          {props.name}
         </Typography>
       </CardContent>
       <CardActions sx={{display:"flex", justifyContent:"end"}}>

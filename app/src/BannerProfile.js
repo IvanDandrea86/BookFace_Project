@@ -1,10 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import Badge from '@mui/material/Badge';
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import Avatar from '@mui/material/Avatar';
-import Grid from '@mui/material/Grid';
 
 
 export default function BannerProfile() {
