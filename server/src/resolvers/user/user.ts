@@ -5,6 +5,7 @@ import * as bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
 import { UserResponse, FieldError, MyContext } from "../../types/types";
 import { PostModel } from "../../entities/post.entity";
+import { COOKIENAME } from "../../constants/const";
 
 declare module 'express-session' {
        interface SessionData {
@@ -250,10 +251,19 @@ export default class UserResolver {
     return {};
   }
 
-  @Mutation(() => Boolean, { name: "logout" })
-  async logout(@Arg("user_id") user_id: string) {
-    if (user_id) {
-      return true;
-    } else return false;
+  @Mutation(() => Boolean)
+  logout(@Ctx() { req, res }: MyContext) {
+    return new Promise((resolve) =>
+      req.session.destroy((err) => {
+        res.clearCookie(COOKIENAME);
+        if (err) {
+          console.log(err);
+          resolve(false);
+          return;
+        }
+
+        resolve(true);
+      })
+    );
   }
 }
