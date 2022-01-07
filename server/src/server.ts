@@ -30,6 +30,17 @@ export const main = async () => {
   runConnection().catch((err) => {
     console.error(err);
   });
+// Redis Connect
+app.use(
+    session({
+      store: new RedisStore({ client: redisClient }),
+      secret: REDIS_SECRET,
+      saveUninitialized: false,
+      resave: false,
+      cookie: { maxAge: OneDay },
+      name: "sessionID",
+    })
+  );
   //Start Apollo Server for graphql
   apolloLoader().catch((err) => {
     console.error(err);
@@ -40,16 +51,7 @@ export const main = async () => {
 
   app.use("/", express.static(path.resolve(__dirname, "../public")));
 
-  app.use(
-    session({
-      store: new RedisStore({ client: redisClient }),
-      secret: REDIS_SECRET,
-      saveUninitialized: false,
-      resave: false,
-      cookie: { maxAge: OneDay },
-      name: "sessionID",
-    })
-  );
+ 
 
   app.listen(PORT, () => {
     console.log(`🚀 Server running at http://localhost:${PORT}`);
