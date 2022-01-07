@@ -1,11 +1,16 @@
-import React from 'react'
+import React from 'react';
+import './Home.css';
+import Feed from "./Feed";
+import Sidebar from './Sidebar';
+
 
 function Home() {
-    return (
-        <div>
-            <p>Here comes "the HALL part" with the general feed</p>
+    return ( 
+        <div className='home_body'>
+            {/*<Sidebar />*/}
+            <Feed />
         </div>
-    )
+    );
 }
 
 export default Home
