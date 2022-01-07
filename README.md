@@ -17,3 +17,8 @@
 - Urql
 
 
+## Note
+
+Must overload module "express-session"
+to add userid attribute to req.session
+
