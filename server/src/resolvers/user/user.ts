@@ -52,7 +52,6 @@ export default class UserResolver {
         element.save();
         }
       });
-      console.log(document);
     } catch (err) {
       console.error(err);
       return false;
