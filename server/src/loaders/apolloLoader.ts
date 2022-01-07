@@ -1,7 +1,7 @@
 import {app} from '../server';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
-import {resolvers} from '../modules/index';
+import {resolvers} from '../resolvers/index';
 import {PORT} from '../constants/const'
 
 

@@ -30,11 +30,13 @@ export default function Page_Login_Subscribe() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            justify: "center",
+            my: 5
           }}>
-                <Avatar sx={{ m: 2, bgcolor: 'secondary.main', width: 50, height: 50, textAlign: 'center'}}>
+                <Avatar sx={{ m: 2, bgcolor: 'info.dark', width: 50, height: 50, justify: "center", mx: "auto"}}>
                     <LockOutlinedIcon />
                 </Avatar>
-                <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
+                <Typography c component="h1" variant="h4" sx={{ textAlign: 'center', color: 'primary.dark' }}>
                     Welcome to Bookface
                 </Typography>
             </div>

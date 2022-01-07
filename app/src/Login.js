@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -14,14 +14,38 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme();
 
 export default function Login() {
+
+    const [email, setEmail] = useState ('');
+    const [password, setPassword] = useState ('');
+    const [emailError, setEmailError] = useState (false);
+    const [passwordError, setPasswordError] = useState (false);
+
+    const validate = () => {
+        test = {}
+        test.email = (/$|.+@+..+/).test(email)?"": "Email is not valid.";
+        return test;
+        
+
+    }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    setEmailError(false)
+    setPasswordError(false)
+
+
+    if(email === '') {
+        setEmailError(true);
+    }
+
+    if(password === '') {
+        setPasswordError(true)
+    }
     // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    if(email && password) {
+        console.log("email: " + email + ", password: " + password)
+    }
   };
 
   return (
@@ -42,6 +66,7 @@ export default function Login() {
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
+              onChange={(e) => setEmail(e.target.value)}
               margin="normal"
               required
               fullWidth
@@ -49,9 +74,13 @@ export default function Login() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              value={email}
               autoFocus
+              error={emailError}
+              helperText= "Respect the email format."
             />
             <TextField
+              onChange={(e) => setPassword(e.target.value)}
               margin="normal"
               required
               fullWidth
@@ -60,6 +89,8 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              error={passwordError}
+              helperText= "At least 8 symbols."
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -73,6 +104,7 @@ export default function Login() {
             >
               Sign In
             </Button>
+
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
