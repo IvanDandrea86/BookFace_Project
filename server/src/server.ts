@@ -14,7 +14,7 @@ import {
 } from "./constants/const";
 import connectRedis from "connect-redis";
 import session from "express-session";
-import { createClient } from "redis";
+import Redis from "ioredis";
 
 
 dotenv.config();
@@ -23,16 +23,24 @@ export const app = express();
 
 export const main = async () => {
   
+  
   //Connect DB
   runConnection().catch((err) => {
     console.error(err);
   });
 
+ 
+ 
 
   const RedisStore = connectRedis(session);
-  const redisClient =  createClient({
-    url: `redis://${REDIS_SECRET}@${REDIS_HOST}:${REDIS_PORT}`
-  });
+  //Client ioRedis
+  const redis= new Redis(`redis://${REDIS_HOST}:${REDIS_PORT}`)
+
+  // TEST CONNECTION
+  // await redisClient.set('key2', 'Ivan');
+  // const value = await redisClient.get('key');
+  // console.log(value)
+
   app.set("trust proxy", 1);
   app.use(
     cors({
@@ -40,12 +48,12 @@ export const main = async () => {
       credentials: true,
     })
   );
-// Redis Connect
+
   app.use(
     session({
       store: new RedisStore({ 
-        client: redisClient,
-      disableTouch:true 
+        client: redis,
+        disableTouch:true
       }),
       secret: REDIS_SECRET,
       saveUninitialized: false,
@@ -55,16 +63,23 @@ export const main = async () => {
         httpOnly:true,
         sameSite:"lax",
         secure:__prod__,
-
       },
-      name: "sessionID",
+      name: "qid",
     })
   );
 
-   //Start Apollo Server for graphql
-   apolloLoader().catch((err) => {
+  //Start Apollo Server for graphql
+  apolloLoader().catch((err) => {
     console.error(err);
   });
+
+  
+  app.get("/",(req,res)=>{
+    res.send(req.sessionID)
+  })
+// Redis Connect
+ 
+
  
 
   app.listen(PORT, () => {

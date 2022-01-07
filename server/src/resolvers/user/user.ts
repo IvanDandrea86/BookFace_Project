@@ -6,6 +6,13 @@ import { ObjectId } from "mongodb";
 import { UserResponse, FieldError, MyContext } from "../../types/types";
 import { PostModel } from "../../entities/post.entity";
 
+declare module 'express-session' {
+       interface SessionData {
+           userID: string;
+      }
+    }
+
+
 @InputType()
 class UserInput {
   @Field({ nullable: true })
@@ -19,6 +26,15 @@ class UserInput {
 @Service() // Dependencies injection
 @Resolver(() => User)
 export default class UserResolver {
+  @Query(() => User,{ name: "whoAmI",nullable:true })
+  async me(@Ctx() {req}: MyContext) {
+    if (!req.session.userID) {
+      return null;
+    }
+    return UserModel.findOne({_id:req.session.userID});
+  }
+  
+
   @Query(() => User, { name: "findUserById" })
   async findUserById(@Arg("user_id") _id: string) {
     return await UserModel.findOne({ _id: _id });
@@ -205,7 +221,8 @@ export default class UserResolver {
         };
       } else {
         const user = userUsername.toObject();
-        req.session.userId=user.id;
+        req.session.userID=user.user_id;
+        console.log('inside',req.session.userID)
         return { user };
         // add session auth logic
       }
@@ -226,7 +243,7 @@ export default class UserResolver {
         };
       } else {
         const user = userEmail.toObject();
-        req.session.userId=user.id;
+        req.session.userID=user.user_id;
         return { user };
       }
     }
