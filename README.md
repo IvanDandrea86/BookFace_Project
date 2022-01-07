@@ -14,4 +14,6 @@
 - Typescript
 - MongoDb
 - Redis
+- Urql
+
 

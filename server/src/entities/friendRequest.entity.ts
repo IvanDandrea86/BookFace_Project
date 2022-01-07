@@ -1,6 +1,6 @@
 import { ObjectType, Field } from "type-graphql";
 import {prop,getModelForClass} from "@typegoose/typegoose";
-import { FriendRequestStatus } from "../types/types";  
+
  
 
 
@@ -21,17 +21,15 @@ export class FriendRequest {
 
     @Field()
     @prop()
-     userSend!: string;
+     userSender!: string;
     
     @Field()
     @prop()
-     userRecive!:string;
+     userReciver!:string;
 
     @Field()
     @prop()
-    status!:FriendRequestStatus;
-
-   
+    status:string;
 }
 export const FriendRequestModel = getModelForClass(FriendRequest, { schemaOptions: { timestamps: true } });
 
