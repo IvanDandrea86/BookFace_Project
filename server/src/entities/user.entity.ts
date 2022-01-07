@@ -38,6 +38,17 @@ export class User{
     @prop({type:String})
     friendList :Array<String>;
 
+    @Field(()=>[String])
+    @prop({type:String})
+    messagesRecived
+     :Array<String>;
+     @Field(()=>[String])
+     @prop({type:String})
+     messagesSent
+      :Array<String>;
+ 
+    
+
     
 }
 export const UserModel = getModelForClass(User, { schemaOptions: { timestamps: true } });

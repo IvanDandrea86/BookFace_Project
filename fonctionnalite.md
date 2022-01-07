@@ -38,3 +38,11 @@
 - acceptFriedRequest (@Mutation)
 - refuseFriendRequest (@Mutation)
 
+### Message (COmpleted)
+- findMessageByReciver (Query)
+- findAllMessageByUser (Query)
+- findAllMessage (Query)
+- sendMessage (Mutation)
+- deleteMessage (Mutation)
+
+
