@@ -6,18 +6,14 @@ import express from "express";
 import cors from 'cors';
 import {
   PORT,
-  REDIS_HOST,
-  REDIS_PORT,
-  REDIS_SECRET,
-  OneDay,
   __prod__,
 } from "./constants/const";
-import connectRedis from "connect-redis";
 import session from "express-session";
-import Redis from "ioredis";
-
+import {sessionConfig, redis} from './config/sessionConfig';
+import { startSeed } from "./seeder";
 
 dotenv.config();
+
 
 export const app = express();
 
@@ -29,19 +25,11 @@ export const main = async () => {
     console.error(err);
   });
 
- 
- 
+//  startSeed();
 
-  const RedisStore = connectRedis(session);
-  //Client ioRedis
-  const redis= new Redis(`redis://${REDIS_HOST}:${REDIS_PORT}`)
-
-  // TEST CONNECTION
-  // await redisClient.set('key2', 'Ivan');
-  // const value = await redisClient.get('key');
-  // console.log(value)
 
   app.set("trust proxy", 1);
+  //CORS middelware
   app.use(
     cors({
       origin: process.env.CORS_ORIGIN,
@@ -49,23 +37,9 @@ export const main = async () => {
     })
   );
 
+  //Session middleware
   app.use(
-    session({
-      store: new RedisStore({ 
-        client: redis,
-        disableTouch:true
-      }),
-      secret: REDIS_SECRET,
-      saveUninitialized: false,
-      resave: false,
-      cookie: { 
-        maxAge: OneDay,
-        httpOnly:true,
-        sameSite:"lax",
-        secure:__prod__,
-      },
-      name: "qid",
-    })
+    session(sessionConfig)
   );
 
   //Start Apollo Server for graphql
@@ -73,14 +47,12 @@ export const main = async () => {
     console.error(err);
   });
 
-  
-  app.get("/",(req,res)=>{
-    res.send(req.sessionID)
-  })
-// Redis Connect
- 
 
- 
+
+  // TEST Redis CONNECTION
+  // redis.set('key3', 'Ivan4');
+  // const value =  await redis.get('key');
+  // console.log(value)
 
   app.listen(PORT, () => {
     console.log(`🚀 Server running at http://localhost:${PORT}`);
