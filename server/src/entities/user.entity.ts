@@ -34,6 +34,14 @@ export class User{
     @prop({unique:true})
     email !:string;
 
+    @Field({nullable:true})
+    @prop()
+    firstname !:string;
+
+    @Field({nullable:true})
+    @prop()
+    lastname !:string;
+
     @Field(()=>[String])
     @prop({type:String})
     friendList :Array<String>;

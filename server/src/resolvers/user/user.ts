@@ -6,6 +6,7 @@ import { ObjectId } from "mongodb";
 import { UserResponse, FieldError, MyContext } from "../../types/types";
 import { PostModel } from "../../entities/post.entity";
 import { COOKIENAME } from "../../constants/const";
+import { FriendRequestModel } from "../../entities/friendRequest.entity";
 
 declare module 'express-session' {
        interface SessionData {
@@ -140,11 +141,11 @@ export default class UserResolver {
     @Arg("user_id") user_id: string,
     @Arg("reciver_id") reciver_id: string
   ): Promise<boolean> {
-    const user = await UserModel.where({ _id: user_id });
-    if (!user) {
+    const user = await UserModel.findOne({ _id: user_id });
+    const reciver = await UserModel.findOne({_id:reciver_id})
+    if (!user || ! reciver) {
       return false;
-    } else {
-      //Add controll already friend
+    } 
       await UserModel.updateOne(
         { _id: user_id },
         { $push: { friendList: reciver_id } }
@@ -153,9 +154,10 @@ export default class UserResolver {
         { _id: reciver_id },
         { $push: { friendList: user_id } }
       );
+      await FriendRequestModel.findOneAndUpdate({userSender:user_id},{status:"accepted"})
       return true;
     }
-  }
+  
   @Mutation(() => Boolean, { name: "removeFriend" })
   async removeFriend(
     @Arg("user_id") user_id: string,

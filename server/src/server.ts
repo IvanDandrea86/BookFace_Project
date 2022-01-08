@@ -9,9 +9,11 @@ import {
   __prod__,
 } from "./constants/const";
 import session from "express-session";
-import {sessionConfig} from './config/sessionConfig'
+import {sessionConfig, redis} from './config/sessionConfig';
+import { startSeed } from "./seeder";
 
 dotenv.config();
+
 
 export const app = express();
 
@@ -22,6 +24,9 @@ export const main = async () => {
   runConnection().catch((err) => {
     console.error(err);
   });
+
+//  startSeed();
+
 
   app.set("trust proxy", 1);
   //CORS middelware
@@ -45,8 +50,8 @@ export const main = async () => {
 
 
   // TEST Redis CONNECTION
-  // redis.set('key3', 'Ivan@');
-  // const value =  redis.get('key');
+  // redis.set('key3', 'Ivan4');
+  // const value =  await redis.get('key');
   // console.log(value)
 
   app.listen(PORT, () => {
