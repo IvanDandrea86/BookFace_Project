@@ -25,7 +25,8 @@ export const main = async () => {
     console.error(err);
   });
 
-//  startSeed();
+  //Seed with FakeData
+  //startSeed();
 
 
   app.set("trust proxy", 1);
