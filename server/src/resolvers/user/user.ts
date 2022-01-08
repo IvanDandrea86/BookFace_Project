@@ -78,7 +78,10 @@ export default class UserResolver {
   }
 
   @Mutation(() => UserResponse, { name: "createUser" })
-  async createUser(@Arg("options") options: UserInput): Promise<UserResponse> {
+  async createUser(
+    @Arg("options") options: UserInput,
+    @Ctx() {req}:MyContext
+     ): Promise<UserResponse> {
     if (options.username.length < 6) {
       const error = new FieldError("username", "Username must be at least 6");
       return {
@@ -122,6 +125,7 @@ export default class UserResolver {
         errors: x,
       };
     }
+    req.session.userID=user._id;
     return {user};
   }
   @Mutation(() => User, { name: "updateUser", nullable: true })
