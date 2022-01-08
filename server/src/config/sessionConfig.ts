@@ -34,3 +34,9 @@ export const sessionConfig:SessionOptions | undefined={
         name: COOKIENAME,
       
 }
+redis.on('error', function (err) {
+  console.log('Could not establish a connection with redis. ' + err);
+});
+redis.on('connect', function (err) {
+  console.log('🚀 Redis Connected');
+});
