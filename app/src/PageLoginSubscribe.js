@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
+import FakeLogin from './fakeLogin';
+
 
 
 function Copyright(props) {
@@ -43,6 +45,7 @@ export default function Page_Login_Subscribe() {
 
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                 <Login />
+                <FakeLogin />
                 <SignUp />
             </Grid>
             <Copyright sx={{ mt: 5 }} />

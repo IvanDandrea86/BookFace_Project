@@ -15,9 +15,13 @@ export default function AddFriendCard(props) {
         image="https://source.unsplash.com/random"
       />
       <CardContent>
-        <Typography gutterBottom variant="subtitle1" component="div">
-          {props.name}
+      <Typography gutterBottom variant="subtitle2" component="div">
+          {props.lastname}
         </Typography>
+        <Typography gutterBottom variant="title1" component="div">
+          {props.firstname}
+        </Typography>
+        
       </CardContent>
       <CardActions sx={{display:"flex", justifyContent:"end"}}>
         {props.bouton}
