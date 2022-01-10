@@ -4,7 +4,8 @@ import MessageSender from './MessageSender';
 import Post from './Post';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Test from './Test';
+import Share from './Share';
+
 
 function Feed() {
 
@@ -14,7 +15,15 @@ function Feed() {
     <Container className='feed' sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>  
 
         <StoryReel />
-        <MessageSender />
+
+        <Grid item className="post_container" sx={{my: 6, width:"100%" }}>
+        <Share 
+         profilePic="https://source.unsplash.com/random"
+         username= "John Doe"
+         image= {photo} 
+        />
+
+        </Grid>
 
         <Grid item className="post_container" sx={{my: 6, width:"100%" }}>
         <Post 
