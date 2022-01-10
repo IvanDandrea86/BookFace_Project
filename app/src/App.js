@@ -7,8 +7,8 @@ import Profile from './PageProfile';
 import NotFound from './NotFound';
 import { grey } from '@mui/material/colors';
 import FindingFriends from './PageFindingFriends';
-import { Provider } from 'urql';
-import { client, ssrCache } from "./urqlClient";
+import {ApolloProvider} from '@apollo/client';
+import {client} from './util/createApolloClient'
 
 
 const bg_grey = grey[50]; // really light grey
@@ -16,7 +16,7 @@ const bg_grey = grey[50]; // really light grey
 
 function App() {
   return (
-    <Provider value={client}>
+    <ApolloProvider client={client}> 
     <Router>
       <div className="App" styles={{ backgroundColor: bg_grey }}>
         <Switch>
@@ -44,7 +44,7 @@ function App() {
         </Switch>
       </div>
     </Router>
-    </Provider>
+    </ApolloProvider>
   );
 }
 

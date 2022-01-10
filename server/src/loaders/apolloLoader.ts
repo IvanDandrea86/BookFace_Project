@@ -2,8 +2,9 @@ import {app} from '../server';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import {resolvers} from '../resolvers/index';
-import {PORT} from '../constants/const'
+import {PORT,ALLOW_ORIGIN} from '../constants/const'
 import { MyContext } from 'src/types/types';
+import { GraphQLRequestContext, GraphQLResponse } from 'apollo-server-core';
 
 
 export const apolloLoader=async():Promise<void>=>{
@@ -16,12 +17,13 @@ export const apolloLoader=async():Promise<void>=>{
         context: ({ req, res }):MyContext => ({
             req,
             res,
+
         }),
         formatResponse:(response,query)=>{
             const { context } = query;
             const { res, req: request } = context; // http response and request
             // now you can set http response headers
-            res.header('Access-Control-Allow-Origin', [ 'http://localhost:3001'])
+            res.header('Access-Control-Allow-Origin', ALLOW_ORIGIN)
             const { data } = response;  // graphql response's data
             const { headers = {} } = request; // http request headers
             return response

@@ -5,6 +5,7 @@ import { apolloLoader } from "./loaders/apolloLoader";
 import express from "express";
 import cors from 'cors';
 import {
+  ALLOW_ORIGIN,
   PORT,
   __prod__,
 } from "./constants/const";
@@ -38,7 +39,7 @@ export const main = async () => {
 
   app.use(
     cors({
-      origin:"http://localhost:3001" ,
+      origin:ALLOW_ORIGIN ,
       credentials: true,
     })
   );

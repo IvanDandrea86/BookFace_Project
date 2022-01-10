@@ -7,4 +7,5 @@ export const REDIS_PORT = process.env.REDIS_PORT;
 export const REDIS_HOST = process.env.REDIS_HOST;
 export const OneDay= 1000* 60*60*24;
 export const COOKIENAME = 'qid';
+export const ALLOW_ORIGIN= process.env.ALLOWED_ORIGIN;
 
