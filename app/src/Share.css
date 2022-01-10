@@ -1,0 +1,68 @@
+@media only screen and (min-width: 600px) {
+    .share {
+     width: 65%;
+    }
+  }
+
+  @media only screen and (max-width: 601px) {
+    .share {
+     width: 100%;
+    }
+  }
+
+.share {
+    margin-top: 15px;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
+    /* max-width: 500px; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} 
+
+.share_top {
+    display: flex;
+    position: relative;
+    align-items: center;
+    padding: 15px;
+}
+
+.share_avatar {
+    margin-right: 10px;
+}
+
+.share_topInfo > h3 {
+    font-size: medium;
+}
+
+
+.share_bottom {
+    margin: 20px;
+    width: 90%;
+    height: auto;
+
+}
+
+.share > form {
+    flex: 1;
+    display: flex;
+}
+
+
+.share_input {
+    flex: 1;
+    border: none;
+    padding: 25px 20px;
+ 
+    border-radius: 600px;
+    background-color: #eff2f5;
+    width: 80%;
+}
+
+.options {
+margin-top: 10px;
+margin-bottom: 5px;
+}
+
+
