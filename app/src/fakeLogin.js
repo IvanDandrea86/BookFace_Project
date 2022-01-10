@@ -23,10 +23,6 @@ mutation ( $email:String!,  $password:String! ){
   }
 }
 `;
-
-
-
-
 export default function FakeLogin() {
    
     const [email, setEmail] = useState ('');
@@ -43,12 +39,12 @@ export default function FakeLogin() {
           mutation:LOGIN_MUT,
           variables: { email: email,
             password:password }
-
           }
         ).then((response) => console.log(response.data))
         .catch((err) => console.error(err));
         }
-  return (
+  
+        return (
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
       <input value={email} onChange={e => setEmail(e.currentTarget.value)} />
