@@ -15,13 +15,7 @@ declare module 'express-session' {
     }
 
 
-@InputType()
-export class UserInput {
-  @Field()
-  password: string;
-  @Field({ nullable: true })
-  email: string;
-}
+
 
 @Service() // Dependencies injection
 @Resolver(() => User)
@@ -78,13 +72,14 @@ export default class UserResolver {
 
   @Mutation(() => UserResponse, { name: "createUser" })
   async createUser(
-    @Arg("options") options: UserInput,
+    @Arg("email") email: String,
+    @Arg("password") password: string,
     @Arg("firstname") firstname: String,
     @Arg("lastname") lastname: String,
     @Ctx() {req}:MyContext
      ): Promise<UserResponse> {
    if (
-      !options.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)
+      !password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)
     ) {
       const error = new FieldError(
         "password",
@@ -94,12 +89,12 @@ export default class UserResolver {
         errors: error,
       };
     }
-    const hashPassword = await bcrypt.hash(options.password, 8);
+    const hashPassword = await bcrypt.hash(password, 8);
     const _id = new ObjectId();
     const user = new UserModel({
       _id,
       user_id: _id,
-      email: options.email,
+      email: email,
       password: hashPassword,
       firstname : firstname,
       lastaname:lastname
@@ -120,11 +115,12 @@ export default class UserResolver {
   }
   @Mutation(() => User, { name: "updateUser", nullable: true })
   async updateUser(
-    @Arg("options") options: UserInput,
+    @Arg("email") email: String,
+    @Arg("password") password: string,
     @Arg("_id") id: string
   ): Promise<User | null> {
     await UserModel.where({ _id: id })
-      .updateOne({ emaile: options.email })
+      .updateOne({ emaile: email })
       .exec();
     const user = await UserModel.findOne({ _id: id }).exec();
     return user;
@@ -174,13 +170,14 @@ export default class UserResolver {
   }
   @Mutation(() => UserResponse, { name: "login" })
   async login(
-    @Arg("options") options: UserInput,
+    @Arg("email") email: String,
+    @Arg("password") password: string,
     @Ctx() {req}:MyContext
   ): Promise<UserResponse> {
 
-    const userEmail = await UserModel.findOne({ email: options.email });
+    const userEmail = await UserModel.findOne({ email: email });
 
-    if (!userEmail && options.email != null) {
+    if (!userEmail && email != null) {
       return {
         errors: 
           {
@@ -192,7 +189,7 @@ export default class UserResolver {
     }
     if (userEmail != null) {
       const validEmailPassword = await bcrypt.compare(
-        options.password,
+        password,
         userEmail!.password
       );
       if (!validEmailPassword) {
