@@ -2,7 +2,7 @@ import { Resolver, Arg, Query, Mutation } from "type-graphql";
 import { Service } from "typedi";
 import { Message, MessageModel } from "../../entities/message.entity";
 import { ObjectId } from "mongodb";
-import { UserModel } from "src/entities/user.entity";
+import { UserModel } from "../../entities/user.entity";
 
 @Service() // Dependencies injection
 @Resolver(() => Message)

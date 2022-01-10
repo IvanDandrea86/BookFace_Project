@@ -6,66 +6,59 @@ import express from "express";
 import cors from 'cors';
 import {
   PORT,
-  REDIS_HOST,
-  REDIS_PORT,
-  REDIS_SECRET,
-  OneDay,
   __prod__,
 } from "./constants/const";
-import connectRedis from "connect-redis";
 import session from "express-session";
-import { createClient } from "redis";
-
+import {sessionConfig, redis} from './config/sessionConfig';
+import { startSeed } from "./seeder";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
+
 
 export const app = express();
 
 export const main = async () => {
+  app.use(cookieParser());
+  
   
   //Connect DB
   runConnection().catch((err) => {
     console.error(err);
   });
 
+  //Seed with FakeData
+  //startSeed();
 
-  const RedisStore = connectRedis(session);
-  const redisClient =  createClient({
-    url: `redis://${REDIS_SECRET}@${REDIS_HOST}:${REDIS_PORT}`
-  });
-  app.set("trust proxy", 1);
+  
+
+
+  // app.set("trust proxy", 1);
+  //CORS middelware
+
   app.use(
     cors({
-      origin: process.env.CORS_ORIGIN,
+      origin:"http://localhost:3001" ,
       credentials: true,
     })
   );
-// Redis Connect
-  app.use(
-    session({
-      store: new RedisStore({ 
-        client: redisClient,
-      disableTouch:true 
-      }),
-      secret: REDIS_SECRET,
-      saveUninitialized: false,
-      resave: false,
-      cookie: { 
-        maxAge: OneDay,
-        httpOnly:true,
-        sameSite:"lax",
-        secure:__prod__,
 
-      },
-      name: "sessionID",
-    })
+  //Session middleware
+  app.use(
+    session(sessionConfig)
   );
 
-   //Start Apollo Server for graphql
-   apolloLoader().catch((err) => {
+  //Start Apollo Server for graphql
+  apolloLoader().catch((err) => {
     console.error(err);
   });
- 
+
+
+
+  // TEST Redis CONNECTION
+  // redis.set('key3', 'Ivan4');
+  // const value =  await redis.get('key');
+  // console.log(value)
 
   app.listen(PORT, () => {
     console.log(`🚀 Server running at http://localhost:${PORT}`);

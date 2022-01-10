@@ -5,6 +5,15 @@ import * as bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
 import { UserResponse, FieldError, MyContext } from "../../types/types";
 import { PostModel } from "../../entities/post.entity";
+import { COOKIENAME } from "../../constants/const";
+import { FriendRequestModel } from "../../entities/friendRequest.entity";
+
+declare module 'express-session' {
+       interface SessionData {
+           userID: string;
+      }
+    }
+
 
 @InputType()
 class UserInput {
@@ -19,6 +28,15 @@ class UserInput {
 @Service() // Dependencies injection
 @Resolver(() => User)
 export default class UserResolver {
+  @Query(() => User,{ name: "whoAmI",nullable:true })
+  async me(@Ctx() {req}: MyContext) {
+    if (!req.session.userID) {
+      return null;
+    }
+    return UserModel.findOne({_id:req.session.userID});
+  }
+  
+
   @Query(() => User, { name: "findUserById" })
   async findUserById(@Arg("user_id") _id: string) {
     return await UserModel.findOne({ _id: _id });
@@ -60,7 +78,10 @@ export default class UserResolver {
   }
 
   @Mutation(() => UserResponse, { name: "createUser" })
-  async createUser(@Arg("options") options: UserInput): Promise<UserResponse> {
+  async createUser(
+    @Arg("options") options: UserInput,
+    @Ctx() {req}:MyContext
+     ): Promise<UserResponse> {
     if (options.username.length < 6) {
       const error = new FieldError("username", "Username must be at least 6");
       return {
@@ -104,6 +125,7 @@ export default class UserResolver {
         errors: x,
       };
     }
+    req.session.userID=user._id;
     return {user};
   }
   @Mutation(() => User, { name: "updateUser", nullable: true })
@@ -123,11 +145,11 @@ export default class UserResolver {
     @Arg("user_id") user_id: string,
     @Arg("reciver_id") reciver_id: string
   ): Promise<boolean> {
-    const user = await UserModel.where({ _id: user_id });
-    if (!user) {
+    const user = await UserModel.findOne({ _id: user_id });
+    const reciver = await UserModel.findOne({_id:reciver_id})
+    if (!user || ! reciver) {
       return false;
-    } else {
-      //Add controll already friend
+    } 
       await UserModel.updateOne(
         { _id: user_id },
         { $push: { friendList: reciver_id } }
@@ -136,9 +158,10 @@ export default class UserResolver {
         { _id: reciver_id },
         { $push: { friendList: user_id } }
       );
+      await FriendRequestModel.findOneAndUpdate({userSender:user_id},{status:"accepted"})
       return true;
     }
-  }
+  
   @Mutation(() => Boolean, { name: "removeFriend" })
   async removeFriend(
     @Arg("user_id") user_id: string,
@@ -205,7 +228,8 @@ export default class UserResolver {
         };
       } else {
         const user = userUsername.toObject();
-        req.session.userId=user.id;
+        req.session.userID=user.user_id;
+        console.log('inside',req.session.userID)
         return { user };
         // add session auth logic
       }
@@ -226,17 +250,26 @@ export default class UserResolver {
         };
       } else {
         const user = userEmail.toObject();
-        req.session.userId=user.id;
+        req.session.userID=user.user_id;
         return { user };
       }
     }
     return {};
   }
 
-  @Mutation(() => Boolean, { name: "logout" })
-  async logout(@Arg("user_id") user_id: string) {
-    if (user_id) {
-      return true;
-    } else return false;
+  @Mutation(() => Boolean)
+  logout(@Ctx() { req, res }: MyContext) {
+    return new Promise((resolve) =>
+      req.session.destroy((err) => {
+        res.clearCookie(COOKIENAME);
+        if (err) {
+          console.log(err);
+          resolve(false);
+          return;
+        }
+
+        resolve(true);
+      })
+    );
   }
 }

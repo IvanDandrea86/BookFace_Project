@@ -45,4 +45,4 @@
 - sendMessage (Mutation)
 - deleteMessage (Mutation)
 
-
+To test session.cookies remember to set "request.credentials": "include"

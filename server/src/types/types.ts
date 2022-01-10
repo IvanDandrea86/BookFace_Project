@@ -6,7 +6,7 @@ import { Request,Response } from "express";
 
 export type MyContext={
   res:Response
-  req:Request
+  req:Request 
 }
 @ObjectType()
 export class LikeState {
