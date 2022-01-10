@@ -6,6 +6,8 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { client } from './util/createApolloClient';
 import {useQuery,gql} from '@apollo/client';
+import Loading from './util/Loading';
+import ErrorMessage from './util/ErrorMessage'
 
 const NewFriends =gql `
     {findAllUser
@@ -17,8 +19,8 @@ const NewFriends =gql `
 
 const Finding = () => {
   const { loading, error, data } = useQuery(NewFriends);
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Oh no... {error.message}</p>;
+    if (loading) return <Loading />;
+    if (error) return <ErrorMessage />;
     return (
         <Grid container spacing={0.5}>
           {data.findAllUser.map(find => (
