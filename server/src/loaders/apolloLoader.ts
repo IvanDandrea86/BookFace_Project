@@ -12,12 +12,20 @@ export const apolloLoader=async():Promise<void>=>{
         schema:await buildSchema({
             resolvers:resolvers,
             validate:false, 
-    
         }),
         context: ({ req, res }):MyContext => ({
             req,
             res,
-        })
+        }),
+        formatResponse:(response,query)=>{
+            const { context } = query;
+            const { res, req: request } = context; // http response and request
+            // now you can set http response headers
+            res.header('Access-Control-Allow-Origin', [ 'http://localhost:3001'])
+            const { data } = response;  // graphql response's data
+            const { headers = {} } = request; // http request headers
+            return response
+        }
     }); 
     await apolloServer.start()
     .then(()=>{

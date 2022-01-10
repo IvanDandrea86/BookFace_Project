@@ -11,6 +11,7 @@ import {
 import session from "express-session";
 import {sessionConfig, redis} from './config/sessionConfig';
 import { startSeed } from "./seeder";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ dotenv.config();
 export const app = express();
 
 export const main = async () => {
+  app.use(cookieParser());
   
   
   //Connect DB
@@ -28,12 +30,15 @@ export const main = async () => {
   //Seed with FakeData
   //startSeed();
 
+  
 
-  app.set("trust proxy", 1);
+
+  // app.set("trust proxy", 1);
   //CORS middelware
+
   app.use(
     cors({
-      origin: process.env.CORS_ORIGIN,
+      origin:"http://localhost:3001" ,
       credentials: true,
     })
   );
