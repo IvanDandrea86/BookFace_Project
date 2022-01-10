@@ -27,16 +27,16 @@ export const sessionConfig:SessionOptions | undefined={
         resave: false,
         cookie: { 
           maxAge: OneDay,
-          httpOnly:true,
-          sameSite:"lax",
+          httpOnly:false,
+          sameSite:"none",
           secure:__prod__,
         },
         name: COOKIENAME,
       
 }
-redis.on('error', function (err) {
+redis.on('error',  (err)=> {
   console.log('Could not establish a connection with redis. ' + err);
 });
-redis.on('connect', function (err) {
+redis.on('connect', ()=> {
   console.log('🚀 Redis Connected');
 });
