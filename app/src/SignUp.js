@@ -9,20 +9,85 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {
+  useMutation,
+  gql
+} from "@apollo/client";
+import {UserInput} from "./util/type"
+
+
 
 const theme = createTheme();
 
+const REGISTER_MUT =gql`
+mutation ($options:UserInput!,$firstname:String!,$lastname:String! ){
+  createUser(options: { email: $email, password: $password }, firstname: $firstname, lastname: $lastname){
+    user{
+      _id
+    }
+    errors{
+      field
+			message
+    }
+  }
+}
+`;
+const MUTTEST = gql`
+mutation{
+  createUser(options: { email: "hfghsdsdsdfddghf", password: "passwor1Ad" }, firstname:"sdqsdqsdqsd", lastname:"sdqsdqsdqsd"){
+    user{
+      _id
+    }
+    errors{
+      field
+			message
+    }
+  }
+}`
+const values= new UserInput();
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  const [email, setEmail] = useState ('');
+  const [password, setPassword] = useState ('');
+  const [confirmPassword, setConfirmPassword] = useState ('');
+  const [firstname, setFirstName] = useState ('');
+  const [lastname, setLastName] = useState ('');
+  const [emailError, setEmailError] = useState ('');
+  const [passwordError, setPasswordError] = useState ('');
+  const [register, { loading, error, data }] = useMutation(REGISTER_MUT);
+  values.email=email;
+    values.password=password;
+  console.log(values)
+   
+  
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
 
+  const handleSubmit = async (event) => {
+    
+    event.preventDefault();
+    // const data = new FormData(event.currentTarget);
+    // eslint-disable-next-line no-console
+    values.email=email;
+    values.password=password;
+   const {data}= await  register(
+     {
+       variables:{
+         options:values,
+       lastname:lastname,
+       firstname:firstname
+     },
+
+    }
+    )
+    console.log(values)
+
+    console.log("createUser",data.createUser.user)
+    console.log(data.createUser.errors)
+      if (data.createUser.user == null)
+      console.log(data.createUser.errors)
+      else 
+      console.log(data.createUser.user)
+   }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -42,8 +107,10 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={6}>
                 <TextField
+                  onChange={(e) => setFirstName(e.target.value)}
                   autoComplete="given-name"
                   name="firstName"
+                  value={firstname}
                   required
                   fullWidth
                   id="firstName"
@@ -53,18 +120,22 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12} sm={12} md={6}>
                 <TextField
+                onChange={(e) => setLastName(e.target.value)}
                   required
                   fullWidth
                   id="lastName"
                   label="Last Name"
                   name="lastName"
+                  value={lastname}
                   autoComplete="family-name"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                onChange={(e) => setEmail(e.target.value)}
                   required
                   fullWidth
+                  value={email}
                   id="email"
                   label="Email Address"
                   name="email"
@@ -73,11 +144,13 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                onChange={(e) => setPassword(e.target.value)}
                   required
                   fullWidth
                   name="password"
                   label="Password"
                   type="password"
+                  value={password}
                   id="password"
                   autoComplete="new-password"
                 />
@@ -86,9 +159,11 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   name="password_confirm"
                   label="Confirm password"
                   type="password_confirm"
+                  value={confirmPassword}
                   id="password_confirm"
                   autoComplete="new-password"
                 />

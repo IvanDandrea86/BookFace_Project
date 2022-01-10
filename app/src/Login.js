@@ -10,35 +10,45 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {
+  useMutation,
+  gql
+} from "@apollo/client";
+import {client} from './util/createApolloClient';
+import { Redirect } from 'react-router-dom';
+import { isAuth } from './util/isAuth';
 
 const theme = createTheme();
 
-export default function Login() {
+const LOGIN_MUT = gql`
+mutation ( $email:String!,  $password:String! ){
+  login(options: { email: $email, password: $password }) {
+    errors {
+      field
+      message
+    }
+    user {
+      _id
+    }
+  }
+}
+`;
 
+
+export default function Login() {
     const [email, setEmail] = useState ('');
     const [password, setPassword] = useState ('');
     const [emailError, setEmailError] = useState (false);
     const [passwordError, setPasswordError] = useState (false);
+    const [login] = useMutation(LOGIN_MUT);
 
-    const validate = () => {
-        test = {}
-        test.email = (/$|.+@+..+/).test(email)?"": "Email is not valid.";
-        return test;
-        
-
-    }
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event)=> {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
     setEmailError(false)
     setPasswordError(false)
-
-
     if(email === '') {
         setEmailError(true);
     }
-
     if(password === '') {
         setPasswordError(true)
     }
@@ -46,7 +56,20 @@ export default function Login() {
     if(email && password) {
         console.log("email: " + email + ", password: " + password)
     }
-  };
+      const {data} = await login({
+      variables: { 
+        email: email,
+        password:password }
+     })
+     if(data.login.user == null){
+     console.log(data.login.errors[0])
+     }
+     else{
+     console.log(data.login.user._id);
+     console.log(isAuth());
+     <Redirect to="/" />
+     }
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -85,6 +108,7 @@ export default function Login() {
               required
               fullWidth
               name="password"
+              value={password}
               label="Password"
               type="password"
               id="password"

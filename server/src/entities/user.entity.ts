@@ -22,10 +22,7 @@ export class User{
     @prop()
     updatedAt: Date = new Date;
 
-    @Field()
-    @prop({unique:true})    
-    username !:string;
-    
+   
     @Field()
     @prop()
     password !:string;

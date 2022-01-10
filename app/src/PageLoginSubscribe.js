@@ -6,7 +6,8 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
-import FakeLogin from './fakeLogin';
+
+import FindingFriends from './PageFindingFriends';
 
 
 
@@ -38,14 +39,13 @@ export default function Page_Login_Subscribe() {
                 <Avatar sx={{ m: 2, bgcolor: 'info.dark', width: 50, height: 50, justify: "center", mx: "auto"}}>
                     <LockOutlinedIcon />
                 </Avatar>
-                <Typography c component="h1" variant="h4" sx={{ textAlign: 'center', color: 'primary.dark' }}>
+                <Typography  component="h1" variant="h4" sx={{ textAlign: 'center', color: 'primary.dark' }}>
                     Welcome to Bookface
                 </Typography>
             </div>
 
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                <Login />
-                <FakeLogin />
+               <Login />
                 <SignUp />
             </Grid>
             <Copyright sx={{ mt: 5 }} />
