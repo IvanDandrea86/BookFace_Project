@@ -4,7 +4,7 @@ import { buildSchema } from 'type-graphql';
 import {resolvers} from '../resolvers/index';
 import {PORT,ALLOW_ORIGIN} from '../constants/const'
 import { MyContext } from 'src/types/types';
-import { GraphQLRequestContext, GraphQLResponse } from 'apollo-server-core';
+
 
 
 export const apolloLoader=async():Promise<void>=>{
@@ -26,6 +26,7 @@ export const apolloLoader=async():Promise<void>=>{
             res.header('Access-Control-Allow-Origin', ALLOW_ORIGIN)
             const { data } = response;  // graphql response's data
             const { headers = {} } = request; // http request headers
+            
             return response
         }
     }); 

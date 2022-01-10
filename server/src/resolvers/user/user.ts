@@ -16,9 +16,7 @@ declare module 'express-session' {
 
 
 @InputType()
-class UserInput {
-  @Field({ nullable: true })
-  username: string;
+export class UserInput {
   @Field()
   password: string;
   @Field({ nullable: true })
@@ -41,10 +39,7 @@ export default class UserResolver {
   async findUserById(@Arg("user_id") _id: string) {
     return await UserModel.findOne({ _id: _id });
   }
-  @Query(() => User, { name: "findUserByUsername" })
-  async findUserByUsername(@Arg("username") username: string) {
-    return await UserModel.find({ username: username });
-  }
+
   @Query(() => [User], { name: "findAllUser" })
   async findAllUser() {
     return await UserModel.find({});
@@ -80,14 +75,10 @@ export default class UserResolver {
   @Mutation(() => UserResponse, { name: "createUser" })
   async createUser(
     @Arg("options") options: UserInput,
+    @Arg("firstname") firstname: String,
+    @Arg("lastname") lastname: String,
     @Ctx() {req}:MyContext
      ): Promise<UserResponse> {
-    if (options.username.length < 6) {
-      const error = new FieldError("username", "Username must be at least 6");
-      return {
-        errors: [error],
-      };
-    }
    if (
       !options.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)
     ) {
@@ -96,7 +87,7 @@ export default class UserResolver {
         "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
       );
       return {
-        errors: [error],
+        errors: error,
       };
     }
     const hashPassword = await bcrypt.hash(options.password, 8);
@@ -105,26 +96,21 @@ export default class UserResolver {
       _id,
       user_id: _id,
       email: options.email,
-      username: options.username,
       password: hashPassword,
+      firstname : firstname,
+      lastaname:lastname
     });
     try {
       await user.save();
     } catch (err) {
       console.error(err);
-      let x = new Array<FieldError>();
       if (err.code === 11000 && err.keyPattern.email == 1) {
-        const error = new FieldError("email", "email already exist");
-        x.push(error);
-      }
-      if (err.code === 11000 && err.keyPattern.username == 1) {
-        const error1 = new FieldError("username", "username already exist");
-        x.push(error1);
-      }
+        const error = new FieldError("email", "email already exist"); 
       return {
-        errors: x,
+        errors: error
       };
     }
+  }
     req.session.userID=user._id;
     return {user};
   }
@@ -134,7 +120,7 @@ export default class UserResolver {
     @Arg("_id") id: string
   ): Promise<User | null> {
     await UserModel.where({ _id: id })
-      .updateOne({ username: options.username })
+      .updateOne({ emaile: options.email })
       .exec();
     const user = await UserModel.findOne({ _id: id }).exec();
     return user;
@@ -187,52 +173,18 @@ export default class UserResolver {
     @Arg("options") options: UserInput,
     @Ctx() {req}:MyContext
   ): Promise<UserResponse> {
-    const userUsername = await UserModel.findOne({
-      username: options.username,
-    });
+
     const userEmail = await UserModel.findOne({ email: options.email });
 
-    if (!userUsername && options.username != null) {
-      return {
-        errors: [
-          {
-            field: "Username",
-            message: "'that username doesn't exist'",
-          },
-        ],
-      };
-    }
     if (!userEmail && options.email != null) {
       return {
-        errors: [
+        errors: 
           {
             field: "Email",
             message: "'that email doesn't exist'",
           },
-        ],
+        
       };
-    }
-    if (userUsername != null) {
-      const validUsernamePassword = await bcrypt.compare(
-        options.password,
-        userUsername!.password
-      );
-      if (!validUsernamePassword) {
-        return {
-          errors: [
-            {
-              field: "Password",
-              message: "wrong password",
-            },
-          ],
-        };
-      } else {
-        const user = userUsername.toObject();
-        req.session.userID=user.user_id;
-        console.log('inside',req.session.userID)
-        return { user };
-        // add session auth logic
-      }
     }
     if (userEmail != null) {
       const validEmailPassword = await bcrypt.compare(
@@ -241,12 +193,11 @@ export default class UserResolver {
       );
       if (!validEmailPassword) {
         return {
-          errors: [
+          errors: 
             {
               field: "Password",
               message: "wrong password",
-            },
-          ],
+            }   
         };
       } else {
         const user = userEmail.toObject();
