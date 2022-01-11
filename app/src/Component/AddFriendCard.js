@@ -6,6 +6,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 
 export default function AddFriendCard(props) {
+  
+  
   return (
     <Card sx={{ width: "100%" }}>
       <CardMedia

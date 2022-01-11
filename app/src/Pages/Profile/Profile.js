@@ -1,17 +1,21 @@
 import React from 'react'
-import BannerProfile from './BannerProfile'
-import MyInfo from './MyInfo'
-import MyProfilePicture from './MyProfilePicture'
+import BannerProfile from '../../Component/Buttons/BannerProfile'
+import MyInfo from '../../Component/MyInfo'
+import ProfilePicture from '../../Component/ProfilePicture'
 
 
-function MyProfile() {
+function Profile() {
+    console.log(this.props.match.params.id)
    
     return (
         <div className='profile'>
+            <div>
+        <h2>{this.props.match.params.id}</h2>
+        </div>
             {/** Ici ira le banner: pour le moment couleur/ on verra photo plus tard */}
             <BannerProfile />
             {/** Photo de profil + picto photo + nom + buttons "add story" + "modify my profile" */}
-            <MyProfilePicture />
+            <ProfilePicture />
             {/** Some general info of the guy with pictos */}
             <MyInfo />
             {/** Storys in chronogical order */}
@@ -19,4 +23,4 @@ function MyProfile() {
     )
 }
 
-export default MyProfile
+export default Profile

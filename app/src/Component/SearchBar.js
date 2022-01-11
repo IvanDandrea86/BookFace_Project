@@ -2,19 +2,8 @@ import React, { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import { client } from './util/createApolloClient';
-import {useQuery,gql} from '@apollo/client';
-import Loading from './util/Loading';
-import ErrorMessage from './util/ErrorMessage'
 import { useHistory } from 'react-router-dom';
 
-const NewFriends =gql `
-    {findAllUser
-        {_id,
-        firstname
-        lastname}
-    }
-`;
 
 
 

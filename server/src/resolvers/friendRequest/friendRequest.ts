@@ -13,8 +13,13 @@ import { UserModel } from "../../entities/user.entity";
 export default class FriendRequestResolver {
   @Query(() => [FriendRequest], { name: "findFriendRequestByUser" })
   async findFriendRequestByUser(@Arg("user_id") user_id: string) {
-    return FriendRequestModel.findOne({ userSend: user_id });
+    return FriendRequestModel.find({ userSender: user_id });
   }
+  @Query(() => [FriendRequest], { name: "findFriendRequestRecived" })
+  async findFriendRequestRecived(@Arg("user_id") user_id: string) {
+    return FriendRequestModel.find({ userReciver: user_id });
+  }
+
   @Query(() => [FriendRequest], { name: "findAllFriednRequest" })
   async findAllFriendRequest() {
     return FriendRequestModel.find({});

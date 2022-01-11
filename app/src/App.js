@@ -1,58 +1,50 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Header from './Header';
-import Footer from './Footer';
-import PageLoginSubscribe from './PageLoginSubscribe';
-import Home from './Home';
-import Profile from './PageProfile';
-import MyProfile from './PageMyProfile';
-import NotFound from './NotFound';
-import { grey } from '@mui/material/colors';
-import FindingFriends from './PageFindingFriends';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import {Auth} from "./util/isAuthApollo";
+//Component
+import Header from "./Component/Header/Header";
+import Footer from "./Component/Footer";
+//Pages
+import PageLoginSubscribe from "./Pages/RegisterLogin/RegisterLogin";
+import Home from "./Pages/Home/Home";
+import Profile from "./Pages/Profile/Profile";
+import MyProfile from "./Pages/UserProfile/UserProfile";
+import NotFound from "./Pages/NotFound";
+import FindingFriends from "./Pages/SearchResult";
+//Theme
+import { grey } from "@mui/material/colors";
+import { Auth } from "./Util/isAuthApollo";
+import Feed from "./Component/Feed";
 
 const bg_grey = grey[50]; // really light grey
 
-const App=() => {
+const App = () => {
+  const user = Auth();
 
-  //Use Auth
-  const user=Auth();
-  console.log(user.id);
-
-  return ( 
-     
+  return (
     <Router>
       <div className="App" styles={{ backgroundColor: bg_grey }}>
         <Switch>
           <Route exact path="/">
-            <PageLoginSubscribe />
+            {!user.id ? <PageLoginSubscribe /> : null}
           </Route>
-          <div className="Only_when_logged" sx={{ minHeigth: "100%", mb: 1,  position: 'relative'}} >
+          <div
+            className="Only_when_logged"
+            sx={{ minHeigth: "100%", mb: 1, position: "relative" }}
+          >
             <Header />
             <Switch>
-                <Route path="/home">
-                  < Home />
-                </Route>
-                <Route path="/myprofile">
-                  <MyProfile />
-                </Route>
-                <Route path="/profile">
-                  <Profile />
-                </Route>
-                <Route path="/finding">
-                  <FindingFriends />
-                </Route>
-                <Route path="*">
-                  <NotFound />
-                </Route>
-              </Switch>
-                <Footer />
-            </div>
+              <Route path="/home" component={Home} />
+              <Route path="/myprofile" component={MyProfile} />
+              <Route path="/profile:id" component={Profile} />
+              <Route path="/finding" component={FindingFriends} />
+              <Route path="*" component={NotFound} />
+            </Switch>
+            <Footer />
+          </div>
         </Switch>
       </div>
     </Router>
-  
   );
-}
+};
 
 export default App;

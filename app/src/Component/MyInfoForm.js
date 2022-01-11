@@ -17,6 +17,7 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 
 export default function MyInfoForm() {
+    
 
     // Variables pour le changement de données
   const [country, setCountry] = useState (UserConnected.country);
