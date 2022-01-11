@@ -23,24 +23,24 @@ function App() {
           <Route exact path="/">
             <PageLoginSubscribe />
           </Route>
-          <div className="Only_when_logged" sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}} >
+          <div className="Only_when_logged" sx={{ minHeigth: "100%", mb: 1,  position: 'relative'}} >
             <Header />
             <Switch>
-              <Route path="/home">
-                < Home />
-              </Route>
-              <Route path="/profile">
-                <Profile />
-              </Route>
-              <Route path="/finding">
-                <FindingFriends />
-              </Route>
-              <Route path="*">
-                <NotFound />
-              </Route>
-            </Switch>
-              <Footer sx={{ alignSelf: 'flex-end' }} />
-          </div>
+                <Route path="/home">
+                  < Home />
+                </Route>
+                <Route path="/profile">
+                  <Profile />
+                </Route>
+                <Route path="/finding">
+                  <FindingFriends />
+                </Route>
+                <Route path="*">
+                  <NotFound />
+                </Route>
+              </Switch>
+                <Footer />
+            </div>
         </Switch>
       </div>
     </Router>
