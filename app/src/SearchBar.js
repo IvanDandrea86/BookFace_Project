@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
+import { client } from './util/createApolloClient';
+import {useQuery,gql} from '@apollo/client';
+import Loading from './util/Loading';
+import ErrorMessage from './util/ErrorMessage'
+import { useHistory } from 'react-router-dom';
+
+const NewFriends =gql `
+    {findAllUser
+        {_id,
+        firstname
+        lastname}
+    }
+`;
+
+
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -44,12 +59,23 @@ const Search = styled('div')(({ theme }) => ({
   }));
 
 function SearchBar() {
+
+  const navigate = useHistory();
+
+  const [keyword, setKeyword] = useState ('');
+
     return (
         <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+              onChange={(e) => { 
+                const word = e.target.value;
+                word.length > 1 && setKeyword(word);
+                console.log(keyword)
+                }}
+            
               placeholder="Find friends…"
               inputProps={{ 'aria-label': 'search' }}
             />

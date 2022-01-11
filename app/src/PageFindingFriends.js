@@ -1,6 +1,6 @@
 import React from 'react';
 import AddFriendCard from './AddFriendCard';
-//import ButtonAddCard from './ButtonAddCard';
+import ButtonAddCard from './ButtonAddCard';
 import ButtonFriendCard from './ButtonFriendCard';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -14,7 +14,8 @@ const NewFriends =gql `
     {findAllUser
         {_id,
         firstname
-        lastname}
+        lastname
+        friendList}
     }
 `;
 const Finding = () => {
@@ -27,12 +28,15 @@ const Finding = () => {
     if (error) return <ErrorMessage />;
     return (
         <Grid container spacing={0.5}>
-          {data.findAllUser.map(find => (
-            <Grid item key={find._id} xs={12} sm={4} md={3} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-            <AddFriendCard firstname={find.firstname} lastname={find.lastname} bouton={  <ButtonFriendCard/>}/>
+
+          {data.findAllUser.filter((val) => {
+            return val.firstname.toLowerCase().includes(("Li").toLowerCase())}).map(val => (
+            <Grid item key={val._id} xs={12} sm={4} md={3} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+            <AddFriendCard firstname={val.firstname} lastname={val.lastname} bouton={ val.friendList.map(val => (val === "Dolly"))? <ButtonFriendCard/>: <ButtonAddCard /> } />
+
             </Grid>
           ))}
-        </Grid>
+      </Grid>
       );
 };
 function FindingFriends() {
