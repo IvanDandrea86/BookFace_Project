@@ -3,7 +3,9 @@ import BannerProfile from './BannerProfile'
 import MyInfo from './MyInfo'
 import ProfilePicture from './ProfilePicture'
 
+
 function Profile() {
+   
     return (
         <div className='profile'>
             {/** Ici ira le banner: pour le moment couleur/ on verra photo plus tard */}

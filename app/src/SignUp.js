@@ -13,15 +13,15 @@ import {
   useMutation,
   gql
 } from "@apollo/client";
-import {UserInput} from "./util/type"
+
 
 
 
 const theme = createTheme();
 
 const REGISTER_MUT =gql`
-mutation ($options:UserInput!,$firstname:String!,$lastname:String! ){
-  createUser(options: { email: $email, password: $password }, firstname: $firstname, lastname: $lastname){
+mutation ($email:String!,$password:String!,$firstname:String!,$lastname:String! ){
+  createUser( email: $email, password: $password , firstname: $firstname, lastname: $lastname){
     user{
       _id
     }
@@ -44,7 +44,7 @@ mutation{
     }
   }
 }`
-const values= new UserInput();
+
 export default function SignUp() {
   const [email, setEmail] = useState ('');
   const [password, setPassword] = useState ('');
@@ -54,33 +54,26 @@ export default function SignUp() {
   const [emailError, setEmailError] = useState ('');
   const [passwordError, setPasswordError] = useState ('');
   const [register, { loading, error, data }] = useMutation(REGISTER_MUT);
-  values.email=email;
-    values.password=password;
-  console.log(values)
-   
-  
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
+    
+    console.log(email)
 
   const handleSubmit = async (event) => {
     
     event.preventDefault();
     // const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    values.email=email;
-    values.password=password;
    const {data}= await  register(
      {
        variables:{
-         options:values,
+        email:email,
+        password:password,
        lastname:lastname,
        firstname:firstname
      },
-
     }
     )
-    console.log(values)
-
     console.log("createUser",data.createUser.user)
     console.log(data.createUser.errors)
       if (data.createUser.user == null)

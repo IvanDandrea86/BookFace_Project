@@ -4,10 +4,11 @@ import ButtonAddCard from './ButtonAddCard';
 import ButtonFriendCard from './ButtonFriendCard';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { client } from './util/createApolloClient';
 import {useQuery,gql} from '@apollo/client';
 import Loading from './util/Loading';
-import ErrorMessage from './util/ErrorMessage';
+import ErrorMessage from './util/ErrorMessage'
+import { Auth } from './util/isAuthApollo';
+
 
 const NewFriends =gql `
     {findAllUser
@@ -17,17 +18,22 @@ const NewFriends =gql `
         friendList}
     }
 `;
-
 const Finding = () => {
+  
+  const user=Auth();
+  console.log(user.id);
+
   const { loading, error, data } = useQuery(NewFriends);
     if (loading) return <Loading />;
     if (error) return <ErrorMessage />;
     return (
         <Grid container spacing={0.5}>
+
           {data.findAllUser.filter((val) => {
             return val.firstname.toLowerCase().includes(("Li").toLowerCase())}).map(val => (
             <Grid item key={val._id} xs={12} sm={4} md={3} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
             <AddFriendCard firstname={val.firstname} lastname={val.lastname} bouton={ val.friendList.map(val => (val === "Dolly"))? <ButtonFriendCard/>: <ButtonAddCard /> } />
+
             </Grid>
           ))}
       </Grid>
@@ -36,11 +42,9 @@ const Finding = () => {
 function FindingFriends() {
     return (
         <Box sx={{ width: "90%", flexGrow: 1, mx: "auto", my:6 }}>
-        <Finding />
-            
-        </Box>
-        
+        <Finding />  
+        </Box>  
     )
 }
 
-export default FindingFriends
+export default  FindingFriends
