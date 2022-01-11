@@ -9,13 +9,37 @@ import ButtonAddFriend from './ButtonAddFriend';
 import ButtonSendMessage from './ButtonSendMessage';
 import ButtonStory from './ButtonStory';
 import ButtonMySettings from './ButtonMySettings';
+import {Auth,userLogged} from './util/isAuthApollo';
+import Loading from './util/Loading';
+
+import { useQuery,gql } from '@apollo/client';
+
 
 // https://source.unsplash.com/random
 
-
+const GETUSERINFO=gql`
+query($user_id:String!)
+{findUserById(user_id:$user_id)
+{lastname
+firstname
+friendList
+}}
+`
 export default function ProfilePicture() {
+const user=Auth();
+  const {
+        data,
+        loading,
+        error
+      } =useQuery(GETUSERINFO,{
+          variables:{
+              user_id:user.id
+          }
+      })
+        if (loading) return <Loading />;
+        if (error) return <p>ERROR</p>;
+        if (!data) return <p>Not found</p>;     
   return (
-
     <Box sx={{ width: "80%", flexGrow: 1, mx: "auto" }}>
         <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={4} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
@@ -32,8 +56,11 @@ export default function ProfilePicture() {
             <Grid item xs={12} sm={12} md={8} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 {/** Nom user + buttons pour poster et updater profil */}
                 <Typography variant="h3" gutterBottom component="div" sx={{ml: 1, justify: "left"}}>
-                    Paul Vaillant
+                  {data.findUserById.firstname}
+
+                  {data.findUserById.lastname}
                 </Typography>
+                {!data ?
                 <Grid container spacing={1}>
                     <Grid item xs={12} sm={6} md={6}>
                         <ButtonAddFriend />
@@ -41,8 +68,18 @@ export default function ProfilePicture() {
                     <Grid item xs={12} sm={6} md={6}>
                         <ButtonSendMessage />
                     </Grid>
-                </Grid>
-                
+                </Grid>:null
+                }
+                {data ?
+                 <Grid container spacing={1}>
+                    <Grid item xs={12} sm={6} md={6}>
+                        <ButtonStory/>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={6}>
+                        <ButtonMySettings />
+                    </Grid>
+                </Grid> :null
+                }
             </Grid>
         
         </Grid>

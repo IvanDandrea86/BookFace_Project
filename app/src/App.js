@@ -9,15 +9,12 @@ import NotFound from './NotFound';
 import { grey } from '@mui/material/colors';
 import FindingFriends from './PageFindingFriends';
 
-import {Auth} from "./util/isAuthApollo";
+import {Auth, userLogged} from "./util/isAuthApollo";
 
 const bg_grey = grey[50]; // really light grey
 
-const App=() => {
 
-  //Use Auth
-  const user=Auth();
-  console.log(user.id);
+const App=() => {
 
   return ( 
      
@@ -27,7 +24,7 @@ const App=() => {
           <Route exact path="/">
             <PageLoginSubscribe />
           </Route>
-          <div className="Only_when_logged" sx={{ minHeigth: "100%", mb: 1,  position: 'relative'}} >
+          <div className="only_when_logged" sx={{ minHeigth: "100%", mb: 1,  position: 'relative'}} >
             <Header />
             <Switch>
                 <Route path="/home">
@@ -41,6 +38,7 @@ const App=() => {
                 </Route>
                 <Route path="/finding">
                   <FindingFriends />
+                  
                 </Route>
                 <Route path="*">
                   <NotFound />

@@ -13,6 +13,7 @@ import UserConnected from './UserConnected';
 
 
 export default function MyInfo() {
+  
   return (
     <Box sx={{ width: '80%', bgcolor: 'background.paper', mx: "auto" }}>
      

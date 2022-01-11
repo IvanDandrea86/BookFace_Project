@@ -30,7 +30,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function ButtonMySettings() {
 
     // via cette variable on accède aux données de l'user
-    const user=Auth();
+    
 
     const [open, setOpen] = React.useState(false);
 
@@ -43,15 +43,15 @@ export default function ButtonMySettings() {
     };
 
   //ici vont les variables avec les données
-  const [firstName, setFirstName] = useState (user.firstName);
+  const [firstName, setFirstName] = useState ();
   const [errorFirstName, setErrorFirstName] = useState (false);
-  const [lastName, setLastName] = useState (user.lastName);
+  const [lastName, setLastName] = useState ();
   const [errorLastName, setErrorLastName] = useState (false);
-  const [email, setEmail] = useState (user.email);
+  const [email, setEmail] = useState ();
   const [errorEmail, setErrorEmail] = useState (false);
-  const [password, setPassword] = useState (user.password);
+  const [password, setPassword] = useState ();
   const [errorPassword, setErrorPassword] = useState (false);
-  const [passwordAgain, setPasswordAgain] = useState (user.password);
+  const [passwordAgain, setPasswordAgain] = useState ();
   const [errorPasswordAgain, setErrorPasswordAgain] = useState (false);
 
 
@@ -127,7 +127,7 @@ export default function ButtonMySettings() {
                             First Name
                             </Typography>
                             <Typography variant="h5" gutterBottom component="div" style={{borderBottom: "1px solid #ffffff"}} sx={{py:2}}>
-                                {user.firstName}
+                              
                             </Typography>
                         </div>
                         <div>
@@ -135,7 +135,7 @@ export default function ButtonMySettings() {
                             Last Name
                             </Typography>
                             <Typography variant="h5" gutterBottom component="div" style={{borderBottom: "1px solid #ffffff"}} sx={{py:2}}>
-                                {user.lastName}
+                       
                             </Typography>
                             
                         </div>
@@ -144,7 +144,7 @@ export default function ButtonMySettings() {
                             Email Address
                             </Typography>
                             <Typography variant="h5" gutterBottom component="div" style={{borderBottom: "1px solid #ffffff"}} sx={{py:2}}>
-                                {user.email}
+                      
                             </Typography>
                             
                         </div>
@@ -165,9 +165,9 @@ export default function ButtonMySettings() {
                     sx={{width:"100%"}}
                     onChange={(e) => {
                         setFirstName(e.target.value);
-                        user.firstName = e.target.value;
+                  
                         }}
-                    defaultValue={user.firstName}
+                    defaultValue=""
                     label="First Name"
                     variant="standard"
                     error={errorFirstName}
@@ -179,9 +179,9 @@ export default function ButtonMySettings() {
                     sx={{width:"100%"}}
                     onChange={(e) => {
                         setLastName(e.target.value);
-                        user.lastName = e.target.value;
+                    
                         }}
-                    defaultValue={user.lastName}
+                    defaultValue=""
                     label="Last Name"
                     variant="standard"
                     error={errorLastName}
@@ -193,9 +193,9 @@ export default function ButtonMySettings() {
                     sx={{width:"100%"}}
                     onChange={(e) => {
                         setEmail(e.target.value);
-                        user.email = e.target.value;
+                 
                         }}
-                    defaultValue={user.email}
+                    defaultValue=""
                     label="Email address"
                     variant="standard"
                     error={errorEmail}
@@ -209,7 +209,7 @@ export default function ButtonMySettings() {
                     onChange={(e) => {
                         setPassword(e.target.value);
                         }}
-                    defaultValue={user.password}
+                    defaultValue=""
                     label="New password"
                     variant="standard"
                     error={errorPassword}
@@ -222,7 +222,7 @@ export default function ButtonMySettings() {
                     onChange={(e) => {
                         setPasswordAgain(e.target.value);
                         }}
-                    defaultValue={user.password}
+                    defaultValue=""
                     label="Repeat new password"
                     variant="standard"
                     error={errorPasswordAgain}

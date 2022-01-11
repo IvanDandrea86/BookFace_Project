@@ -12,10 +12,13 @@ export function Auth() {
     if (loading) return <Loading />;
     if (error) return <ErrorMessage />;
     if(data.whoAmI==null)
-    return "undefined"
+
+    return false
     else{
+        console.log(data.whoAmI._id)
     return {
     id:data.whoAmI._id
     }
     }
 }
+

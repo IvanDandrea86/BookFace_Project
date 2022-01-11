@@ -29,10 +29,15 @@ export const apolloLoader=async():Promise<void>=>{
             
             return response
         }
+        
     }); 
     await apolloServer.start()
     .then(()=>{
         console.log(`🚀 Graphql running at http://localhost:${PORT}/graphql`); 
-        apolloServer.applyMiddleware({app});
+        apolloServer.applyMiddleware({app,
+            cors:{
+                credentials:true
+            }
+            });
     })
 }

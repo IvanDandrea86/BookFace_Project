@@ -12,14 +12,14 @@ export const seedMongoWithFriendsRequest=async(howmuch:number)=>{
         const randomSender= await UserModel.aggregate([{ $sample: { size: 1 } }])
         const randomReciver= await UserModel.aggregate([{ $sample: { size: 1 } }])
         
-        let post = new FriendRequestModel({
+        let friendrequest = new FriendRequestModel({
             _id,
-            sender_id: randomSender[0]._id,
-            reciver_id: randomReciver[0]._id,
+            userSender: randomSender[0]._id,
+            userReciver: randomReciver[0]._id,
             status: 'pending',
           });
           try{
-             await post.save();
+             await friendrequest.save();
             }
             catch(err){
                 console.log(err);

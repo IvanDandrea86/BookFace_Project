@@ -14,7 +14,6 @@ export default function ProfilePicture() {
     
 
   return (
-
     <Box sx={{ width: "80%", flexGrow: 1, mx: "auto" }}>
         <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={4} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
@@ -27,11 +26,9 @@ export default function ProfilePicture() {
                     <Avatar sx={{width: 150, height: 150, justify: "center"}} alt="Paul" src="https://source.unsplash.com/random" />
                 </Badge>
             </Grid>
-
             <Grid item xs={12} sm={12} md={8} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                {/** Nom user + buttons pour poster et updater profil */}
+                {/** Non user + buttons pour poster et updater profil */}
                 <Typography variant="h3" gutterBottom component="div" sx={{ml: 1, justify: "left"}}>
-                    {user.id}
                 </Typography>
                 <Grid container spacing={1}>
                     <Grid item xs={12} sm={6} md={6}>
@@ -40,10 +37,8 @@ export default function ProfilePicture() {
                     <Grid item xs={12} sm={6} md={6}>
                         <ButtonMySettings />
                     </Grid>
-                </Grid>
-                
+                </Grid>  
             </Grid>
-        
         </Grid>
     </Box>
     

@@ -5,13 +5,13 @@ import { seedMongoWithMessages } from "./mockmessage";
 import { makeSomeFriend } from "./mockFriendship";
 import { seedMongoWithFriendsRequest } from "./mockFiendrRequest";
 
-export const startSeed=(size:number)=>{
+export const startSeed=async(size:number)=>{
 
-    seedMongoWithUsers(size);
-    seedMongoWithPosts(size*2);
-    seedMongoWithComments(size*3);
-    seedMongoWithMessages(size*3);
-    makeSomeFriend(size);
-    seedMongoWithFriendsRequest(size*2);
+    await seedMongoWithUsers(size)
+    await seedMongoWithPosts(size*2)
+    await seedMongoWithComments(size*3);
+    await seedMongoWithMessages(size*3);
+    await makeSomeFriend(size);
+    await seedMongoWithFriendsRequest(size);
 
 }

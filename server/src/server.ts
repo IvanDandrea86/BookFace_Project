@@ -26,7 +26,7 @@ export const main = async () => {
     console.error(err);
   });
   //Seed with FakeData
-   startSeed(20)
+   //startSeed(20)
 
   //CORS middelware
   app.use(
