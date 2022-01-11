@@ -7,8 +7,6 @@ import Link from '@mui/material/Link';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
 
-import FindingFriends from './PageFindingFriends';
-
 
 
 function Copyright(props) {

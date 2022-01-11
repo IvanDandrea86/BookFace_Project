@@ -51,14 +51,14 @@ export default function Login() {
   const handleSubmit = async (event)=> {
    
     event.preventDefault();
-    if(password == '') {
+    if(password === '') {
       setPasswordError(true)
   }
   // eslint-disable-next-line no-console
   if(email && password) {
       console.log("email: " + email + ", password: " + password)
   }
-   if(email == '') {
+   if(email === '') {
        setEmailError(true);
    }
       const {data} = await login({

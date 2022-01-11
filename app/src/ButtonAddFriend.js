@@ -32,7 +32,7 @@ export default function ButtonAddFriend() {
 
   return (
     <div>
-      <Button onClick={handleClick(GrowTransition)} variant="outlined" startIcon={<PersonAddIcon />} sx={{mb: 0.5, width: "100%" }}>Add friend</Button>
+      <Button onClick={handleClick(GrowTransition)} variant="contained" startIcon={<PersonAddIcon />} sx={{mb: 0.5, width: "100%" }}>Add friend</Button>
       <Snackbar
         open={state.open}
         onClose={handleClose}
