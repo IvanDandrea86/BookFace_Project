@@ -22,10 +22,10 @@ declare module 'express-session' {
 export default class UserResolver {
   @Query(() => User,{ name: "whoAmI",nullable:true })
   async me(@Ctx() {req}: MyContext) {
-    if (!req.session.userID) {
+    if (!req.session.userId) {
       return null;
     }
-    return UserModel.findOne({_id:req.session.userID});
+    return UserModel.findOne({_id:req.session.userId});
   }
   
   @Query(() => User, { name: "findUserById" })
@@ -109,7 +109,7 @@ export default class UserResolver {
       };
     }
   }
-    req.session.userID=user._id;
+    req.session.userId=user._id;
     return {user};
   }
   @Mutation(() => User, { name: "updateUser", nullable: true })
@@ -201,7 +201,7 @@ export default class UserResolver {
         };
       } else {
         const user = userEmail.toObject();
-        req.session.userID=user.user_id;
+        req.session.userId=user.user_id;
         return { user };
       }
     }
