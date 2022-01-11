@@ -1,4 +1,4 @@
-import { Resolver, Arg, Field, Query, Mutation, InputType, Ctx } from "type-graphql";
+import { Resolver, Arg,  Query, Mutation, Ctx } from "type-graphql";
 import { Service } from "typedi";
 import { User, UserModel } from "../../entities/user.entity";
 import * as bcrypt from "bcrypt";
@@ -14,30 +14,24 @@ declare module 'express-session' {
       }
     }
 
-
-
-
 @Service() // Dependencies injection
-@Resolver(() => User)
+@Resolver(() => User )
 export default class UserResolver {
-  @Query(() => User,{ name: "whoAmI",nullable:true })
+  @Query(() => User ,{ name: "whoAmI",nullable:true })
   async me(@Ctx() {req}: MyContext) {
-    if (!req.session.userId) {
+    if (!req.session.userID) {
       return null;
     }
-    return UserModel.findOne({_id:req.session.userId});
+    return UserModel.findOne({_id:req.session.userID});
   }
   
   @Query(() => User, { name: "findUserById" })
   async findUserById(@Arg("user_id") _id: string) {
     return await UserModel.findById({ _id: _id });
   }
-  @Query(() => User, { name: "findUserByEmail" })
-  async findUserByEmail(@Arg("email_id") email: string) {
-    return await UserModel.findOne({ email: email });
-  }
-  @Query(() => User, { name: "findUserById" })
-  async findUserByEmail(@Arg("user_id") email: string) {
+ 
+  @Query(() => User , { name: "findUserByEmail" })
+  async findUserByEmail(@Arg("email") email: string) {
     return await UserModel.findOne({ email: email });
   }
 
@@ -113,18 +107,17 @@ export default class UserResolver {
       };
     }
   }
-    req.session.userId=user._id;
+    req.session.userID=user._id;
     return {user};
   }
   @Mutation(() => User, { name: "updateUser", nullable: true })
   async updateUser(
-    @Arg("email") email: String,
-    @Arg("password") password: string,
+    @Arg("email") email: String ,
+    @Arg("lastname") lastname: string,
+    @Arg("firstname") firstname: string,
     @Arg("_id") id: string
   ): Promise<User | null> {
-    await UserModel.where({ _id: id })
-      .updateOne({ emaile: email })
-      .exec();
+    await UserModel.findOneAndUpdate({ _id: id} ,{email: email,lastname:lastname,firstname:firstname }).exec();
     const user = await UserModel.findOne({ _id: id }).exec();
     return user;
   }
@@ -205,7 +198,7 @@ export default class UserResolver {
         };
       } else {
         const user = userEmail.toObject();
-        req.session.userId=user.user_id;
+        req.session.userID=user.user_id;
         return { user };
       }
     }

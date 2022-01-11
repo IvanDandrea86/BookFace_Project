@@ -10,9 +10,9 @@ import {
   __prod__,
 } from "./constants/const";
 import session from "express-session";
-import {sessionConfig, redis} from './config/sessionConfig';
+import {sessionConfig} from './config/sessionConfig';
 import { startSeed } from "./seeder";
-import cookieParser from "cookie-parser";
+
 
 dotenv.config();
 
@@ -26,13 +26,14 @@ export const main = async () => {
     console.error(err);
   });
   //Seed with FakeData
-  // startSeed()
+   startSeed(20)
 
   //CORS middelware
   app.use(
     cors({
       origin:ALLOW_ORIGIN ,
       credentials: true,
+
     })
   );
 

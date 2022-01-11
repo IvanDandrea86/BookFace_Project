@@ -34,6 +34,8 @@ mutation ( $email:String!,  $password:String! ){
 `;
 
 
+
+
 export default function Login() {
  
     const [email, setEmail] = useState ('');
@@ -41,6 +43,10 @@ export default function Login() {
     const [emailError, setEmailError] = useState (false);
     const [passwordError, setPasswordError] = useState (false);
     const [login] = useMutation(LOGIN_MUT);
+    
+
+
+  
 
   const handleSubmit = async (event)=> {
    
@@ -115,14 +121,13 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
               error={passwordError}
-              helperText= "At least 8 symbols."
+              helperText= "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
             <Button
-              component={Link} to="/home"
               type="submit"
               fullWidth
               variant="contained"

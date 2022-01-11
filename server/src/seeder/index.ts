@@ -1,11 +1,17 @@
-import {seedMongoWithUsers} from "./user"
-import {seedMongoWithPosts} from "./post"
-import {seedMongoWithComments} from "./comment"
+import {seedMongoWithUsers} from "./mockUser"
+import {seedMongoWithPosts} from "./mockPost"
+import {seedMongoWithComments} from "./mockComment"
+import { seedMongoWithMessages } from "./mockmessage";
+import { makeSomeFriend } from "./mockFriendship";
+import { seedMongoWithFriendsRequest } from "./mockFiendrRequest";
 
-export const startSeed=()=>{
+export const startSeed=(size:number)=>{
 
-  seedMongoWithUsers(10);
-  seedMongoWithPosts(20);
-  seedMongoWithComments(20);
+    seedMongoWithUsers(size);
+    seedMongoWithPosts(size*2);
+    seedMongoWithComments(size*3);
+    seedMongoWithMessages(size*3);
+    makeSomeFriend(size);
+    seedMongoWithFriendsRequest(size*2);
 
 }
