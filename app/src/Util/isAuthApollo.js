@@ -15,7 +15,6 @@ export function Auth() {
 
     return false
     else{
-        console.log(data.whoAmI._id)
     return {
     id:data.whoAmI._id
     }

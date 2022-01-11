@@ -5,14 +5,15 @@ import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import ButtonStory from './ButtonStory';
-import ButtonMySettings from './ButtonMySettings';
+import ButtonAddFriend from './Buttons/ButtonAddFriend';
+import ButtonSendMessage from './Buttons/ButtonSendMessage';
+import ButtonStory from './Buttons/ButtonStory';
+import ButtonMySettings from './Buttons/ButtonMySettings';
 
-// https://source.unsplash.com/random
+
 
 export default function ProfilePicture() {
-    
-
+   
   return (
     <Box sx={{ width: "80%", flexGrow: 1, mx: "auto" }}>
         <Grid container spacing={2}>
@@ -26,19 +27,24 @@ export default function ProfilePicture() {
                     <Avatar sx={{width: 150, height: 150, justify: "center"}} alt="Paul" src="https://source.unsplash.com/random" />
                 </Badge>
             </Grid>
+
             <Grid item xs={12} sm={12} md={8} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                {/** Non user + buttons pour poster et updater profil */}
+                {/** Nom user + buttons pour poster et updater profil */}
                 <Typography variant="h3" gutterBottom component="div" sx={{ml: 1, justify: "left"}}>
-                </Typography>
+              
+
+
+                </Typography>  
                 <Grid container spacing={1}>
                     <Grid item xs={12} sm={6} md={6}>
-                        <ButtonStory />
+                        <ButtonAddFriend />
                     </Grid>
                     <Grid item xs={12} sm={6} md={6}>
-                        <ButtonMySettings />
+                        <ButtonSendMessage />
                     </Grid>
-                </Grid>  
+                </Grid>
             </Grid>
+        
         </Grid>
     </Box>
     

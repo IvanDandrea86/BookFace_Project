@@ -13,6 +13,7 @@ import {
   useMutation,
   gql
 } from "@apollo/client";
+import { useHistory }from 'react-router-dom';
 
 
 
@@ -46,6 +47,7 @@ mutation{
 }`
 
 export default function SignUp() {
+  const {history}=useHistory
   const [email, setEmail] = useState ('');
   const [password, setPassword] = useState ('');
   const [confirmPassword, setConfirmPassword] = useState ('');
@@ -78,6 +80,8 @@ export default function SignUp() {
       console.log(data.createUser.errors)
       else 
       console.log(data.createUser.user)
+      history.push("/home")
+      history.go(+1)
    }
   return (
     <ThemeProvider theme={theme}>

@@ -1,15 +1,14 @@
 import React from 'react';
-import './Home.css';
-import Feed from "./Feed";
-import Sidebar from './Sidebar';
+import '../Home/Home.css';
+import Feed from "../../Component/Feed";
+
 
 
 
 function Home() {
     return ( 
         <div className='home_body'sx={{width:"100%"}}>
-            {/*<Sidebar />*/}
-          
+         
             <Feed />
            
         </div>

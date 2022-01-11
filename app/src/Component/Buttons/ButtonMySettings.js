@@ -15,10 +15,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import MyInfoForm from './MyInfoForm';
-
-import {Auth} from "./util/isAuthApollo";
-
+import MyInfoForm from '../MyInfoForm';
 
 
 

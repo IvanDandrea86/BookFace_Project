@@ -10,26 +10,40 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PersonPinRoundedIcon from '@mui/icons-material/PersonPinRounded';
-import SearchBar from "./SearchBar";
+import SearchBar from "../SearchBar";
+import { useHistory }from 'react-router-dom';
+import {
+  useMutation,
+  gql
+} from "@apollo/client";
 
 
+const LOGOUT_MUT= gql`
+mutation{logout}
+`;
 
 export default function PrimarySearchAppBar() {
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const [logout] = useMutation(LOGOUT_MUT);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const logoutEvent = async (event) => {
+    event.preventDefault();
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+     await logout()
+    history.push("/")
+    history.go(+1) 
   };
 
   const handleMobileMenuClose = () => {
+    
     setMobileMoreAnchorEl(null);
   };
 
   const handleMenuClose = () => {
+    console.log("pressed")
     setAnchorEl(null);
     handleMobileMenuClose();
   };
@@ -80,7 +94,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem 
-        href="/">
+        href="/home">
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -90,16 +104,19 @@ export default function PrimarySearchAppBar() {
         >
           <AccountCircle />
         </IconButton>
+
         <p>Profile</p>
       </MenuItem>
+     
       <MenuItem 
-        href="/profile">
+        href="/">
         <IconButton
           size="large"
           aria-label=""
           color="inherit"
+          onClick={logoutEvent}
         >
-            <ExitToAppIcon />
+         
         </IconButton>
         <p>Logout</p>
       </MenuItem>
@@ -137,6 +154,8 @@ export default function PrimarySearchAppBar() {
               aria-label=""
               color="inherit"
               href="/"
+              onClick={logoutEvent}
+             
             >
                 <ExitToAppIcon />
             </IconButton>
@@ -146,7 +165,7 @@ export default function PrimarySearchAppBar() {
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
-              href="/profile"
+              href="/myprofile"
               color="inherit"
             >
               <AccountCircle />

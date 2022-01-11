@@ -14,10 +14,12 @@ import {
   useMutation,
   gql
 } from "@apollo/client";
+import { useHistory }from 'react-router-dom';
 
 
 
 const theme = createTheme();
+
 
 const LOGIN_MUT = gql`
 mutation ( $email:String!,  $password:String! ){
@@ -37,6 +39,7 @@ mutation ( $email:String!,  $password:String! ){
 
 
 export default function Login() {
+  
  
     const [email, setEmail] = useState ('');
     const [password, setPassword] = useState ('');
@@ -44,6 +47,7 @@ export default function Login() {
     const [passwordError, setPasswordError] = useState (false);
     const [login] = useMutation(LOGIN_MUT);
     
+    const history = useHistory();
 
 
   
@@ -54,10 +58,6 @@ export default function Login() {
     if(password === '') {
       setPasswordError(true)
   }
-  // eslint-disable-next-line no-console
-  if(email && password) {
-      console.log("email: " + email + ", password: " + password)
-  }
    if(email === '') {
        setEmailError(true);
    }
@@ -66,17 +66,26 @@ export default function Login() {
         email: email,
         password:password }
      })
+
      if(data.login.user == null){
      console.log(data.login.errors)
      }
      else{
       console.log(data.login.user._id);
+      history.push("/home")
+      history.go(+1)
     
     }
-    
+   
   }
 
+   
+   
+  
+
   return (
+    
+    
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -150,3 +159,4 @@ export default function Login() {
     </ThemeProvider>
   );
 }
+
