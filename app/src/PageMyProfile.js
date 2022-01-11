@@ -1,17 +1,17 @@
 import React from 'react'
 import BannerProfile from './BannerProfile'
 import MyInfo from './MyInfo'
-import ProfilePicture from './ProfilePicture'
+import MyProfilePicture from './MyProfilePicture'
 
 
-function Profile() {
+function MyProfile() {
    
     return (
         <div className='profile'>
             {/** Ici ira le banner: pour le moment couleur/ on verra photo plus tard */}
             <BannerProfile />
             {/** Photo de profil + picto photo + nom + buttons "add story" + "modify my profile" */}
-            <ProfilePicture />
+            <MyProfilePicture />
             {/** Some general info of the guy with pictos */}
             <MyInfo />
             {/** Storys in chronogical order */}
@@ -19,4 +19,4 @@ function Profile() {
     )
 }
 
-export default Profile
+export default MyProfile

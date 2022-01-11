@@ -8,6 +8,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
 
 
+
 function Copyright(props) {
     return (
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -36,7 +37,7 @@ export default function Page_Login_Subscribe() {
                 <Avatar sx={{ m: 2, bgcolor: 'info.dark', width: 50, height: 50, justify: "center", mx: "auto"}}>
                     <LockOutlinedIcon />
                 </Avatar>
-                <Typography c component="h1" variant="h4" sx={{ textAlign: 'center', color: 'primary.dark' }}>
+                <Typography  component="h1" variant="h4" sx={{ textAlign: 'center', color: 'primary.dark' }}>
                     Welcome to Bookface
                 </Typography>
             </div>

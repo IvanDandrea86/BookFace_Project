@@ -15,14 +15,22 @@ import EditIcon from '@mui/icons-material/Edit';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import UserConnected from './UserConnected';
 import MyInfoForm from './MyInfoForm';
+
+import {Auth} from "./util/isAuthApollo";
+
+
+
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function ButtonMySettings() {
+
+    // via cette variable on accède aux données de l'user
+    const user=Auth();
 
     const [open, setOpen] = React.useState(false);
 
@@ -35,15 +43,15 @@ export default function ButtonMySettings() {
     };
 
   //ici vont les variables avec les données
-  const [firstName, setFirstName] = useState (UserConnected.firstName);
+  const [firstName, setFirstName] = useState (user.firstName);
   const [errorFirstName, setErrorFirstName] = useState (false);
-  const [lastName, setLastName] = useState (UserConnected.lastName);
+  const [lastName, setLastName] = useState (user.lastName);
   const [errorLastName, setErrorLastName] = useState (false);
-  const [email, setEmail] = useState (UserConnected.email);
+  const [email, setEmail] = useState (user.email);
   const [errorEmail, setErrorEmail] = useState (false);
-  const [password, setPassword] = useState (UserConnected.password);
+  const [password, setPassword] = useState (user.password);
   const [errorPassword, setErrorPassword] = useState (false);
-  const [passwordAgain, setPasswordAgain] = useState (UserConnected.password);
+  const [passwordAgain, setPasswordAgain] = useState (user.password);
   const [errorPasswordAgain, setErrorPasswordAgain] = useState (false);
 
 
@@ -119,7 +127,7 @@ export default function ButtonMySettings() {
                             First Name
                             </Typography>
                             <Typography variant="h5" gutterBottom component="div" style={{borderBottom: "1px solid #ffffff"}} sx={{py:2}}>
-                                {UserConnected.firstName}
+                                {user.firstName}
                             </Typography>
                         </div>
                         <div>
@@ -127,7 +135,7 @@ export default function ButtonMySettings() {
                             Last Name
                             </Typography>
                             <Typography variant="h5" gutterBottom component="div" style={{borderBottom: "1px solid #ffffff"}} sx={{py:2}}>
-                                {UserConnected.lastName}
+                                {user.lastName}
                             </Typography>
                             
                         </div>
@@ -136,7 +144,7 @@ export default function ButtonMySettings() {
                             Email Address
                             </Typography>
                             <Typography variant="h5" gutterBottom component="div" style={{borderBottom: "1px solid #ffffff"}} sx={{py:2}}>
-                                {UserConnected.email}
+                                {user.email}
                             </Typography>
                             
                         </div>
@@ -144,11 +152,12 @@ export default function ButtonMySettings() {
                 
 
                 </Grid>
+                { /** Voici la partie pour updater le profil de l'user connecté */}
                 <Grid item xs={12} sm={12} md={4} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                     <List component="form" onSubmit={handleSubmit} sx={{width: "80%"}}>
                     
                         <ListItem disablePadding sx={{mb:1}}>
-                            <ListItemText sx={{color: "primary.main", mt:3 }} primary="Tell us about more about you"/>
+                            <ListItemText sx={{color: "primary.main", mt:3 }} primary="Update your settings here"/>
                         </ListItem>
                     <Divider sx={{mb:3}}/>
                     <ListItem >
@@ -156,9 +165,9 @@ export default function ButtonMySettings() {
                     sx={{width:"100%"}}
                     onChange={(e) => {
                         setFirstName(e.target.value);
-                        UserConnected.firstName = e.target.value;
+                        user.firstName = e.target.value;
                         }}
-                    defaultValue={UserConnected.firstName}
+                    defaultValue={user.firstName}
                     label="First Name"
                     variant="standard"
                     error={errorFirstName}
@@ -170,9 +179,9 @@ export default function ButtonMySettings() {
                     sx={{width:"100%"}}
                     onChange={(e) => {
                         setLastName(e.target.value);
-                        UserConnected.lastName = e.target.value;
+                        user.lastName = e.target.value;
                         }}
-                    defaultValue={UserConnected.lastName}
+                    defaultValue={user.lastName}
                     label="Last Name"
                     variant="standard"
                     error={errorLastName}
@@ -184,9 +193,9 @@ export default function ButtonMySettings() {
                     sx={{width:"100%"}}
                     onChange={(e) => {
                         setEmail(e.target.value);
-                        UserConnected.email = e.target.value;
+                        user.email = e.target.value;
                         }}
-                    defaultValue={UserConnected.email}
+                    defaultValue={user.email}
                     label="Email address"
                     variant="standard"
                     error={errorEmail}
@@ -195,11 +204,12 @@ export default function ButtonMySettings() {
 
                     <ListItem>
                     <TextField
+                    type="password"
                     sx={{width:"100%"}}
                     onChange={(e) => {
                         setPassword(e.target.value);
                         }}
-                    defaultValue={UserConnected.password}
+                    defaultValue={user.password}
                     label="New password"
                     variant="standard"
                     error={errorPassword}
@@ -207,11 +217,12 @@ export default function ButtonMySettings() {
                     </ListItem>
                     <ListItem>
                     <TextField
+                    type="password"
                     sx={{width:"100%"}}
                     onChange={(e) => {
                         setPasswordAgain(e.target.value);
                         }}
-                    defaultValue={UserConnected.password}
+                    defaultValue={user.password}
                     label="Repeat new password"
                     variant="standard"
                     error={errorPasswordAgain}

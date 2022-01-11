@@ -10,43 +10,65 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {
+  useMutation,
+  gql
+} from "@apollo/client";
+
+
 
 const theme = createTheme();
 
-export default function Login() {
+const LOGIN_MUT = gql`
+mutation ( $email:String!,  $password:String! ){
+  login(email: $email, password: $password ) {
+    errors {
+      field
+      message
+    }
+    user {
+      _id
+    }
+  }
+}
+`;
 
+
+export default function Login() {
+ 
     const [email, setEmail] = useState ('');
     const [password, setPassword] = useState ('');
     const [emailError, setEmailError] = useState (false);
     const [passwordError, setPasswordError] = useState (false);
+    const [login] = useMutation(LOGIN_MUT);
 
-    const validate = () => {
-        test = {}
-        test.email = (/$|.+@+..+/).test(email)?"": "Email is not valid.";
-        return test;
-        
-
-    }
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event)=> {
+   
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    setEmailError(false)
-    setPasswordError(false)
-
-
-    if(email === '') {
-        setEmailError(true);
-    }
-
     if(password === '') {
-        setPasswordError(true)
+      setPasswordError(true)
+  }
+  // eslint-disable-next-line no-console
+  if(email && password) {
+      console.log("email: " + email + ", password: " + password)
+  }
+   if(email === '') {
+       setEmailError(true);
+   }
+      const {data} = await login({
+      variables: { 
+        email: email,
+        password:password }
+     })
+     if(data.login.user == null){
+     console.log(data.login.errors)
+     }
+     else{
+      console.log(data.login.user._id);
+    
     }
-    // eslint-disable-next-line no-console
-    if(email && password) {
-        console.log("email: " + email + ", password: " + password)
-    }
-  };
+    
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -66,7 +88,9 @@ export default function Login() {
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value)
+              } }
               margin="normal"
               required
               fullWidth
@@ -85,6 +109,7 @@ export default function Login() {
               required
               fullWidth
               name="password"
+              value={password}
               label="Password"
               type="password"
               id="password"

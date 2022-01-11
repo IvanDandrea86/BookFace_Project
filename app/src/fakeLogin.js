@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { createTheme} from '@mui/material/styles';
-import {useMutation} from 'urql';
+import {
+  useMutation,
+  gql
+} from "@apollo/client";
+import {client} from './util/createApolloClient'
 
 
 const theme = createTheme();
 
-const REGISTER_MUT = `
+const LOGIN_MUT = gql`
 mutation ( $email:String!,  $password:String! ){
   login(options: { email: $email, password: $password }) {
     errors {
@@ -19,44 +23,33 @@ mutation ( $email:String!,  $password:String! ){
   }
 }
 `;
-
 export default function FakeLogin() {
    
     const [email, setEmail] = useState ('');
     const [password, setPassword] = useState ('');
     const [emailError, setEmailError] = useState (false);
     const [passwordError, setPasswordError] = useState (false);
-    const [data,login] = useMutation(REGISTER_MUT)
+    const [login, { loading, error, data }] = useMutation(LOGIN_MUT);
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
     
-
-  
       const handleSubmit = (e) => {
         e.preventDefault(); // no page reload due to submit
-        login({ email,password}).then(({ data }) => {
-          if (data.login.errors==null) {
-              console.log(data.login)
-              console.log(data.login.user._id)
-           console.log("connesso")
-          
+        client.mutate({
+          mutation:LOGIN_MUT,
+          variables: { email: email,
+            password:password }
           }
-          else{
-              console.log(data.login.errors[0].field)
-              console.log(data.login.errors[0].message)  
+        ).then((response) => console.log(response.data))
+        .catch((err) => console.error(err));
         }
-      })
-      
-    }
-
-  return (
-
+  
+        return (
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
       <input value={email} onChange={e => setEmail(e.currentTarget.value)} />
       <input value={password} onChange={e => setPassword(e.currentTarget.value)} />
-     
-      <button disabled={data.fetching} type="sumbit">Log in!</button>
+      <button  type="sumbit">Log in!</button>
     </form>
-
   )
-
 }
