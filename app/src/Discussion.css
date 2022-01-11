@@ -1,68 +1,78 @@
 @media only screen and (min-width: 600px) {
-    .share {
+    .discussion {
      width: 65%;
     }
   }
 
   @media only screen and (max-width: 601px) {
-    .share {
+    .discussion {
      width: 100%;
     }
   }
 
-.share {
+  @media only screen and (min-width: 760px) {
+    .discussion {
+     width: 90%;
+    }
+  }
+
+
+
+
+  .discussion {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
     margin-top: 15px;
     border-radius: 15px;
     background-color: white;
-    box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 5px 7px -3px rgba(0, 0, 0, 0.75);
     /* max-width: 500px; */
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
+  
+
 } 
 
-.share_top {
+.discussion_profile {
+    border-bottom: 1px solid lightgray;
+}
+
+.discussion_top {
     display: flex;
     position: relative;
     align-items: center;
     padding: 15px;
 }
 
-.share_avatar {
-    margin-right: 10px;
+.discussion_avatar {
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-bottom: 5px;
 }
 
-.share_topInfo > h3 {
+.discussion_topInfo > h3 {
     font-size: medium;
 }
 
 
-.share_bottom {
-    margin: 20px;
-    width: 90%;
-    height: auto;
-
-}
 
 .share > form {
     flex: 1;
     display: flex;
 }
 
-
-.share_input {
+.discussion_input {
     flex: 1;
     border: none;
-    padding: 25px 20px;
+    padding: 20px;
  
     border-radius: 600px;
     background-color: #eff2f5;
-    width: 50%;
-}
 
-.options {
-margin-top: 10px;
-margin-bottom: 5px;
 }
-
 

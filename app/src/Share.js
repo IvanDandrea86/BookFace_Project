@@ -1,8 +1,6 @@
 import { Avatar, makeStyles } from '@mui/material';
 import React from 'react';
-
 import './Share.css';
-import SendIcon from '@mui/icons-material/Send';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';

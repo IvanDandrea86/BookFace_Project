@@ -11,6 +11,7 @@ function Home() {
             {/*<Sidebar />*/}
           
             <Feed />
+           
         </div>
     );
 }

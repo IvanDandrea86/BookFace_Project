@@ -1,7 +1,8 @@
 .SidebarRow {
     display: flex;
-    align-items: center;
+    align-items:flex-start;
     padding: 10px;
+    align-items: center;
     cursor: pointer;
 }
 
@@ -11,12 +12,17 @@
     transform:  scale(1.07);
 }
 
-.SidebarRow > h4 {
-    margin-left: 20px;
+.SidebarRow > p {
+    margin-left: 10px;
+    font-size: 18px;
     font-weight: 600;
+    text-transform: lowercase;
+    color: gray;
 }
 
-.SidebarRow > .MuiSvgIcon-root {
-    font-size: xx-large;
-    color: #2e81f4;
+.SidebarRow > p::first-letter {
+  
+    text-transform: uppercase;
 }
+
+
