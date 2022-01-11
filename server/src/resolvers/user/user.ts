@@ -36,6 +36,10 @@ export default class UserResolver {
   async findUserByEmail(@Arg("email_id") email: string) {
     return await UserModel.findOne({ email: email });
   }
+  @Query(() => User, { name: "findUserById" })
+  async findUserByEmail(@Arg("user_id") email: string) {
+    return await UserModel.findOne({ email: email });
+  }
 
   @Query(() => [User], { name: "findAllUser" })
   async findAllUser() {

@@ -6,7 +6,8 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import {useQuery,gql} from '@apollo/client';
 import Loading from './util/Loading';
-import ErrorMessage from './util/ErrorMessage';
+import ErrorMessage from './util/ErrorMessage'
+import { Auth } from './util/isAuthApollo';
 
 
 const NewFriends =gql `
@@ -18,15 +19,21 @@ const NewFriends =gql `
     }
 `;
 const Finding = () => {
+  
+  const user=Auth();
+  console.log(user.id);
+
   const { loading, error, data } = useQuery(NewFriends);
     if (loading) return <Loading />;
     if (error) return <ErrorMessage />;
     return (
         <Grid container spacing={0.5}>
+
           {data.findAllUser.filter((val) => {
             return val.firstname.toLowerCase().includes(("Li").toLowerCase())}).map(val => (
             <Grid item key={val._id} xs={12} sm={4} md={3} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
             <AddFriendCard firstname={val.firstname} lastname={val.lastname} bouton={ val.friendList.map(val => (val === "Dolly"))? <ButtonFriendCard/>: <ButtonAddCard /> } />
+
             </Grid>
           ))}
       </Grid>
