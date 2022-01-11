@@ -14,15 +14,14 @@ import {
   useMutation,
   gql
 } from "@apollo/client";
-import {client} from './util/createApolloClient';
-import { Redirect } from 'react-router-dom';
-import { isAuth } from './util/isAuth';
+
+
 
 const theme = createTheme();
 
 const LOGIN_MUT = gql`
 mutation ( $email:String!,  $password:String! ){
-  login(options: { email: $email, password: $password }) {
+  login(email: $email, password: $password ) {
     errors {
       field
       message
@@ -36,6 +35,7 @@ mutation ( $email:String!,  $password:String! ){
 
 
 export default function Login() {
+ 
     const [email, setEmail] = useState ('');
     const [password, setPassword] = useState ('');
     const [emailError, setEmailError] = useState (false);
@@ -43,32 +43,31 @@ export default function Login() {
     const [login] = useMutation(LOGIN_MUT);
 
   const handleSubmit = async (event)=> {
+   
     event.preventDefault();
-    setEmailError(false)
-    setPasswordError(false)
-    if(email === '') {
-        setEmailError(true);
-    }
-    if(password === '') {
-        setPasswordError(true)
-    }
-    // eslint-disable-next-line no-console
-    if(email && password) {
-        console.log("email: " + email + ", password: " + password)
-    }
+    if(password == '') {
+      setPasswordError(true)
+  }
+  // eslint-disable-next-line no-console
+  if(email && password) {
+      console.log("email: " + email + ", password: " + password)
+  }
+   if(email == '') {
+       setEmailError(true);
+   }
       const {data} = await login({
       variables: { 
         email: email,
         password:password }
      })
      if(data.login.user == null){
-     console.log(data.login.errors[0])
+     console.log(data.login.errors)
      }
      else{
-     console.log(data.login.user._id);
-     console.log(isAuth());
-     <Redirect to="/" />
-     }
+      console.log(data.login.user._id);
+    
+    }
+    
   }
 
   return (
@@ -89,7 +88,9 @@ export default function Login() {
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value)
+              } }
               margin="normal"
               required
               fullWidth
@@ -121,6 +122,7 @@ export default function Login() {
               label="Remember me"
             />
             <Button
+              component={Link} to="/home"
               type="submit"
               fullWidth
               variant="contained"

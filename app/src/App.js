@@ -7,16 +7,25 @@ import Profile from './PageProfile';
 import NotFound from './NotFound';
 import { grey } from '@mui/material/colors';
 import FindingFriends from './PageFindingFriends';
-import {ApolloProvider} from '@apollo/client';
-import {client} from './util/createApolloClient'
+
+
+import {Auth} from "./util/isAuthApollo"
+
+
 
 
 const bg_grey = grey[50]; // really light grey
 
 
-function App() {
-  return (
-    <ApolloProvider client={client}> 
+
+
+const App=() => {
+
+  const { isMe } = Auth()
+  console.log(isMe) //ID if Auth NUll if not
+
+  return ( 
+     
     <Router>
       <div className="App" styles={{ backgroundColor: bg_grey }}>
         <Switch>
@@ -44,7 +53,7 @@ function App() {
         </Switch>
       </div>
     </Router>
-    </ApolloProvider>
+  
   );
 }
 
