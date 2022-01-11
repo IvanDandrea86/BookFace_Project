@@ -1,4 +1,4 @@
-import { Avatar, makeStyles } from '@mui/material';
+import { Avatar } from '@mui/material';
 import React from 'react'
 import './Post.css';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';

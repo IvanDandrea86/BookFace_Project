@@ -10,10 +10,10 @@ export function Auth() {
     const { data,loading,error } = useQuery(IS_ME)
     if (loading) return <Loading />;
     if (error) return <ErrorMessage />;
-    console.log(data)
-    if(data){
+    if(data.whoAmI==null)
+    return "undefined"
+    else{
     return {
     id:data.whoAmI._id
-}
-    }
+    } }
 }
