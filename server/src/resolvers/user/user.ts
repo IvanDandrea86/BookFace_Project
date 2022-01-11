@@ -15,32 +15,25 @@ declare module 'express-session' {
     }
 
 
-@InputType()
-export class UserInput {
-  @Field()
-  password: string;
-  @Field({ nullable: true })
-  email: string;
-}
+
 
 @Service() // Dependencies injection
 @Resolver(() => User)
 export default class UserResolver {
   @Query(() => User,{ name: "whoAmI",nullable:true })
   async me(@Ctx() {req}: MyContext) {
-    if (!req.session.userID) {
+    if (!req.session.userId) {
       return null;
     }
-    return UserModel.findOne({_id:req.session.userID});
+    return UserModel.findOne({_id:req.session.userId});
   }
   
-
   @Query(() => User, { name: "findUserById" })
   async findUserById(@Arg("user_id") _id: string) {
-    return await UserModel.findOne({ _id: _id });
+    return await UserModel.findById({ _id: _id });
   }
-  @Query(() => User, { name: "findUserById" })
-  async findUserByEmail(@Arg("user_id") email: string) {
+  @Query(() => User, { name: "findUserByEmail" })
+  async findUserByEmail(@Arg("email_id") email: string) {
     return await UserModel.findOne({ email: email });
   }
 
@@ -78,13 +71,14 @@ export default class UserResolver {
 
   @Mutation(() => UserResponse, { name: "createUser" })
   async createUser(
-    @Arg("options") options: UserInput,
+    @Arg("email") email: String,
+    @Arg("password") password: string,
     @Arg("firstname") firstname: String,
     @Arg("lastname") lastname: String,
     @Ctx() {req}:MyContext
      ): Promise<UserResponse> {
    if (
-      !options.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)
+      !password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)
     ) {
       const error = new FieldError(
         "password",
@@ -94,12 +88,12 @@ export default class UserResolver {
         errors: error,
       };
     }
-    const hashPassword = await bcrypt.hash(options.password, 8);
+    const hashPassword = await bcrypt.hash(password, 8);
     const _id = new ObjectId();
     const user = new UserModel({
       _id,
       user_id: _id,
-      email: options.email,
+      email: email,
       password: hashPassword,
       firstname : firstname,
       lastaname:lastname
@@ -115,16 +109,17 @@ export default class UserResolver {
       };
     }
   }
-    req.session.userID=user._id;
+    req.session.userId=user._id;
     return {user};
   }
   @Mutation(() => User, { name: "updateUser", nullable: true })
   async updateUser(
-    @Arg("options") options: UserInput,
+    @Arg("email") email: String,
+    @Arg("password") password: string,
     @Arg("_id") id: string
   ): Promise<User | null> {
     await UserModel.where({ _id: id })
-      .updateOne({ emaile: options.email })
+      .updateOne({ emaile: email })
       .exec();
     const user = await UserModel.findOne({ _id: id }).exec();
     return user;
@@ -174,13 +169,14 @@ export default class UserResolver {
   }
   @Mutation(() => UserResponse, { name: "login" })
   async login(
-    @Arg("options") options: UserInput,
+    @Arg("email") email: String,
+    @Arg("password") password: string,
     @Ctx() {req}:MyContext
   ): Promise<UserResponse> {
 
-    const userEmail = await UserModel.findOne({ email: options.email });
+    const userEmail = await UserModel.findOne({ email: email });
 
-    if (!userEmail && options.email != null) {
+    if (!userEmail && email != null) {
       return {
         errors: 
           {
@@ -192,7 +188,7 @@ export default class UserResolver {
     }
     if (userEmail != null) {
       const validEmailPassword = await bcrypt.compare(
-        options.password,
+        password,
         userEmail!.password
       );
       if (!validEmailPassword) {
@@ -205,7 +201,7 @@ export default class UserResolver {
         };
       } else {
         const user = userEmail.toObject();
-        req.session.userID=user.user_id;
+        req.session.userId=user.user_id;
         return { user };
       }
     }

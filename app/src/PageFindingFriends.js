@@ -4,10 +4,10 @@ import ButtonAddCard from './ButtonAddCard';
 import ButtonFriendCard from './ButtonFriendCard';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { client } from './util/createApolloClient';
 import {useQuery,gql} from '@apollo/client';
 import Loading from './util/Loading';
 import ErrorMessage from './util/ErrorMessage';
+
 
 const NewFriends =gql `
     {findAllUser
@@ -17,7 +17,6 @@ const NewFriends =gql `
         friendList}
     }
 `;
-
 const Finding = () => {
   const { loading, error, data } = useQuery(NewFriends);
     if (loading) return <Loading />;
@@ -36,11 +35,9 @@ const Finding = () => {
 function FindingFriends() {
     return (
         <Box sx={{ width: "90%", flexGrow: 1, mx: "auto", my:6 }}>
-        <Finding />
-            
-        </Box>
-        
+        <Finding />  
+        </Box>  
     )
 }
 
-export default FindingFriends
+export default  FindingFriends
