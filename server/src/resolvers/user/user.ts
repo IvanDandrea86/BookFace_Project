@@ -28,13 +28,12 @@ export default class UserResolver {
     return UserModel.findOne({_id:req.session.userID});
   }
   
-
   @Query(() => User, { name: "findUserById" })
   async findUserById(@Arg("user_id") _id: string) {
-    return await UserModel.findOne({ _id: _id });
+    return await UserModel.findById({ _id: _id });
   }
-  @Query(() => User, { name: "findUserById" })
-  async findUserByEmail(@Arg("user_id") email: string) {
+  @Query(() => User, { name: "findUserByEmail" })
+  async findUserByEmail(@Arg("email_id") email: string) {
     return await UserModel.findOne({ email: email });
   }
 
