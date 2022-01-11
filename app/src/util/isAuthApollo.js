@@ -1,13 +1,18 @@
 
 import {useQuery,gql} from '@apollo/client';
-export 
+import Loading from './Loading';
+import ErrorMessage from './ErrorMessage' 
+
 const IS_ME =gql `
  {whoAmI{_id}}
 `;
-export function useAuth() {
-    const { data } = useQuery(IS_ME)
-    console.log(data)
+export function Auth() {
+    const { data,loading,error } = useQuery(IS_ME)
+    if (loading) return <Loading />;
+    if (error) return <ErrorMessage />;
+    if(data){
     return {
-    isMe:data.whoAmI._id
+    isMe:data.whoAmI
+}
     }
 }

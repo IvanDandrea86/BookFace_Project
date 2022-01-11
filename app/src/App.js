@@ -9,8 +9,7 @@ import { grey } from '@mui/material/colors';
 import FindingFriends from './PageFindingFriends';
 
 
-import Cookies from 'js-cookie';
-import {useAuth} from "./util/isAuthApollo"
+import {Auth} from "./util/isAuthApollo"
 
 
 
@@ -22,8 +21,8 @@ const bg_grey = grey[50]; // really light grey
 
 const App=() => {
 
-  const { isMe } = useAuth()
-  console.log(isMe);
+  const { isMe } = Auth()
+  console.log(isMe) //ID if Auth NUll if not
 
   return ( 
      
