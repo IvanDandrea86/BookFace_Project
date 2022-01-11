@@ -5,15 +5,14 @@ import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import ButtonAddFriend from './ButtonAddFriend';
-import ButtonSendMessage from './ButtonSendMessage';
 import ButtonStory from './ButtonStory';
 import ButtonMySettings from './ButtonMySettings';
 
 // https://source.unsplash.com/random
 
-
 export default function ProfilePicture() {
+    
+
   return (
 
     <Box sx={{ width: "80%", flexGrow: 1, mx: "auto" }}>
@@ -32,14 +31,14 @@ export default function ProfilePicture() {
             <Grid item xs={12} sm={12} md={8} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 {/** Nom user + buttons pour poster et updater profil */}
                 <Typography variant="h3" gutterBottom component="div" sx={{ml: 1, justify: "left"}}>
-                    Paul Vaillant
+                    {user.id}
                 </Typography>
                 <Grid container spacing={1}>
                     <Grid item xs={12} sm={6} md={6}>
-                        <ButtonAddFriend />
+                        <ButtonStory />
                     </Grid>
                     <Grid item xs={12} sm={6} md={6}>
-                        <ButtonSendMessage />
+                        <ButtonMySettings />
                     </Grid>
                 </Grid>
                 

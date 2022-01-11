@@ -4,20 +4,14 @@ import Footer from './Footer';
 import PageLoginSubscribe from './PageLoginSubscribe';
 import Home from './Home';
 import Profile from './PageProfile';
+import MyProfile from './PageMyProfile';
 import NotFound from './NotFound';
 import { grey } from '@mui/material/colors';
 import FindingFriends from './PageFindingFriends';
 
-
-import {Auth} from "./util/isAuthApollo"
-
-
-
+import {Auth} from "./util/isAuthApollo";
 
 const bg_grey = grey[50]; // really light grey
-
-
-
 
 const App=() => {
 
@@ -38,6 +32,9 @@ const App=() => {
             <Switch>
                 <Route path="/home">
                   < Home />
+                </Route>
+                <Route path="/myprofile">
+                  <MyProfile />
                 </Route>
                 <Route path="/profile">
                   <Profile />
