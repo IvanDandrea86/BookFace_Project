@@ -9,6 +9,7 @@ import { grey } from '@mui/material/colors';
 import FindingFriends from './PageFindingFriends';
 import { Provider } from 'urql';
 import { client, ssrCache } from "./urqlClient";
+import Sidebar from './Sidebar';
 
 
 const bg_grey = grey[50]; // really light grey
@@ -31,6 +32,9 @@ function App() {
               </Route>
               <Route path="/profile">
                 <Profile />
+              </Route>
+              <Route path="/sidebar">
+                <Sidebar />
               </Route>
               <Route path="/finding">
                 <FindingFriends />

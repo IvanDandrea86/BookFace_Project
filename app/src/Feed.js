@@ -5,6 +5,9 @@ import Post from './Post';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Share from './Share';
+import Message from './Message';
+
+
 
 
 function Feed() {
@@ -14,9 +17,14 @@ function Feed() {
     return (
     <Container className='feed' sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>  
 
+        <Grid item className="post_container" sx={{my: 6}}>
         <StoryReel />
+        </Grid>
+    
+       
+      
 
-        <Grid item className="post_container" sx={{my: 6, width:"100%" }}>
+        <Grid item className="post_container" sx={{my: 6}}>
         <Share 
          profilePic="https://source.unsplash.com/random"
          username= "John Doe"
@@ -25,7 +33,7 @@ function Feed() {
 
         </Grid>
 
-        <Grid item className="post_container" sx={{my: 6, width:"100%" }}>
+        <Grid item className="post_container" sx={{my: 6 }}>
         <Post 
             profilePic="https://source.unsplash.com/random"
             message="Wow this works"
@@ -33,6 +41,7 @@ function Feed() {
             username= "John Doe"
             image= {photo}          
         /> 
+        
 
         <Post 
          profilePic="https://source.unsplash.com/random"
