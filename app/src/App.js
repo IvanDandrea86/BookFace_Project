@@ -21,10 +21,10 @@ const bg_grey = grey[50]; // really light grey
 
 const App=() => {
 
-
+  //Use Auth
   const user=Auth();
   console.log(user.id);
-  
+
   return ( 
      
     <Router>
