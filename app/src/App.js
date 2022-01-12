@@ -14,6 +14,7 @@ import FindingFriends from "./Pages/SearchResult";
 import { grey } from "@mui/material/colors";
 import { Auth } from "./Util/isAuthApollo";
 import Feed from "./Component/Feed";
+import Box from '@mui/material/Box';
 
 const bg_grey = grey[50]; // really light grey
 
@@ -22,15 +23,12 @@ const App = () => {
 
   return (
     <Router>
-      <div className="App" styles={{ backgroundColor: bg_grey }}>
+      <Box className="App" styles={{ backgroundColor: bg_grey }}>
         <Switch>
           <Route exact path="/">
             {!user.id ? <PageLoginSubscribe /> : null}
           </Route>
-          <div
-            className="Only_when_logged"
-            sx={{ minHeigth: "100%", mb: 1, position: "relative" }}
-          >
+          <Box className="main" sx={{position:"relative", minHeight:"100vh", display:"flex", flexDirection:"column"}}>
             <Header />
             <Switch>
               <Route path="/home" component={Home} />
@@ -40,9 +38,9 @@ const App = () => {
               <Route path="*" component={NotFound} />
             </Switch>
             <Footer />
-          </div>
+          </Box>
         </Switch>
-      </div>
+      </Box>
     </Router>
   );
 };

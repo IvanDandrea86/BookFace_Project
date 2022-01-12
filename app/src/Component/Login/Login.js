@@ -45,6 +45,8 @@ export default function Login() {
     const [password, setPassword] = useState ('');
     const [emailError, setEmailError] = useState (false);
     const [passwordError, setPasswordError] = useState (false);
+    const [help, setHelp] = useState ('');
+
     const [login] = useMutation(LOGIN_MUT);
     
     const history = useHistory();
@@ -52,19 +54,23 @@ export default function Login() {
 
   
 
-  const handleSubmit = async (event)=> {
+    const handleSubmit = async (event)=> {
    
-    event.preventDefault();
-    if(password === '') {
-      setPasswordError(true)
-  }
-   if(email === '') {
-       setEmailError(true);
-   }
-      const {data} = await login({
-      variables: { 
-        email: email,
-        password:password }
+        event.preventDefault();
+        setEmailError(false);
+        setPasswordError(false);
+
+
+        if(password === '') {
+          setPasswordError(true)
+      }
+      if(email === '') {
+          setEmailError(true);
+      }
+          const {data} = await login({
+          variables: { 
+            email: email,
+            password:password }
      })
 
      if(data.login.user == null){
@@ -104,7 +110,8 @@ export default function Login() {
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               onChange={(e) => {
-                setEmail(e.target.value)
+                setEmail(e.target.value);
+                setEmailError(false);
               } }
               margin="normal"
               required
@@ -119,7 +126,11 @@ export default function Login() {
               helperText= "Respect the email format."
             />
             <TextField
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setPasswordError(false);
+                setHelp("Minimum length of 8 characters, at least one digit, one uppercase and one lowercase character")
+                }}
               margin="normal"
               required
               fullWidth
@@ -130,7 +141,7 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
               error={passwordError}
-              helperText= "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
+              helperText= {help}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

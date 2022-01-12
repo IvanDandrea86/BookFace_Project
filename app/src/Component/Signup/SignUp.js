@@ -48,13 +48,21 @@ mutation{
 
 export default function SignUp() {
   const {history}=useHistory
+
+  const [firstname, setFirstName] = useState ('');
+  const [lastname, setLastName] = useState ('');
   const [email, setEmail] = useState ('');
   const [password, setPassword] = useState ('');
   const [confirmPassword, setConfirmPassword] = useState ('');
-  const [firstname, setFirstName] = useState ('');
-  const [lastname, setLastName] = useState ('');
-  const [emailError, setEmailError] = useState ('');
-  const [passwordError, setPasswordError] = useState ('');
+  const [help, setHelp] = useState ('');
+
+  const [firstNameError, setFirstNameError] = useState (false);
+  const [lastNameError, setLastNameError] = useState (false);
+  const [emailError, setEmailError] = useState (false);
+  const [passwordError, setPasswordError] = useState (false);
+  const [confirmPasswordError, setConfirmPasswordError] = useState (false);
+
+
   const [register, { loading, error, data }] = useMutation(REGISTER_MUT);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -62,6 +70,39 @@ export default function SignUp() {
   const handleSubmit = async (event) => {
     
     event.preventDefault();
+
+    setFirstNameError(false);
+    setLastNameError(false);
+    setEmailError(false);
+    setPasswordError(false);
+    setConfirmPasswordError(false);
+
+    if(firstname === '') {
+      setFirstNameError(true)
+    }
+
+    if(lastname === '') {
+      setLastNameError(true)
+    }
+
+    if(email === '') {
+      setEmailError(true)
+    }
+
+    if(password === '') {
+      setPasswordError(true)
+    }
+
+    if(confirmPassword === '') {
+      setConfirmPasswordError(true)
+    }
+
+    if(!(confirmPassword === password)) {
+      setPasswordError(true);
+      setConfirmPasswordError(true)
+    }
+
+
     // const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
    const {data}= await  register(
@@ -102,7 +143,9 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={6}>
                 <TextField
-                  onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
+                    setFirstNameError(false);}}
                   autoComplete="given-name"
                   name="firstName"
                   value={firstname}
@@ -111,11 +154,14 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  error={firstNameError}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={6}>
                 <TextField
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={(e) => {
+                  setLastName(e.target.value);
+                  setLastNameError(false);}}
                   required
                   fullWidth
                   id="lastName"
@@ -123,11 +169,14 @@ export default function SignUp() {
                   name="lastName"
                   value={lastname}
                   autoComplete="family-name"
+                  error={lastNameError}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value)
+                  setEmailError(false);}}
                   required
                   fullWidth
                   value={email}
@@ -135,11 +184,15 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  error={emailError}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPasswordError(false);
+                  setPassword(e.target.value);
+                  setHelp("Minimum length of 8 characters, at least one digit, one uppercase and one lowercase character")}}
                   required
                   fullWidth
                   name="password"
@@ -148,27 +201,34 @@ export default function SignUp() {
                   value={password}
                   id="password"
                   autoComplete="new-password"
+                  helperText= {help}
+                  error={passwordError}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={(e) => {
+                    setConfirmPasswordError(false);
+                    setConfirmPassword(e.target.value);
+                  }}
                   name="password_confirm"
                   label="Confirm password"
-                  type="password_confirm"
+                  type="password"
                   value={confirmPassword}
                   id="password_confirm"
                   autoComplete="new-password"
+                  helperText= "Rewrite the same password"
+                  error={confirmPasswordError}
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="Subscribe to our newsletter"
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"

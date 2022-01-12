@@ -1,17 +1,15 @@
 import React from 'react';
-import '../Home/Home.css';
+//import '../Home/Home.css';
 import Feed from "../../Component/Feed";
-
-
-
+import Box from '@mui/material/Box';
 
 function Home() {
     return ( 
-        <div className='home_body'sx={{width:"100%"}}>
+        <Box className='home_body'>
          
             <Feed />
            
-        </div>
+        </Box>
     );
 }
 
