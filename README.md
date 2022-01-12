@@ -1,20 +1,23 @@
 # BookFace_Project
-
-
+## App/Front-end
+### Technologies
+- React
+- Material UI
+- Apollo Client
+- CSS
 
 
 ## Server/Backe-end
-
 ### Technologies
 
-- Node.js
-- Express
+- Node.JS
+- Express.JS
 - Graphql
 - Apollo Server
 - Typescript
 - MongoDb
 - Redis
-- Urql
+
 
 
 ## Note

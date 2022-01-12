@@ -20,8 +20,11 @@ dotenv.config();
 export const app = express();
 
 export const main = async () => {
- 
-  //Connect DB
+  //Set Start Time
+let startTime= new Date();
+
+
+   //Connect DB
   runConnection().catch((err) => {
     console.error(err);
   });
@@ -48,6 +51,6 @@ export const main = async () => {
   });
 
   app.listen(PORT, () => {
-    console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(startTime,`:\n🚀 Server running at: http://localhost:${PORT}`);
   });
 };
