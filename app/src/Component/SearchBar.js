@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import { useHistory } from 'react-router-dom';
+import { Box } from '@mui/system';
+import { useHistory} from 'react-router-dom';
+import { SearchContext } from '../Context/search-context';
 
-
+import { useContext } from 'react'
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -47,27 +49,48 @@ const Search = styled('div')(({ theme }) => ({
     },
   }));
 
-function SearchBar() {
+  
 
-  const navigate = useHistory();
+function SearchBar() {
+ 
+  const value = useContext(SearchContext);
+  
+
+  const history = useHistory();
 
   const [keyword, setKeyword] = useState ('');
-
+  value.searchHandler(keyword)
+  const handleChange=(e)=>{
+    setKeyword(e)
+    
+    console.log(e.length)
+    if (e.length> 1 ){
+      history.push("/finding")
+      history.go(+1)
+    
+    }
+  }
     return (
         <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
+            <Box
+            component="form"
+            onSubmit={ (e) => {
+              e.preventDefault();
+              alert("gotta submit");
+            }}
+            noValidate
+            sx={{ mt: 1 }}
+          >
             <StyledInputBase
-              onChange={(e) => { 
-                const word = e.target.value;
-                word.length > 1 && setKeyword(word);
-                console.log(keyword)
-                }}
-            
+              onChange={(e) => {handleChange(e.target.value)}}
+              value={keyword}
               placeholder="Find friends…"
               inputProps={{ 'aria-label': 'search' }}
             />
+            </Box>
           </Search>
     )
 }

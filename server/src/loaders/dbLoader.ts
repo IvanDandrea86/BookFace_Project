@@ -4,5 +4,5 @@ export const runConnection=async():Promise<void>=>{
     await mongoose.connect(process.env.ATLAS_CONNETCION,{})
     let startTime=new Date()
 
-console.log(startTime,": 📦 MongoDB Connected")        
+console.log(startTime,"\m 📦 MongoDB Connected")        
 }

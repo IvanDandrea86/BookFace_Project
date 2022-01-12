@@ -27,6 +27,7 @@ export default function AddFriendCard(props) {
       </CardContent>
       <CardActions sx={{display:"flex", justifyContent:"end"}}>
         {props.bouton}
+        {props.button}
       </CardActions>
     </Card>
   );

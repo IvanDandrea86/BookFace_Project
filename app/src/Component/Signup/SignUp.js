@@ -33,18 +33,6 @@ mutation ($email:String!,$password:String!,$firstname:String!,$lastname:String! 
   }
 }
 `;
-const MUTTEST = gql`
-mutation{
-  createUser(options: { email: "hfghsdsdsdfddghf", password: "passwor1Ad" }, firstname:"sdqsdqsdqsd", lastname:"sdqsdqsdqsd"){
-    user{
-      _id
-    }
-    errors{
-      field
-			message
-    }
-  }
-}`
 
 export default function SignUp() {
 
@@ -69,8 +57,8 @@ export default function SignUp() {
 
 
   const [register, { loading, error, data }] = useMutation(REGISTER_MUT);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>Error :(</p>;
     
   const handleSubmit = async (event) => {
     
@@ -128,15 +116,16 @@ export default function SignUp() {
       console.log(data.createUser.user)
       history.push("/home")
       history.go(+1)
+      window.location.reload(false);
    }
+
    const handleEmailChange=(e)=>{
     setEmail(e)
     if(e==="" || !e.match(
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     )){
       setEmailError(true)
-      setHelperEmail("Insert a valid email format [*@.*]");
-      
+      setHelperEmail("Insert a valid email format [*@.*]");  
     }
     else{
       setEmailError(false)
@@ -144,6 +133,7 @@ export default function SignUp() {
       setEmailColor('success')
     }
   }
+  
   const handlePasswordChange=(e)=>{
     setPassword(e)
     if(e==="" || !e.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)){
@@ -159,6 +149,7 @@ export default function SignUp() {
       setPasswordColor('success')
     }
   }
+
   const handlePasswordConfirmChange=(e,password)=>{
     setConfirmPassword(e)
     if(e===''){
@@ -169,17 +160,16 @@ export default function SignUp() {
     }
     else if(e!==password) {
       setConfirmPasswordError(true)
-      setHelperConfirmPass(
-        "Passwords must be the same ");
+      setHelperConfirmPass("Passwords must bethe same ");
       
     }
     else {
       setConfirmPasswordError(false)
-      setHelperConfirmPass(
-      " ");
+      setHelperConfirmPass("");
       setConfirmPasswordColor('success')  
     }
   }
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -309,3 +299,4 @@ export default function SignUp() {
     </ThemeProvider>
   );
 }
+
