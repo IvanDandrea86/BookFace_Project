@@ -138,7 +138,7 @@ export default function SignUp() {
     }
     else{
       setEmailError(false)
-      
+      setHelperEmail("");
       setEmailColor('success')
     }
   }
@@ -152,7 +152,8 @@ export default function SignUp() {
     }
     else{
       setPasswordError(false)
-      
+      setHelperPass(
+      "");
       setPasswordColor('success')
     }
   }
@@ -166,12 +167,14 @@ export default function SignUp() {
     }
     else if(e!==password) {
       setConfirmPasswordError(true)
-      setHelperPass(
+      setHelperConfirmPass(
         "Passwords must be the same ");
       
     }
     else {
       setConfirmPasswordError(false)
+      setHelperConfirmPass(
+      " ");
       setConfirmPasswordColor('success')  
     }
   }
