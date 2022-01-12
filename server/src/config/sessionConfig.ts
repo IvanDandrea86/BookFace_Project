@@ -39,5 +39,6 @@ redis.on('error',  (err)=> {
 });
 redis.on('connect', ()=> {
   let startTime=new Date();
-  console.log(startTime,'🚀 Redis Connected');
+  console.log(startTime,'\n🚀 Redis Connected');
+
 });

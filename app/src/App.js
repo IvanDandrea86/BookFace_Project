@@ -13,37 +13,50 @@ import FindingFriends from "./Pages/SearchResult";
 //Theme
 import { grey } from "@mui/material/colors";
 import { Auth } from "./Util/isAuthApollo";
-import Feed from "./Component/Feed";
+
+import ErrorMessage from "./Util/ErrorMessage";
+
+import { createContext } from "react";
 
 const bg_grey = grey[50]; // really light grey
+
+
+
+
 
 const App = () => {
   const user = Auth();
 
   return (
+   
     <Router>
+       <Header />
       <div className="App" styles={{ backgroundColor: bg_grey }}>
         <Switch>
-          <Route exact path="/">
-            {!user.id ? <PageLoginSubscribe /> : null}
-          </Route>
-          <div
-            className="Only_when_logged"
-            sx={{ minHeigth: "100%", mb: 1, position: "relative" }}
-          >
-            <Header />
-            <Switch>
-              <Route path="/home" component={Home} />
-              <Route path="/myprofile" component={MyProfile} />
-              <Route path="/profile:id" component={Profile} />
-              <Route path="/finding" component={FindingFriends} />
-              <Route path="*" component={NotFound} />
-            </Switch>
-            <Footer />
-          </div>
+          {!user.id ? (
+            <Route exact path="/">
+              <PageLoginSubscribe />
+            </Route>
+          ) : null}
+         
+        
         </Switch>
+        <Switch>
+
+       
+       
+        <Route exact path="/" component={ErrorMessage} />
+        <Route path="/home" component={Home} />
+        <Route path="/myprofile" component={MyProfile} />
+        <Route path="/profile:id" component={Profile} />
+        <Route path="/finding" component={FindingFriends} />
+        <Route path="*" component={NotFound} />
+        
+         </Switch>
+        <Footer />
       </div>
     </Router>
+    
   );
 };
 

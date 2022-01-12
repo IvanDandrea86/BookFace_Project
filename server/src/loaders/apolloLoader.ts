@@ -35,7 +35,7 @@ export const apolloLoader=async():Promise<void>=>{
     .then(()=>{
         let startTime= new Date();
            
-        console.log(startTime,`:\n🚀 Graphql running at:http://localhost:${PORT}/graphql`); 
+        console.log(startTime,`\n🚀 Graphql running at:http://localhost:${PORT}/graphql`); 
         apolloServer.applyMiddleware({app,
             cors:{
                 credentials:true

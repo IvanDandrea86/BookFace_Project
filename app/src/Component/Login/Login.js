@@ -63,6 +63,7 @@ export default function Login() {
       console.log(data.login.user._id);
       history.push("/home");
       history.go(+1);
+      window.location.reload(false);
     }
   };
 
