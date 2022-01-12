@@ -59,25 +59,12 @@ export default function SignUp() {
   const [passwordColor, setPasswordColor] = useState ('primary');
   const [emailColor, setEmailColor] = useState ('primary');
   const [confirmPasswordColor, setConfirmPasswordColor] = useState ('primary');
-  
+  const [helperPass, setHelperPass] = useState("");
+  const [helperEmail, setHelperEmail] = useState("");
+  const [helperConfirmPass, setHelperConfirmPass] = useState("");
   const history = useHistory();
 
-console.log('email:',email)
 
-console.log('password:',password)  
-
-console.log('emailError:',emailError)
-
-console.log('passwordError:',passwordError)
-
-console.log('emailColor:',emailColor)
-
-console.log('passwordColor:',passwordColor)
-console.log('Confirm passwordError:',confirmPasswordError)
-
-console.log('Confirm passwordColor:',confirmPasswordColor)
-
-console.log('confirm Password:',confirmPassword)
 
   const [register, { loading, error, data }] = useMutation(REGISTER_MUT);
   if (loading) return <p>Loading...</p>;
@@ -113,6 +100,8 @@ console.log('confirm Password:',confirmPassword)
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     )){
       setEmailError(true)
+      setHelperEmail("Insert a valid email format [*@.*]");
+      
     }
     else{
       setEmailError(false)
@@ -124,6 +113,9 @@ console.log('confirm Password:',confirmPassword)
     setPassword(e)
     if(e==="" || !e.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)){
       setPasswordError(true)
+      setHelperPass(
+        "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
+      );
     }
     else{
       setPasswordError(false)
@@ -135,9 +127,14 @@ console.log('confirm Password:',confirmPassword)
     setConfirmPassword(e)
     if(e===''){
       setConfirmPasswordError(true)
+       setHelperPass(
+        "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
+      );
     }
     else if(e!==password) {
       setConfirmPasswordError(true)
+      setHelperPass(
+        "Passwords must be the same ");
       
     }
     else {
@@ -199,7 +196,7 @@ console.log('confirm Password:',confirmPassword)
                   name="email"
                   color={emailColor}
                   autoComplete="email"
-                  helperText= "Respect the email format."
+                  helperText= {helperEmail}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -215,8 +212,7 @@ console.log('confirm Password:',confirmPassword)
                   error={passwordError}
                   color={passwordColor}
                   autoComplete="new-password"
-                  helperText= "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
-            
+                  helperText= {helperPass}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -232,7 +228,7 @@ console.log('confirm Password:',confirmPassword)
                   error={confirmPasswordError}
                   autoComplete="new-password"
                   color={confirmPasswordColor}
-                  helperText= "Passwords must be the same "
+                  helperText= {helperConfirmPass}
             
                 />
               </Grid>
