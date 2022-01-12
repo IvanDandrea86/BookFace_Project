@@ -105,7 +105,7 @@ export default function SignUp() {
     }
     else{
       setEmailError(false)
-      
+      setHelperEmail("");
       setEmailColor('success')
     }
   }
@@ -119,7 +119,8 @@ export default function SignUp() {
     }
     else{
       setPasswordError(false)
-      
+      setHelperPass(
+      "");
       setPasswordColor('success')
     }
   }
@@ -133,12 +134,14 @@ export default function SignUp() {
     }
     else if(e!==password) {
       setConfirmPasswordError(true)
-      setHelperPass(
+      setHelperConfirmPass(
         "Passwords must be the same ");
       
     }
     else {
       setConfirmPasswordError(false)
+      setHelperConfirmPass(
+      " ");
       setConfirmPasswordColor('success')  
     }
   }
@@ -222,7 +225,7 @@ export default function SignUp() {
                   onChange={(e) => handlePasswordConfirmChange(e.target.value,password)}
                   name="password_confirm"
                   label="Confirm password"
-                  type="password_confirm"
+                  type="password"
                   value={confirmPassword}
                   id="password_confirm"
                   error={confirmPasswordError}
