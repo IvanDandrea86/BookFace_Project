@@ -3,11 +3,12 @@ import * as React from 'react';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 
 
 const NotFound = () => {
   return (
-    <div className="not-found">
+    <Box className="not-found" sx={{m:2, widht:"90%", alignItems:"center"}}>
       <Stack sx={{ width: '100%' }} spacing={2}>
             <Alert severity="error">
                 <AlertTitle>Error</AlertTitle>
@@ -15,7 +16,7 @@ const NotFound = () => {
                 <Link to="/">Return to the login page</Link>
             </Alert>
       </Stack>
-    </div>
+    </Box>
   );
 }
  

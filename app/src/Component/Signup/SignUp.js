@@ -36,6 +36,7 @@ mutation ($email:String!,$password:String!,$firstname:String!,$lastname:String! 
 
 export default function SignUp() {
 
+
   const [email, setEmail] = useState ('');
   const [password, setPassword] = useState ('');
   const [confirmPassword, setConfirmPassword] = useState ('');
@@ -54,6 +55,7 @@ export default function SignUp() {
 
 
 
+
   const [register, { loading, error, data }] = useMutation(REGISTER_MUT);
   // if (loading) return <p>Loading...</p>;
   // if (error) return <p>Error :(</p>;
@@ -61,6 +63,39 @@ export default function SignUp() {
   const handleSubmit = async (event) => {
     
     event.preventDefault();
+
+    setFirstNameError(false);
+    setLastNameError(false);
+    setEmailError(false);
+    setPasswordError(false);
+    setConfirmPasswordError(false);
+
+    if(firstname === '') {
+      setFirstNameError(true)
+    }
+
+    if(lastname === '') {
+      setLastNameError(true)
+    }
+
+    if(email === '') {
+      setEmailError(true)
+    }
+
+    if(password === '') {
+      setPasswordError(true)
+    }
+
+    if(confirmPassword === '') {
+      setConfirmPasswordError(true)
+    }
+
+    if(!(confirmPassword === password)) {
+      setPasswordError(true);
+      setConfirmPasswordError(true)
+    }
+
+
     // const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
    const {data}= await  register(
@@ -154,7 +189,9 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={6}>
                 <TextField
-                  onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
+                    setFirstNameError(false);}}
                   autoComplete="given-name"
                   name="firstName"
                   value={firstname}
@@ -163,11 +200,14 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  error={firstNameError}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={6}>
                 <TextField
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={(e) => {
+                  setLastName(e.target.value);
+                  setLastNameError(false);}}
                   required
                   fullWidth
                   id="lastName"
@@ -175,11 +215,14 @@ export default function SignUp() {
                   name="lastName"
                   value={lastname}
                   autoComplete="family-name"
+                  error={lastNameError}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+
                 onChange={(e) => handleEmailChange(e.target.value)}
+
                   required
                   fullWidth
                   value={email}
@@ -189,12 +232,16 @@ export default function SignUp() {
                   name="email"
                   color={emailColor}
                   autoComplete="email"
+
                   helperText= {helperEmail}
+
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+
                 onChange={(e) => handlePasswordChange(e.target.value)}
+
                   required
                   fullWidth
                   name="password"
@@ -205,14 +252,18 @@ export default function SignUp() {
                   error={passwordError}
                   color={passwordColor}
                   autoComplete="new-password"
+
                   helperText= {helperPass}
+
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
+
                   onChange={(e) => handlePasswordConfirmChange(e.target.value,password)}
+
                   name="password_confirm"
                   label="Confirm password"
                   type="password"
@@ -220,17 +271,19 @@ export default function SignUp() {
                   id="password_confirm"
                   error={confirmPasswordError}
                   autoComplete="new-password"
+
                   color={confirmPasswordColor}
                   helperText= {helperConfirmPass}
             
+
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="Subscribe to our newsletter"
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"

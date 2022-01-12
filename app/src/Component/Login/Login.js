@@ -30,6 +30,9 @@ const LOGIN_MUT = gql`
 `;
 
 export default function Login() {
+
+
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
@@ -60,6 +63,7 @@ export default function Login() {
       console.log(data.login.errors);
     } else {
       //LOGIN SUCCESS
+
       console.log(data.login.user._id);
       history.push("/home");
       history.go(+1);
@@ -122,8 +126,10 @@ export default function Login() {
           >
             <TextField
               onChange={(e) => {
+
                 handleEmailChange(e.target.value);
               }}
+
               margin="normal"
               required
               fullWidth
@@ -138,7 +144,9 @@ export default function Login() {
               helperText={helperEmail}
             />
             <TextField
+
               onChange={(e) => handlePasswordChange(e.target.value)}
+
               margin="normal"
               required
               fullWidth

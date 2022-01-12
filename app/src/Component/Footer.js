@@ -18,19 +18,8 @@ function Copyright(props) {
 
   export default  function Footer() {
     return (
-        <div sx={{ position: 'absolute', bottom:0 }}>
-            <Box color="#FFFFFF" sx={{ bgcolor: 'primary.main', p: 2 }} component="footer">
-                <Typography variant="h6" align="center" gutterBottom>
-                Ici on a le footer
-                </Typography>
-                <Typography
-                variant="subtitle1"
-                align="center"
-                color="inherit"
-                component="p"
-                >
-                Réfléchir ce qui serait utile ici
-                </Typography>
+        <div className="myfooter" >
+            <Box color="#FFFFFF" sx={{ bgcolor: 'primary.main', p: 2, position:"absolute", bottom:0, width:"100%" }} component="footer">
                 <Copyright />
             </Box>
         </div>

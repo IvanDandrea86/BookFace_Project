@@ -14,9 +14,12 @@ import FindingFriends from "./Pages/SearchResult";
 import { grey } from "@mui/material/colors";
 import { Auth } from "./Util/isAuthApollo";
 
+
+
 import ErrorMessage from "./Util/ErrorMessage";
 
 import { createContext } from "react";
+
 
 const bg_grey = grey[50]; // really light grey
 
@@ -30,6 +33,7 @@ const App = () => {
   return (
    
     <Router>
+
        <Header />
       <div className="App" styles={{ backgroundColor: bg_grey }}>
         <Switch>
@@ -55,6 +59,7 @@ const App = () => {
          </Switch>
         <Footer />
       </div>
+
     </Router>
     
   );

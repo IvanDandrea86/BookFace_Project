@@ -128,8 +128,9 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
 
+  // sx={{ flexGrow: 1 }}
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box className="header" >
       <AppBar position="static">
         <Toolbar>
           <IconButton

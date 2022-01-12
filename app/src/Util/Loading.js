@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 
 function Loading() {
     return (
-        <Container sx={{ width: '100%', display:"flex", justifyContent:"center", alignItems:"center" }}>
+        <Container sx={{ width: '100%', height:"30vh", display:"flex", justifyContent:"center", alignItems:"center" }}>
             <CircularProgress color='primary'/>
         </Container>
     )
