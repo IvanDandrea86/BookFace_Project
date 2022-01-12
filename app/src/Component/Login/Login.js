@@ -45,15 +45,24 @@ export default function Login() {
     const [password, setPassword] = useState ('');
     const [emailError, setEmailError] = useState (false);
     const [passwordError, setPasswordError] = useState (false);
+    const [emailColor, setEmailColor] = useState ('primary');
+    const [passwordColor, setPasswordColor] = useState ('primary');
     const [login] = useMutation(LOGIN_MUT);
     
     const history = useHistory();
 
+console.log('email:',email)
 
-  
+console.log('password:',password)  
 
-  const handleSubmit = async (event)=> {
-   
+console.log('emailError:',emailError)
+
+console.log('passwordError:',passwordError)
+
+console.log('emailColor:',emailColor)
+
+console.log('passwordColor:',passwordColor)
+  const handleSubmit = async (event)=> {   
     event.preventDefault();
     if(password === '') {
       setPasswordError(true)
@@ -66,22 +75,45 @@ export default function Login() {
         email: email,
         password:password }
      })
-
      if(data.login.user == null){
      console.log(data.login.errors)
      }
      else{
+
+
+      //LOGIN SUCCESS
       console.log(data.login.user._id);
       history.push("/home")
       history.go(+1)
     
     }
-   
   }
 
-   
-   
-  
+  const handleEmailChange=(e)=>{
+    setEmail(e)
+    if(e==="" || !e.match(
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    )){
+      setEmailError(true)
+    }
+    else{
+      setEmailError(false)
+      
+      setEmailColor('success')
+    }
+  }
+  const handlePasswordChange=(e)=>{
+    setPassword(e)
+    if(e==="" || !e.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)){
+      setPasswordError(true)
+    }
+    else{
+      setPasswordError(false)
+      
+      setPasswordColor('success')
+    }
+  }
+
 
   return (
     
@@ -104,7 +136,7 @@ export default function Login() {
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               onChange={(e) => {
-                setEmail(e.target.value)
+                handleEmailChange(e.target.value)
               } }
               margin="normal"
               required
@@ -116,10 +148,11 @@ export default function Login() {
               value={email}
               autoFocus
               error={emailError}
+              color={emailColor}
               helperText= "Respect the email format."
             />
             <TextField
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => handlePasswordChange(e.target.value)}
               margin="normal"
               required
               fullWidth
@@ -128,6 +161,7 @@ export default function Login() {
               label="Password"
               type="password"
               id="password"
+              color={passwordColor}
               autoComplete="current-password"
               error={passwordError}
               helperText= "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
