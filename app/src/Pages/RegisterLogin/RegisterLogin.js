@@ -9,18 +9,7 @@ import Avatar from '@mui/material/Avatar';
 
 
 
-function Copyright(props) {
-    return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-        <Link color="inherit" href="https://github.com/IvanDandrea86/BookFace_Project">
-          Samir | Gizem | Ivan | Clara
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
+
   
 
 export default function Page_Login_Subscribe() {
@@ -46,7 +35,6 @@ export default function Page_Login_Subscribe() {
                 <Login />
                 <SignUp />
             </Grid>
-            <Copyright sx={{ mt: 5 }} />
         </div>
     )
 }
