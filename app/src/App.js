@@ -35,7 +35,7 @@ const App = () => {
    
     <Router>
 
-       <Header />
+       
       <div className="App" styles={{ backgroundColor: bg_grey }}>
         <Switch>
           {!context.auth ? (
@@ -43,11 +43,14 @@ const App = () => {
               <PageLoginSubscribe />
             </Route>
           ) : null}
-         
         
+        {context.auth ? (
+            <Header />
+            ) : null}
         </Switch>
         <Switch>
-        <Route exact path="/" component={ErrorMessage} />
+        {context.auth ? (
+        <Route exact path="/" component={ErrorMessage} /> ) : null}
         <Route path="/home" component={Home} />
         <Route path="/myprofile" component={MyProfile} />
         <Route path="/profile/:id" component={Profile} />
@@ -56,10 +59,10 @@ const App = () => {
         <Route path="/chat" component={Chat} />
         
         <Route path="/finding" component={FindingFriends} />
-        <Route path="*" component={NotFound} />
+        {context.auth ? ( <Route path="*" component={NotFound} />) : null}
         
          </Switch>
-        <Footer />
+        <Footer /> 
       </div>
 
     </Router>
