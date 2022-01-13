@@ -82,7 +82,7 @@ export default function Login() {
       setHelperEmail("Insert a valid email format [*@.*]");
     } else {
       setEmailError(false);
-
+      setHelperEmail("")
       setEmailColor("success");
     }
   };
@@ -98,6 +98,7 @@ export default function Login() {
       );
     } else {
       setPasswordError(false);
+      setHelperPass("")
 
       setPasswordColor("success");
     }

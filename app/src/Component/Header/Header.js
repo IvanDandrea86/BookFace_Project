@@ -43,7 +43,7 @@ export default function PrimarySearchAppBar() {
   };
 
   const handleMenuClose = () => {
-    console.log("pressed")
+
     setAnchorEl(null);
     handleMobileMenuClose();
   };

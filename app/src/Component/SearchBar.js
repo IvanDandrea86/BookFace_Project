@@ -62,8 +62,7 @@ function SearchBar() {
   value.searchHandler(keyword)
   const handleChange=(e)=>{
     setKeyword(e)
-    
-    console.log(e.length)
+
     if (e.length> 1 ){
       history.push("/finding")
       history.go(+1)

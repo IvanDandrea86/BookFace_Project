@@ -15,7 +15,7 @@ export default function ButtonAddCard() {
     setAdd("Pending...");
     setPending(<PendingIcon />);
     setTimeout(() => {
-      console.log('This will run after 1 second!')
+  
     }, 1000);
   };
 
