@@ -23,6 +23,7 @@ query($user_id:String)
 {lastname
 firstname
 friendList
+createdAt
 }}
 `
 
@@ -73,7 +74,8 @@ function Feed() {
             message={val.content}
             timestamp={val.createdAt}
             username= {val._id}
-            image= {photo}          
+            image= {photo} 
+            timestamp ={val.createdAt}         
         /> 
         </Grid>
          ))}

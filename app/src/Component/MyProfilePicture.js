@@ -11,6 +11,7 @@ import ButtonMySettings from './Buttons/ButtonMySettings';
 import { useQuery,gql } from '@apollo/client';
 import { Auth } from '../Util/isAuthApollo';
 import Loading from '../Util/Loading';
+import ErrorMessage from '../Util/ErrorMessage';
 
 
 
@@ -35,7 +36,7 @@ export default function ProfilePicture() {
           }
       })
         if (loading) return <Loading />;
-        if (error) return <p>ERROR</p>;
+        if (error) return <ErrorMessage />;
         if (!data) return <p>Not found</p>;  
     
 

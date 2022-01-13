@@ -2,6 +2,7 @@ import React from 'react'
 import BannerProfile from '../../Component/Buttons/BannerProfile'
 import MyInfo from '../../Component/MyInfo'
 import MyProfilePicture from '../../Component/MyProfilePicture'
+import MyPosts from '../../Component/MyPosts'
 
 
 function MyProfile() {
@@ -15,6 +16,7 @@ function MyProfile() {
             {/** Some general info of the guy with pictos */}
             <MyInfo />
             {/** Storys in chronogical order */}
+            <MyPosts />
         </div>
     )
 }
