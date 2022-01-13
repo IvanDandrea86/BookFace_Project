@@ -35,18 +35,6 @@ mutation ($email:String!,$password:String!,$firstname:String!,$lastname:String! 
   }
 }
 `;
-const MUTTEST = gql`
-mutation{
-  createUser(options: { email: "hfghsdsdsdfddghf", password: "passwor1Ad" }, firstname:"sdqsdqsdqsd", lastname:"sdqsdqsdqsd"){
-    user{
-      _id
-    }
-    errors{
-      field
-			message
-    }
-  }
-}`
 
 export default function SignUp() {
 
@@ -65,53 +53,52 @@ export default function SignUp() {
   const [helperEmail, setHelperEmail] = useState("");
   const [helperConfirmPass, setHelperConfirmPass] = useState("");
   const history = useHistory();
+  const [firstNameError, setFirstNameError]=useState(false)
+  const [lastNameError, setLastNameError]=useState(false)
 
-  
 
 
 
   const [register, { loading, error, data }] = useMutation(REGISTER_MUT);
-  if (loading) return <Loading />;
-  if (error) return <ErrorMessage />;
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>Error :(</p>;
     
   const handleSubmit = async (event) => {
     
     event.preventDefault();
 
-    // setFirstNameError(false);
-    // setLastNameError(false);
+    setFirstNameError(false);
+    setLastNameError(false);
     setEmailError(false);
     setPasswordError(false);
     setConfirmPasswordError(false);
 
-    // if(firstname === '') {
-    //   setFirstNameError(true)
-    // }
+    if(firstname === '') {
+      setFirstNameError(true)
+    }
 
-    // if(lastname === '') {
-    //   setLastNameError(true)
-    // }
+    if(lastname === '') {
+      setLastNameError(true)
+    }
 
-    // if(email === '') {
-    //   setEmailError(true)
-    // }
+    if(email === '') {
+      setEmailError(true)
+    }
 
-    // if(password === '') {
-    //   setPasswordError(true)
-    // }
+    if(password === '') {
+      setPasswordError(true)
+    }
 
-    // if(confirmPassword === '') {
-    //   setConfirmPasswordError(true)
-    // }
+    if(confirmPassword === '') {
+      setConfirmPasswordError(true)
+    }
 
-    // if(!(confirmPassword === password)) {
-    //   setPasswordError(true);
-    //   setConfirmPasswordError(true)
-    // }
+    if(!(confirmPassword === password)) {
+      setPasswordError(true);
+      setConfirmPasswordError(true)
+    }
 
 
-    // const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
    const {data}= await  register(
      {
        variables:{
@@ -130,15 +117,16 @@ export default function SignUp() {
       console.log(data.createUser.user)
       history.push("/home")
       history.go(+1)
+      window.location.reload(false);
    }
+
    const handleEmailChange=(e)=>{
     setEmail(e)
     if(e==="" || !e.match(
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     )){
       setEmailError(true)
-      setHelperEmail("Insert a valid email format [*@.*]");
-      
+      setHelperEmail("Insert a valid email format [*@.*]");  
     }
     else{
       setEmailError(false)
@@ -146,6 +134,7 @@ export default function SignUp() {
       setEmailColor('success')
     }
   }
+  
   const handlePasswordChange=(e)=>{
     setPassword(e)
     if(e==="" || !e.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)){
@@ -161,6 +150,7 @@ export default function SignUp() {
       setPasswordColor('success')
     }
   }
+
   const handlePasswordConfirmChange=(e,password)=>{
     setConfirmPassword(e)
     if(e===''){
@@ -171,17 +161,16 @@ export default function SignUp() {
     }
     else if(e!==password) {
       setConfirmPasswordError(true)
-      setHelperConfirmPass(
-        "Passwords must be the same ");
+      setHelperConfirmPass("Passwords must bethe same ");
       
     }
     else {
       setConfirmPasswordError(false)
-      setHelperConfirmPass(
-      " ");
+      setHelperConfirmPass("");
       setConfirmPasswordColor('success')  
     }
   }
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -203,8 +192,8 @@ export default function SignUp() {
                 <TextField
                   onChange={(e) => {
                     setFirstName(e.target.value);
-                    // setFirstNameError(false);}
-                  }}
+                    setFirstNameError(false);}
+                  }
                   autoComplete="given-name"
                   name="firstName"
                   value={firstname}
@@ -213,14 +202,14 @@ export default function SignUp() {
                   id="firstNameNew"
                   label="First Name"
                   autoFocus
-                  // error={firstNameError}
+                  error={firstNameError}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={6}>
                 <TextField
                 onChange={(e) => {
                   setLastName(e.target.value);
-                  // setLastNameError(false);
+                   setLastNameError(false);
                 }}
                   required
                   fullWidth
@@ -229,12 +218,14 @@ export default function SignUp() {
                   name="lastName"
                   value={lastname}
                   autoComplete="family-name"
-                  // error={lastNameError}
+                  error={lastNameError}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+
                 onChange={(e) => handleEmailChange(e.target.value)}
+
                   required
                   fullWidth
                   value={email}
@@ -244,12 +235,16 @@ export default function SignUp() {
                   name="email"
                   color={emailColor}
                   autoComplete="email"
+
                   helperText= {helperEmail}
+
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+
                 onChange={(e) => handlePasswordChange(e.target.value)}
+
                   required
                   fullWidth
                   name="password"
@@ -261,13 +256,16 @@ export default function SignUp() {
                   color={passwordColor}
                   autoComplete="new-password"
                   helperText= {helperPass}
+
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
+
                   onChange={(e) => handlePasswordConfirmChange(e.target.value,password)}
+
                   name="password_confirm"
                   label="Confirm password"
                   type="password"
@@ -275,9 +273,11 @@ export default function SignUp() {
                   id="password_confirm"
                   error={confirmPasswordError}
                   autoComplete="new-password"
+
                   color={confirmPasswordColor}
                   helperText= {helperConfirmPass}
             
+
                 />
               </Grid>
               {/* <Grid item xs={12}>
@@ -301,3 +301,4 @@ export default function SignUp() {
     </ThemeProvider>
   );
 }
+

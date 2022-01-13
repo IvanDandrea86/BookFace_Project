@@ -23,6 +23,8 @@ export const main = async () => {
   //Set Start Time
 let startTime= new Date();
 
+let nStartTime = Date.now()
+
 
    //Connect DB
   runConnection().catch((err) => {
@@ -51,6 +53,10 @@ let startTime= new Date();
   });
 
   app.listen(PORT, () => {
-  console.log(startTime,`:\n🚀 Server running at: http://localhost:${PORT}`);
+  console.log(startTime,`\n🚀 Server running at: http://localhost:${PORT}`);
   });
+
+  let nEndTime = Date.now()
+  console.log(`\tBookFace_Server v1.0.0\n\tServer up in: ${ String(nEndTime - nStartTime) } milliseconds\n------------------------------------------------`)    
+  
 };
