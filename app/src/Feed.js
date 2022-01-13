@@ -1,6 +1,5 @@
 import React from 'react';
 import StoryReel from './StoryReel';
-import MessageSender from './MessageSender';
 import Post from './Post';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';

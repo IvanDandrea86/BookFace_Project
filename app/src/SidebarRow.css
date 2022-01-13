@@ -4,6 +4,8 @@
     padding: 10px;
     align-items: center;
     cursor: pointer;
+    border-bottom: 1px solid lightgray;
+    width: 250px;
 }
 
 .SidebarRow:hover {
@@ -13,7 +15,7 @@
 }
 
 .SidebarRow > p {
-    margin-left: 10px;
+    margin-left: 20px;
     font-size: 18px;
     font-weight: 600;
     text-transform: lowercase;

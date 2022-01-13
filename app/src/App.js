@@ -8,8 +8,13 @@ import MyProfile from './PageMyProfile';
 import NotFound from './NotFound';
 import { grey } from '@mui/material/colors';
 import FindingFriends from './PageFindingFriends';
-
 import {Auth} from "./util/isAuthApollo";
+import Friends from './Friends';
+
+
+
+
+
 
 const bg_grey = grey[50]; // really light grey
 
@@ -38,6 +43,9 @@ const App=() => {
                 </Route>
                 <Route path="/profile">
                   <Profile />
+                </Route>
+                <Route path="/friends">
+                  <Friends />
                 </Route>
                 <Route path="/finding">
                   <FindingFriends />

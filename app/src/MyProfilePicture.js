@@ -31,7 +31,7 @@ export default function ProfilePicture() {
             <Grid item xs={12} sm={12} md={8} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 {/** Nom user + buttons pour poster et updater profil */}
                 <Typography variant="h3" gutterBottom component="div" sx={{ml: 1, justify: "left"}}>
-                    {user.id}
+        
                 </Typography>
                 <Grid container spacing={1}>
                     <Grid item xs={12} sm={6} md={6}>
