@@ -1,0 +1,65 @@
+@media only screen and (min-width: 600px) {
+    .messageSender {
+     width: 65%;
+    }
+  }
+
+  @media only screen and (max-width: 601px) {
+    .messageSender {
+     width: 100%;
+    }
+  }
+
+
+.messageSender {
+    display: flex;
+    margin-top: 30px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow:  0px 5px 7px -7px rgba (0, 0, 0, 0.75);
+    border-bottom: 1px solid #eff2f5;
+    padding: 15px;
+    
+}
+
+.messageSender > form {
+    flex: 1;
+    display: flex;
+}
+
+.messageSender > form > input {
+outline-width: 0;
+border: none;
+padding: 5px 20px;
+margin: 0 10px;
+border-radius: 999px;
+background-color: #eff2f5;
+}
+
+
+
+/* USE MEDIA QUERY IF THE BUTTON HAS TO BE HIDDEN ON BIG DEVICES */
+
+.messageSender > form > button {
+display: visible;
+border: none;
+padding: 5px 20px;
+margin: 0 10px;
+border-radius: 999px;
+background-color: #2e81f4;
+color: white;
+flex-wrap: wrap;
+}
+
+.messageSender > form > button:hover {
+background-color: #438ef7;
+cursor: pointer;
+ transform:  scale(1.07);
+}
+
+.messageSender_input {
+    flex: 1;
+}
+
+
+

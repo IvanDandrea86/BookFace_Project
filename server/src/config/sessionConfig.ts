@@ -38,5 +38,7 @@ redis.on('error',  (err)=> {
   console.log('Could not establish a connection with redis. ' + err);
 });
 redis.on('connect', ()=> {
-  console.log('🚀 Redis Connected');
+  let startTime=new Date();
+  console.log(startTime,'\n🚀 Redis Connected');
+
 });

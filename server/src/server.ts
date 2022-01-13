@@ -20,13 +20,18 @@ dotenv.config();
 export const app = express();
 
 export const main = async () => {
- 
-  //Connect DB
+  //Set Start Time
+let startTime= new Date();
+
+let nStartTime = Date.now()
+
+
+   //Connect DB
   runConnection().catch((err) => {
     console.error(err);
   });
   //Seed with FakeData
-   startSeed(20)
+   //startSeed(20)
 
   //CORS middelware
   app.use(
@@ -48,6 +53,10 @@ export const main = async () => {
   });
 
   app.listen(PORT, () => {
-    console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(startTime,`\n🚀 Server running at: http://localhost:${PORT}`);
   });
+
+  let nEndTime = Date.now()
+  console.log(`\tBookFace_Server v1.0.0\n\tServer up in: ${ String(nEndTime - nStartTime) } milliseconds\n------------------------------------------------`)    
+  
 };

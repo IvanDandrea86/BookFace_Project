@@ -8,8 +8,8 @@ import { MyContext } from 'src/types/types';
 
 
 export const apolloLoader=async():Promise<void>=>{
-
-    const apolloServer = new ApolloServer({
+  
+       const apolloServer = new ApolloServer({
         schema:await buildSchema({
             resolvers:resolvers,
             validate:false, 
@@ -29,10 +29,17 @@ export const apolloLoader=async():Promise<void>=>{
             
             return response
         }
+        
     }); 
     await apolloServer.start()
     .then(()=>{
-        console.log(`🚀 Graphql running at http://localhost:${PORT}/graphql`); 
-        apolloServer.applyMiddleware({app});
+        let startTime= new Date();
+           
+        console.log(startTime,`\n🚀 Graphql running at:http://localhost:${PORT}/graphql`); 
+        apolloServer.applyMiddleware({app,
+            cors:{
+                credentials:true
+            }
+            });
     })
 }
