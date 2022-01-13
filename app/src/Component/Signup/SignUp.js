@@ -51,6 +51,9 @@ export default function SignUp() {
   const [helperPass, setHelperPass] = useState("");
   const [helperEmail, setHelperEmail] = useState("");
   const [helperConfirmPass, setHelperConfirmPass] = useState("");
+  const [firstNameError, setFirstNameError]=useState(false)
+  const [lastNameError, setLastNameError]=useState(false)
+  
   const history = useHistory();
 
 
