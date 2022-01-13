@@ -13,7 +13,9 @@ import {
   useMutation,
   gql
 } from "@apollo/client";
-import { useHistory }from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import Loading from '../../Util/Loading';
+import ErrorMessage from '../../Util/ErrorMessage';
 
 
 
@@ -64,11 +66,13 @@ export default function SignUp() {
   const [helperConfirmPass, setHelperConfirmPass] = useState("");
   const history = useHistory();
 
+  
+
 
 
   const [register, { loading, error, data }] = useMutation(REGISTER_MUT);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  if (loading) return <Loading />;
+  if (error) return <ErrorMessage />;
     
   const handleSubmit = async (event) => {
     
@@ -206,7 +210,7 @@ export default function SignUp() {
                   value={firstname}
                   required
                   fullWidth
-                  id="firstName"
+                  id="firstNameNew"
                   label="First Name"
                   autoFocus
                   // error={firstNameError}
@@ -220,7 +224,7 @@ export default function SignUp() {
                 }}
                   required
                   fullWidth
-                  id="lastName"
+                  id="lastNameNew"
                   label="Last Name"
                   name="lastName"
                   value={lastname}
@@ -234,7 +238,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   value={email}
-                  id="email"
+                  id="emailNew"
                   label="Email Address"
                   error={emailError}
                   name="email"
@@ -252,7 +256,7 @@ export default function SignUp() {
                   label="Password"
                   type="password"
                   value={password}
-                  id="password"
+                  id="passwordNewConfirm"
                   error={passwordError}
                   color={passwordColor}
                   autoComplete="new-password"

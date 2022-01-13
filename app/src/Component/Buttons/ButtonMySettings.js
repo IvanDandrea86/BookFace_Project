@@ -17,18 +17,124 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import MyInfoForm from '../MyInfoForm';
 
+import { useQuery,gql } from '@apollo/client';
+import Loading from '../../Util/Loading';
+import ErrorMessage from '../../Util/ErrorMessage';
+import { Auth } from '../../Util/isAuthApollo';
+import { useHistory } from 'react-router-dom';
+
+// Query pour obtenir et afficher les infos de l'user connecté
+const GETUSERINFO=gql`
+query($user_id:String!)
+{findUserById(user_id:$user_id)
+{lastname
+firstname
+email
+}}
+`
+
+// Query pour updater les infos de l'user connecté
+// const UPDATE_MUT =gql`
+// mutation (,$_id:String!,$firstname:String!,$lastname:String!,$email:String! ){
+//   updateUser( _id: $_id , firstname: $firstname, lastname: $lastname, email: $email){
+//     _id
+//     firstname
+//     lastname
+//     email
+//     password
+//     }
+//   }
+// }
+// `;
+
 
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
+  
+
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+
+
 export default function ButtonMySettings() {
 
-    // via cette variable on accède aux données de l'user
-    
 
+  const [email, setEmail] = useState ('');
+  const [password, setPassword] = useState ('');
+  const [confirmPassword, setConfirmPassword] = useState ('');
+  const[lastname, setLastName]=useState('')
+  const [emailError, setEmailError] = useState (false);
+  const[firstname, setFirstName]=useState('')
+  const [passwordError, setPasswordError] = useState (false);
+  const [confirmPasswordError, setConfirmPasswordError] = useState (false);
+  const [passwordColor, setPasswordColor] = useState ('primary');
+  const [emailColor, setEmailColor] = useState ('primary');
+  const [confirmPasswordColor, setConfirmPasswordColor] = useState ('primary');
+  const [helperPass, setHelperPass] = useState("");
+  const [helperEmail, setHelperEmail] = useState("");
+  const [helperConfirmPass, setHelperConfirmPass] = useState("");
+  const history = useHistory();
+
+
+   const handleEmailChange=(e)=>{
+    setEmail(e)
+    if(e==="" || !e.match(
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    )){
+      setEmailError(true)
+      setHelperEmail("Insert a valid email format [*@.*]");
+      
+    }
+    else{
+      setEmailError(false)
+      setHelperEmail("");
+      setEmailColor('success')
+    }
+  }
+
+  const handlePasswordChange=(e)=>{
+    setPassword(e)
+    if(e==="" || !e.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)){
+      setPasswordError(true)
+      setHelperPass(
+        "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
+      );
+    }
+    else{
+      setPasswordError(false)
+      setHelperPass(
+      "");
+      setPasswordColor('success')
+    }
+  }
+
+
+
+  const handlePasswordConfirmChange=(e,password)=>{
+    setConfirmPassword(e)
+    if(e===''){
+      setConfirmPasswordError(true)
+       setHelperPass(
+        "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
+      );
+    }
+    else if(e!==password) {
+      setConfirmPasswordError(true)
+      setHelperConfirmPass(
+        "Passwords must be the same ");
+      
+    }
+    else {
+      setConfirmPasswordError(false)
+      setHelperConfirmPass(
+      " ");
+      setConfirmPasswordColor('success')  
+    }
+  }
+
+   
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -39,52 +145,27 @@ export default function ButtonMySettings() {
       setOpen(false);
     };
 
-  //ici vont les variables avec les données
-  const [firstName, setFirstName] = useState ();
-  const [errorFirstName, setErrorFirstName] = useState (false);
-  const [lastName, setLastName] = useState ();
-  const [errorLastName, setErrorLastName] = useState (false);
-  const [email, setEmail] = useState ();
-  const [errorEmail, setErrorEmail] = useState (false);
-  const [password, setPassword] = useState ();
-  const [errorPassword, setErrorPassword] = useState (false);
-  const [passwordAgain, setPasswordAgain] = useState ();
-  const [errorPasswordAgain, setErrorPasswordAgain] = useState (false);
-
-
+    
   //On update les données du user
   const handleSubmit = (event) => {
     event.preventDefault();
-    setErrorFirstName(false);
-    setErrorLastName(false);
-    setErrorEmail(false);
-    setErrorPassword(false);
-    setErrorPasswordAgain(false);
-
-
-    if(firstName === '') {
-        setErrorFirstName(true);
-    }
-    if(lastName === '') {
-        setErrorLastName(true);
-    }
-    if(email === '') {
-        setErrorEmail(true);
-    }
-    if(password === '') {
-        setErrorPassword(true);
-    }
-
-    if(password === '') {
-        setErrorPasswordAgain(true);
-    }
-
-    if(!(password === passwordAgain)) {
-        setErrorPassword(true);
-        setErrorPasswordAgain(true);
-    }
 
   };
+
+
+  const user=Auth();
+  const {
+        data,
+        loading,
+        error
+      } =useQuery(GETUSERINFO,{
+          variables:{
+              user_id:user.id
+          }
+      })
+        if (loading) return <Loading />;
+        if (error) return <ErrorMessage />;
+        if (!data) return <p>Not found</p>; 
 
   return (
     <div>
@@ -121,10 +202,10 @@ export default function ButtonMySettings() {
                     <Box sx={{ height: '100%', width: "80%", justifyContent: "space-around", display: 'flex', flexDirection: 'column', alignContent: 'space-around'}}>
                         <div>
                             <Typography sx={{mt: 3}} variant="body2" gutterBottom component="div">
-                            First Name
+                            First name
                             </Typography>
                             <Typography variant="h5" gutterBottom component="div" style={{borderBottom: "1px solid #ffffff"}} sx={{py:2}}>
-                              
+                            {data.findUserById.firstname}
                             </Typography>
                         </div>
                         <div>
@@ -132,16 +213,16 @@ export default function ButtonMySettings() {
                             Last Name
                             </Typography>
                             <Typography variant="h5" gutterBottom component="div" style={{borderBottom: "1px solid #ffffff"}} sx={{py:2}}>
-                       
+                            {data.findUserById.lastname}
                             </Typography>
                             
                         </div>
                         <div>
                             <Typography variant="body2" gutterBottom component="div">
-                            Email Address
+                            Email address
                             </Typography>
                             <Typography variant="h5" gutterBottom component="div" style={{borderBottom: "1px solid #ffffff"}} sx={{py:2}}>
-                      
+                            {data.findUserById.email}
                             </Typography>
                             
                         </div>
@@ -159,15 +240,19 @@ export default function ButtonMySettings() {
                     <Divider sx={{mb:3}}/>
                     <ListItem >
                     <TextField
-                    sx={{width:"100%"}}
-                    onChange={(e) => {
+                      sx={{width:"100%"}}
+                      onChange={(e) => {
                         setFirstName(e.target.value);
-                  
-                        }}
-                    defaultValue=""
-                    label="First Name"
-                    variant="standard"
-                    error={errorFirstName}
+                        // setFirstNameError(false);}
+                      }}
+                      autoComplete="given-name"
+                      name="firstName"
+                      value={firstname}
+                      required
+                      fullWidth
+                      id="firstNameNew"
+                      label="First Name"
+                      autoFocus
                     />
                     </ListItem>
                     
@@ -175,54 +260,68 @@ export default function ButtonMySettings() {
                     <TextField
                     sx={{width:"100%"}}
                     onChange={(e) => {
-                        setLastName(e.target.value);
-                    
-                        }}
-                    defaultValue=""
-                    label="Last Name"
-                    variant="standard"
-                    error={errorLastName}
+                      setLastName(e.target.value);
+                      // setLastNameError(false);
+                    }}
+                      required
+                      fullWidth
+                      id="lastNameNew"
+                      label="Last Name"
+                      name="lastName"
+                      value={lastname}
+                      autoComplete="family-name"
                     />
                     </ListItem>
                     
                     <ListItem>
                     <TextField
                     sx={{width:"100%"}}
-                    onChange={(e) => {
-                        setEmail(e.target.value);
-                 
-                        }}
-                    defaultValue=""
-                    label="Email address"
-                    variant="standard"
-                    error={errorEmail}
+                    onChange={(e) => handleEmailChange(e.target.value)}
+                    required
+                    fullWidth
+                    value={email}
+                    id="emailNew"
+                    label="Email Address"
+                    error={emailError}
+                    name="email"
+                    color={emailColor}
+                    autoComplete="email"
+                    helperText= {helperEmail}
                     />
                     </ListItem>
 
                     <ListItem>
                     <TextField
-                    type="password"
                     sx={{width:"100%"}}
-                    onChange={(e) => {
-                        setPassword(e.target.value);
-                        }}
-                    defaultValue=""
-                    label="New password"
-                    variant="standard"
-                    error={errorPassword}
+                    onChange={(e) => handlePasswordChange(e.target.value)}
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    value={password}
+                    id="passwordNewConfirm"
+                    error={passwordError}
+                    color={passwordColor}
+                    autoComplete="new-password"
+                    helperText= {helperPass}
                     />
                     </ListItem>
                     <ListItem>
                     <TextField
-                    type="password"
                     sx={{width:"100%"}}
-                    onChange={(e) => {
-                        setPasswordAgain(e.target.value);
-                        }}
-                    defaultValue=""
-                    label="Repeat new password"
-                    variant="standard"
-                    error={errorPasswordAgain}
+                    required
+                    fullWidth
+                    onChange={(e) => handlePasswordConfirmChange(e.target.value,password)}
+                    name="password_confirm"
+                    label="Confirm password"
+                    type="password"
+                    value={confirmPassword}
+                    id="password_confirm"
+                    error={confirmPasswordError}
+                    autoComplete="new-password"
+                    color={confirmPasswordColor}
+                    helperText= {helperConfirmPass}
                     />
                     </ListItem>
                     <ListItem>

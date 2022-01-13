@@ -15,7 +15,7 @@ import UserConnected from './UserConnected';
 export default function MyInfo() {
   
   return (
-    <Box sx={{ width: '80%', bgcolor: 'background.paper', mx: "auto" }}>
+    <Box sx={{ width: '80%', bgcolor: 'background.paper', mx: "auto", mb: 1 }}>
      
       
       <nav aria-label="title">
@@ -55,6 +55,7 @@ export default function MyInfo() {
           </ListItem>
         </List>
       </nav>
+      <Divider />
     </Box>
   );
 }
