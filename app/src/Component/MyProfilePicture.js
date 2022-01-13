@@ -7,38 +7,37 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import ButtonStory from './Buttons/ButtonStory';
 import ButtonMySettings from './Buttons/ButtonMySettings';
-
-import { useQuery,gql } from '@apollo/client';
-import { Auth } from '../Util/isAuthApollo';
+import { useQuery, gql } from '@apollo/client';
 import Loading from '../Util/Loading';
-import ErrorMessage from '../Util/ErrorMessage';
+import ErrorMessage from '../Util/ErrorMessage'
+import { AuthContext } from '../Context/auth-context';
+import { useContext } from 'react';
+import ButtonFriend from "./Buttons/ButtonFriend"
+import ButtonInBox from './Buttons/InboxMessageButton';
 
 
-
-const GETUSERINFO=gql`
-query($user_id:String!)
-{findUserById(user_id:$user_id)
-{lastname
-firstname
-friendList
-}}
+const FINDBYID = gql `
+query($user_id:String!) {
+findUserById(user_id: $user_id){
+        lastname
+        firstname
+        }
+}
 `
 
+
 export default function ProfilePicture() {
-    const user=Auth();
-  const {
-        data,
-        loading,
-        error
-      } =useQuery(GETUSERINFO,{
-          variables:{
-              user_id:user.id
-          }
-      })
-        if (loading) return <Loading />;
-        if (error) return <ErrorMessage />;
-        if (!data) return <p>Not found</p>;  
+    const context=useContext(AuthContext)
+
+    const { loading, error, data } = useQuery(FINDBYID, {
+        variables: {
+            user_id: context.auth
+        }
+    });
+    if (loading) return <Loading/> ;
+    if (error) return <ErrorMessage/> ;
     
+
 
   return (
     <Box sx={{ width: "80%", flexGrow: 1, mx: "auto" }}>
@@ -57,22 +56,23 @@ export default function ProfilePicture() {
             <Grid item xs={12} sm={12} md={8} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 {/** Nom user + buttons pour poster et updater profil */}
                 <Typography variant="h3" gutterBottom component="div" sx={{ml: 1, justify: "left"}}>
-<<<<<<< HEAD:app/src/MyProfilePicture.js
-        
-=======
                   {data.findUserById.firstname}
-
+                  {" \t "}
                   {data.findUserById.lastname}
->>>>>>> c078bf2672be336db8092153bf70d8ff1f5c3cca:app/src/Component/MyProfilePicture.js
                 </Typography>
-             
-                
+
                  <Grid container spacing={1}>
-                    <Grid item xs={12} sm={6} md={6}>
+                    <Grid item xs={12} sm={6} md={6} >
                         <ButtonStory/>
                     </Grid>
                     <Grid item xs={12} sm={6} md={6}>
                         <ButtonMySettings />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={6}>
+                        <ButtonFriend />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={6}>
+                        <ButtonInBox />
                     </Grid>
                 </Grid>
               

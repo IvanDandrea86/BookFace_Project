@@ -29,7 +29,6 @@ export default function ResponsiveDialog() {
     <div>
       <Button size="small" variant="text" onClick={handleClickOpen}>
       <SidebarRow src='https://source.unsplash.com/random' firstName='John' lastName="Doe"/>
-
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -37,7 +36,6 @@ export default function ResponsiveDialog() {
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-       
         <DialogActions >
         <Button autoFocus onClick={handleClose}>
           <CloseIcon />
@@ -45,11 +43,8 @@ export default function ResponsiveDialog() {
           </Button>
           </DialogActions>
         <DialogContent className="dialaog">
-        
-   <Discussion  />
-         
-        </DialogContent>
-        
+   <Discussion  /> 
+        </DialogContent>   
       </Dialog>
     </div>
   );

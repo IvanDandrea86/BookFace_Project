@@ -1,22 +1,24 @@
-import React from 'react'
+import React, {useState} from 'react'
 import BannerProfile from '../../Component/Buttons/BannerProfile'
 import MyInfo from '../../Component/MyInfo'
 import ProfilePicture from '../../Component/ProfilePicture';
 import Box from '@mui/material/Box';
+import { useLocation } from 'react-router-dom';
 
 
 function Profile() {
-    console.log(this.props.match.params.id)
+    const {state}=useLocation()
+    console.log(state
+        )
+    
    
     return (
         <Box className='profile'>
-            <div>
-        <h2>{this.props.match.params.id}</h2>
-        </div>
+       
             {/** Ici ira le banner: pour le moment couleur/ on verra photo plus tard */}
-            <BannerProfile />
+            <BannerProfile  />
             {/** Photo de profil + picto photo + nom + buttons "add story" + "modify my profile" */}
-            <ProfilePicture />
+            <ProfilePicture userid={state} />
             {/** Some general info of the guy with pictos */}
             <MyInfo />
             {/** Storys in chronogical order */}

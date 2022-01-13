@@ -16,7 +16,7 @@ export class Post{
     
     @Field()
     @prop()
-     user_id!:String;
+     user_id!:string;
     
     @Field()
     @prop()
@@ -41,7 +41,7 @@ export class Post{
     constructor (){
         this.comments= new Array<String>();
         }
-
+        
 }
 
 export const PostModel = getModelForClass(Post, { schemaOptions: { timestamps: true } });

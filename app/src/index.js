@@ -7,13 +7,20 @@ import { ApolloProvider } from "@apollo/client";
 import { client } from "./Util/createApolloClient";
 import { BrowserRouter } from "react-router-dom";
 import SearchContextProvider  from "./Context/search-context";
+import AuthContextProvider from "./Context/auth-context";
+import UserContextProvider from "./Context/user-context"
+
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <BrowserRouter>
+      <AuthContextProvider>
+      <UserContextProvider>
         <SearchContextProvider>
           <App />
         </SearchContextProvider>
+        </UserContextProvider>
+        </AuthContextProvider>
       </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>,

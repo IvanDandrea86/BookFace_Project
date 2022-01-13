@@ -16,8 +16,6 @@ import {
   useMutation,
   gql
 } from "@apollo/client";
-import { Auth } from '../../Util/isAuthApollo';
-
 
 const LOGOUT_MUT= gql`
 mutation{logout}
@@ -25,9 +23,6 @@ mutation{logout}
 
 export default function PrimarySearchAppBar() {
   
-
-  const user=Auth();
-  console.log(user.id);
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import ListItemText from '@mui/material/ListItemText';
@@ -20,32 +20,11 @@ import MyInfoForm from '../MyInfoForm';
 import { useQuery,gql } from '@apollo/client';
 import Loading from '../../Util/Loading';
 import ErrorMessage from '../../Util/ErrorMessage';
-import { Auth } from '../../Util/isAuthApollo';
+
 import { useHistory } from 'react-router-dom';
+import { AuthContext } from '../../Context/auth-context';
 
-// Query pour obtenir et afficher les infos de l'user connecté
-const GETUSERINFO=gql`
-query($user_id:String!)
-{findUserById(user_id:$user_id)
-{lastname
-firstname
-email
-}}
-`
 
-// Query pour updater les infos de l'user connecté
-// const UPDATE_MUT =gql`
-// mutation (,$_id:String!,$firstname:String!,$lastname:String!,$email:String! ){
-//   updateUser( _id: $_id , firstname: $firstname, lastname: $lastname, email: $email){
-//     _id
-//     firstname
-//     lastname
-//     email
-//     password
-//     }
-//   }
-// }
-// `;
 
 
 
@@ -75,7 +54,7 @@ export default function ButtonMySettings() {
   const [helperPass, setHelperPass] = useState("");
   const [helperEmail, setHelperEmail] = useState("");
   const [helperConfirmPass, setHelperConfirmPass] = useState("");
-  const history = useHistory();
+ 
 
 
    const handleEmailChange=(e)=>{
@@ -104,8 +83,7 @@ export default function ButtonMySettings() {
     }
     else{
       setPasswordError(false)
-      setHelperPass(
-      "");
+      setHelperPass("");
       setPasswordColor('success')
     }
   }
@@ -152,24 +130,13 @@ export default function ButtonMySettings() {
 
   };
 
-
-  const user=Auth();
-  const {
-        data,
-        loading,
-        error
-      } =useQuery(GETUSERINFO,{
-          variables:{
-              user_id:user.id
-          }
-      })
-        if (loading) return <Loading />;
-        if (error) return <ErrorMessage />;
-        if (!data) return <p>Not found</p>; 
+const context =useContext(AuthContext)
+ 
+ 
 
   return (
     <div>
-      <Button variant="outlined" startIcon={<EditIcon />} sx={{mb:0.5, width: "100%" }} onClick={handleClickOpen}>
+      <Button variant="contained"  startIcon={<EditIcon />} sx={{mb:0.5, width: "50%" }} onClick={handleClickOpen}>
         My Settings
       </Button>
       <Dialog
@@ -205,7 +172,7 @@ export default function ButtonMySettings() {
                             First name
                             </Typography>
                             <Typography variant="h5" gutterBottom component="div" style={{borderBottom: "1px solid #ffffff"}} sx={{py:2}}>
-                            {data.findUserById.firstname}
+                           
                             </Typography>
                         </div>
                         <div>
@@ -213,7 +180,7 @@ export default function ButtonMySettings() {
                             Last Name
                             </Typography>
                             <Typography variant="h5" gutterBottom component="div" style={{borderBottom: "1px solid #ffffff"}} sx={{py:2}}>
-                            {data.findUserById.lastname}
+                        
                             </Typography>
                             
                         </div>
@@ -222,7 +189,7 @@ export default function ButtonMySettings() {
                             Email address
                             </Typography>
                             <Typography variant="h5" gutterBottom component="div" style={{borderBottom: "1px solid #ffffff"}} sx={{py:2}}>
-                            {data.findUserById.email}
+                    
                             </Typography>
                             
                         </div>
@@ -243,7 +210,7 @@ export default function ButtonMySettings() {
                       sx={{width:"100%"}}
                       onChange={(e) => {
                         setFirstName(e.target.value);
-                        // setFirstNameError(false);}
+                        //setFirstNameError(false);}
                       }}
                       autoComplete="given-name"
                       name="firstName"

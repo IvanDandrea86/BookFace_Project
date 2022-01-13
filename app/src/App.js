@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
+import {useContext} from 'react';
 //Component
 import Header from "./Component/Header/Header";
 import Footer from "./Component/Footer";
@@ -12,13 +12,14 @@ import NotFound from "./Pages/NotFound";
 import FindingFriends from "./Pages/SearchResult";
 //Theme
 import { grey } from "@mui/material/colors";
-import { Auth } from "./Util/isAuthApollo";
-
-
-
+import { AuthContext } from "./Context/auth-context";
 import ErrorMessage from "./Util/ErrorMessage";
+import Friends from './Component/Friends'
+import Chat from "./Component/Chat";
+import Message from "./Component/Message";
 
-import { createContext } from "react";
+
+
 
 
 const bg_grey = grey[50]; // really light grey
@@ -28,7 +29,7 @@ const bg_grey = grey[50]; // really light grey
 
 
 const App = () => {
-  const user = Auth();
+  const context=useContext(AuthContext)
 
   return (
    
@@ -37,7 +38,7 @@ const App = () => {
        <Header />
       <div className="App" styles={{ backgroundColor: bg_grey }}>
         <Switch>
-          {!user.id ? (
+          {!context.auth ? (
             <Route exact path="/">
               <PageLoginSubscribe />
             </Route>
@@ -49,7 +50,11 @@ const App = () => {
         <Route exact path="/" component={ErrorMessage} />
         <Route path="/home" component={Home} />
         <Route path="/myprofile" component={MyProfile} />
-        <Route path="/profile:id" component={Profile} />
+        <Route path="/profile/:id" component={Profile} />
+        <Route path="/friend" component={Friends} />
+        <Route path="/message" component={Message} />
+        <Route path="/chat" component={Chat} />
+        
         <Route path="/finding" component={FindingFriends} />
         <Route path="*" component={NotFound} />
         
