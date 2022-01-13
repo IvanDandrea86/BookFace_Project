@@ -21,7 +21,7 @@ export default function IconLabelButtons() {
     setAdd("Pending...");
     setPending(<PendingIcon />);
     setTimeout(() => {
-      console.log('This will run after 1 second!')
+
     }, 1000);
   };
 

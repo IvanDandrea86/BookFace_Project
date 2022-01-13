@@ -14,7 +14,8 @@ import {
   gql
 } from "@apollo/client";
 import { useHistory } from 'react-router-dom';
-
+import Loading from '../../Util/Loading';
+import ErrorMessage from '../../Util/ErrorMessage'
 
 
 
@@ -59,27 +60,23 @@ export default function SignUp() {
   const [passwordColor, setPasswordColor] = useState("primary");
   const [emailColor, setEmailColor] = useState("primary");
   const [confirmPasswordColor, setConfirmPasswordColor] = useState("primary");
-
   const [helperPass, setHelperPass] = useState("");
   const [helperEmail, setHelperEmail] = useState("");
   const [helperConfirmPass, setHelperConfirmPass] = useState("");
- 
-  
   const history = useHistory();
+
   
 
 
 
 
   const [register, { loading, error, data }] = useMutation(REGISTER_MUT);
-   if (loading) return <p>Loading...</p>;
-   if (error) return <p>Error :(</p>;
+   if (loading) return <Loading/>
+   if (error) return <ErrorMessage/> 
     
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-
     setFirstNameError(false);
     setLastNameError(false);
     setEmailError(false);
@@ -110,9 +107,6 @@ export default function SignUp() {
       setPasswordError(true);
       setConfirmPasswordError(true)
     }
-
-
-
    const {data}= await  register(
      {
        variables:{
@@ -123,14 +117,15 @@ export default function SignUp() {
      },
     }
     )
-    console.log("createUser",data.createUser.user)
-    console.log(data.createUser.errors)
+   
       if (data.createUser.user == null)
-      console.log(data.createUser.errors)
+   
+      {history.push("/")
+      history.go(+1)}
       else 
-      console.log(data.createUser.user)
+      {
       history.push("/home")
-      history.go(+1)
+      history.go(+1)}
 
       window.location.reload(false);
     }
@@ -183,6 +178,7 @@ export default function SignUp() {
     } else {
       setConfirmPasswordError(false);
       setHelperConfirmPass("");
+      setHelperPass("");
       setConfirmPasswordColor("success");
     }
   };
@@ -293,12 +289,6 @@ export default function SignUp() {
                   helperText={helperConfirmPass}
                 />
               </Grid>
-              {/* <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="Subscribe to our newsletter"
-                />
-              </Grid> */}
             </Grid>
             <Button
               type="submit"

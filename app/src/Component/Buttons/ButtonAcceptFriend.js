@@ -15,7 +15,7 @@ export default function ButtonAcceptFriend() {
     setAdd("Done!");
     setPending(<CheckCircleIcon />);
     setTimeout(() => {
-      console.log('This will run after 1 second!')
+
     }, 1000);
   };
 
