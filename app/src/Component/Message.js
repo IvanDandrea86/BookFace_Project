@@ -10,6 +10,7 @@ import { useTheme } from '@mui/material/styles';
 import SidebarRow from './SidebarRow'
 import Discussion from './Discussion';
 import CloseIcon from '@mui/icons-material/Close';
+import './Message.css';
 
 export default function ResponsiveDialog() {
   const [open, setOpen] = React.useState(false);
@@ -28,6 +29,7 @@ export default function ResponsiveDialog() {
     <div>
       <Button size="small" variant="text" onClick={handleClickOpen}>
       <SidebarRow src='https://source.unsplash.com/random' firstName='John' lastName="Doe"/>
+
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -36,15 +38,15 @@ export default function ResponsiveDialog() {
         aria-labelledby="responsive-dialog-title"
       >
        
-        <DialogActions>
+        <DialogActions >
         <Button autoFocus onClick={handleClose}>
           <CloseIcon />
             Close
           </Button>
           </DialogActions>
-        <DialogContent>
+        <DialogContent className="dialaog">
         
-   <Discussion />
+   <Discussion  />
          
         </DialogContent>
         

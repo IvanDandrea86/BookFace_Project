@@ -46,9 +46,6 @@ const App = () => {
         
         </Switch>
         <Switch>
-
-       
-       
         <Route exact path="/" component={ErrorMessage} />
         <Route path="/home" component={Home} />
         <Route path="/myprofile" component={MyProfile} />
