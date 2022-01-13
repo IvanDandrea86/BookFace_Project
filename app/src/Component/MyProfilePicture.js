@@ -57,9 +57,13 @@ export default function ProfilePicture() {
             <Grid item xs={12} sm={12} md={8} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 {/** Nom user + buttons pour poster et updater profil */}
                 <Typography variant="h3" gutterBottom component="div" sx={{ml: 1, justify: "left"}}>
+<<<<<<< HEAD:app/src/MyProfilePicture.js
+        
+=======
                   {data.findUserById.firstname}
 
                   {data.findUserById.lastname}
+>>>>>>> c078bf2672be336db8092153bf70d8ff1f5c3cca:app/src/Component/MyProfilePicture.js
                 </Typography>
              
                 
