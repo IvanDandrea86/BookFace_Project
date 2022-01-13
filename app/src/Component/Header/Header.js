@@ -84,6 +84,7 @@ export default function PrimarySearchAppBar() {
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
+      sx={{px:2}} 
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
         vertical: 'top',
@@ -98,31 +99,32 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem 
-        href="/home">
-        <IconButton
+      <MenuItem type="button" href="/myprofile">
+        
+          <AccountCircle 
           size="large"
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
           color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
+          href="/myprofile" 
+          sx={{mr:2}}/>
+      
 
         <p>Profile</p>
       </MenuItem>
      
-      <MenuItem 
-        href="/">
-        <IconButton
-          size="large"
-          aria-label=""
-          color="inherit"
-          onClick={logoutEvent}
-        >
-         
-        </IconButton>
+      <MenuItem type="button" onClick={logoutEvent}
+          >
+        
+         <ExitToAppIcon 
+         size="large"
+         aria-label=""
+         color="inherit"
+         onClick={logoutEvent}
+         href="/"
+         sx={{mr:2}}/>
+  
         <p>Logout</p>
       </MenuItem>
     </Menu>
