@@ -1,26 +1,26 @@
-import {useQuery,gql} from '@apollo/client';
+import { useQuery, gql} from '@apollo/client';
 import Loading from './Loading';
-import ErrorMessage from './ErrorMessage' 
+import ErrorMessage from './ErrorMessage'
 
-const FINDBYID =gql `
+const FINDBYID = gql `
 query($user_id:String!)
  {findUserById(user_id: $user_id)
-{
+{email
   lastname
-firstname}}
+firstname
+friendList}}
 `;
-
-export function ConvertID(param) {
-    const { data,loading,error } = useQuery(FINDBYID,{
-        user_id: "61ddbfbfe2eea6baa5c55619"
-    })
-    if (loading) return <Loading />;
-    if (error) return <ErrorMessage />;
-
-
-    return {
-        lastname:data.findUserById.firsname,
-        firstname:data.findUserById.firsname
-    }
-    
-}
+export function ConvertID({id}) {
+    const { loading, error, data } = useQuery(FINDBYID,{
+        variables:{
+            user_id: id
+        }
+    });
+  
+    if (loading) return 'Loading...';
+    if (error) return `Error! ${error.message}`;
+  
+    return (
+      <p>{data.firstname}</p>
+    );
+  }

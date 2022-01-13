@@ -11,6 +11,7 @@ function GrowTransition(props) {
 }
 
 export default function ButtonAddFriend() {
+  
   const [state, setState] = React.useState({
     open: false,
     Transition: Fade,

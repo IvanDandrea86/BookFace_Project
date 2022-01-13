@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -15,8 +14,7 @@ import {
   gql
 } from "@apollo/client";
 import { useHistory } from 'react-router-dom';
-import Loading from '../../Util/Loading';
-import ErrorMessage from '../../Util/ErrorMessage';
+
 
 
 
@@ -65,12 +63,10 @@ export default function SignUp() {
   const [helperPass, setHelperPass] = useState("");
   const [helperEmail, setHelperEmail] = useState("");
   const [helperConfirmPass, setHelperConfirmPass] = useState("");
-  const [firstNameError, setFirstNameError]=useState(false)
-  const [lastNameError, setLastNameError]=useState(false)
+ 
   
   const history = useHistory();
-  const [firstNameError, setFirstNameError]=useState(false)
-  const [lastNameError, setLastNameError]=useState(false)
+  
 
 
 
@@ -116,6 +112,7 @@ export default function SignUp() {
     }
 
 
+
    const {data}= await  register(
      {
        variables:{
@@ -137,7 +134,7 @@ export default function SignUp() {
 
       window.location.reload(false);
     }
-  };
+  
 
   const handleEmailChange = (e) => {
     setEmail(e);
@@ -216,9 +213,8 @@ export default function SignUp() {
                 <TextField
                   onChange={(e) => {
                     setFirstName(e.target.value);
-
                     setFirstNameError(false);
-
+                  }}
                   autoComplete="given-name"
                   name="firstName"
                   value={firstname}
@@ -229,6 +225,7 @@ export default function SignUp() {
                   autoFocus
                   error={firstnameError}
                 />
+
               </Grid>
               <Grid item xs={12} sm={12} md={6}>
                 <TextField

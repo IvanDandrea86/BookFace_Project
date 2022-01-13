@@ -7,13 +7,32 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import ButtonAddFriend from './Buttons/ButtonAddFriend';
 import ButtonSendMessage from './Buttons/ButtonSendMessage';
-import ButtonStory from './Buttons/ButtonStory';
-import ButtonMySettings from './Buttons/ButtonMySettings';
+import { useQuery, gql } from '@apollo/client';
+import Loading from '../Util/Loading';
+import ErrorMessage from '../Util/ErrorMessage'
 
 
+const FINDBYID = gql `
+query($user_id:String!) {
+findUserById(user_id: $user_id){
+        lastname
+        firstname
+        }
+}
+`
 
-export default function ProfilePicture() {
-   
+export default function ProfilePicture({userid}) {
+  
+
+    const { loading, error, data } = useQuery(FINDBYID, {
+        variables: {
+            user_id: userid.users
+        }
+    });
+    if (loading) return <Loading/> ;
+    if (error) return <ErrorMessage/> ;
+    
+
   return (
     <Box sx={{ width: "80%", flexGrow: 1, mx: "auto" }}>
         <Grid container spacing={2}>
@@ -31,9 +50,10 @@ export default function ProfilePicture() {
             <Grid item xs={12} sm={12} md={8} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 {/** Nom user + buttons pour poster et updater profil */}
                 <Typography variant="h3" gutterBottom component="div" sx={{ml: 1, justify: "left"}}>
-              
-
-
+                {data.findUserById.firstname}
+                  {" \t "}
+                  {data.findUserById.lastname}
+               
                 </Typography>  
                 <Grid container spacing={1}>
                     <Grid item xs={12} sm={6} md={6}>

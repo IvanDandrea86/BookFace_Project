@@ -8,11 +8,10 @@ import Grid from '@mui/material/Grid';
 import {useQuery,gql} from '@apollo/client';
 import Loading from '../Util/Loading';
 import ErrorMessage from '../Util/ErrorMessage'
-import { Auth } from '../Util/isAuthApollo';
 
-import { useHistory } from 'react-router-dom';
 import { SearchContext } from '../Context/search-context';
 import {useContext} from 'react'
+import { AuthContext } from '../Context/auth-context';
 
 
 
@@ -26,9 +25,9 @@ const NewFriends =gql `
 `;
 const Finding = () => {
   const value= useContext(SearchContext)
+  const context =useContext(AuthContext)
   
-  const user=Auth();
-  console.log(user.id);
+  
 
   const { loading, error, data } = useQuery(NewFriends);
     if (loading) return <Loading />;
@@ -39,7 +38,7 @@ const Finding = () => {
           {data.findAllUser.filter((val) => {
             return val.firstname.toLowerCase().includes((value.query).toLowerCase())}).map(val => (
             <Grid item key={val._id} xs={12} sm={4} md={3} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-            <AddFriendCard firstname={val.firstname} lastname={val.lastname}button={<ButtonVisit/>} bouton={ val.friendList.includes(user.id)? <ButtonFriendCard/>: <ButtonAddCard /> } />
+            <AddFriendCard firstname={val.firstname} lastname={val.lastname}button={<ButtonVisit valueId ={val._id} />} bouton={ val.friendList.includes(context.auth)? <ButtonFriendCard/>: <ButtonAddCard /> } />
             </Grid>
           ))}
       </Grid>

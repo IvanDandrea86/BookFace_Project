@@ -12,7 +12,7 @@ function MyProfile() {
             {/** Ici ira le banner: pour le moment couleur/ on verra photo plus tard */}
             <BannerProfile />
             {/** Photo de profil + picto photo + nom + buttons "add story" + "modify my profile" */}
-            <MyProfilePicture />
+           <MyProfilePicture /> 
             {/** Some general info of the guy with pictos */}
             <MyInfo />
             {/** Storys in chronogical order */}
