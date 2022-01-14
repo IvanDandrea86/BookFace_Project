@@ -26,7 +26,7 @@ export default function ButtonVisit({valueId}) {
         sx={{borderRadius:8}}>
         Visit Profile
       </Button>
-      </Link>
+       </Link>
       
   );
 }

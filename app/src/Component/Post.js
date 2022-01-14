@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 
 function Post({ profilePic, firstname,lastname, timestamp, message }) 
 {
-    const image= "https://picsum.photos/id/" + Math.floor(Math.random()*1000) + "/300/150/"
+    const image= "https://picsum.photos/id/" + Math.floor(Math.random()*1000) + "/800/600/"
     
     return (        
         <Grid container sx={{width: "100%", justifyContent: "center", alignItems: "center"}}>

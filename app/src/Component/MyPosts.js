@@ -1,43 +1,12 @@
-import React,{useContext,useState} from 'react';
+import React from 'react';
 import UserPost from './Post';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
-import { useQuery, gql } from '@apollo/client';
-import Loading from '../Util/Loading';
-import ErrorMessage from '../Util/ErrorMessage'
-import { AuthContext } from '../Context/auth-context';
 
-const FINDBYID = gql `
-query($user_id:String!) {
-findUserById(user_id: $user_id){
-        email
-        lastname
-        firstname
-        createdAt
-        friendList
-        }
-findPostByUser(user_id:$user_id)
-{
-    content
-    createdAt
-    comments
-  }
-}
-`
- function MyPosts() {
 
-    const context=useContext(AuthContext)
-   
-    const { loading, error, data } = useQuery(FINDBYID, {
-        variables: {
-            user_id: context.auth
-        }
-    });
-    if (loading) return <Loading/> ;
-    if (error) return <ErrorMessage/> ;
-  
-  
+
+ function MyPosts({data}) {
 
     
 
