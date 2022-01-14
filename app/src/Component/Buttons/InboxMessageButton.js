@@ -4,12 +4,8 @@ import Button from '@mui/material/Button';
 
 
 
- function ButtonInBox() {
-
-
-const value =3
-
-
+ function ButtonInBox({messages}) {
+const value =messages.length
 return (
     
         <Button

@@ -4,6 +4,7 @@ import { Post, PostModel } from "../../entities/post.entity";
 import { ObjectId } from "mongodb";
 import { LikeState } from "../../types/types";
 import { CommentModel } from "../../entities/comment.entity";
+import { UserModel } from "../../entities/user.entity";
 
 @Service() // Dependencies injection
 @Resolver(() => Post)
@@ -38,6 +39,7 @@ export default class PostResolver {
       comments: comments,
     });
 
+    await UserModel.findOneAndUpdate({_id:user_id},{$push:{postList:_id}})
     return await post.save();
   }
 

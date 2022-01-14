@@ -45,6 +45,10 @@ export class User{
 
     @Field(()=>[String])
     @prop({type:String})
+    postList :Array<String>;
+
+    @Field(()=>[String])
+    @prop({type:String})
     messagesRecived
      :Array<String>;
      @Field(()=>[String])
