@@ -7,11 +7,11 @@ import { seedMongoWithFriendsRequest } from "./mockFiendrRequest";
 
 export const startSeed=async(size:number)=>{
 
-    await seedMongoWithUsers(size)
-    await seedMongoWithPosts(size*2)
-    await seedMongoWithComments(size*3);
-    await seedMongoWithMessages(size*3);
-    await makeSomeFriend(size);
-    await seedMongoWithFriendsRequest(size);
+    // await seedMongoWithUsers(size)
+    // await seedMongoWithPosts(size*2)
+    // await seedMongoWithComments(size*3);
+    // await seedMongoWithMessages(size*3);
+     // await makeSomeFriend(size);
+// await seedMongoWithFriendsRequest(size);
 
 }
