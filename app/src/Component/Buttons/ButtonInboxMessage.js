@@ -12,7 +12,7 @@ return (
         <Button
           startIcon={<EmailIcon />} 
           sx={{width: "100%", bgcolor:"#42a5f5"}} 
-          href="/friend"
+          href="/message"
           variant="contained" 
             value={value}
           color="warning">

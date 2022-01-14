@@ -62,8 +62,9 @@ export default class PostResolver {
   @Mutation(() => Boolean, { name: "deletePost" })
   async deletePost(@Arg("post_id") post_id: string): Promise<Boolean> {
     try {
-      await PostModel.findOneAndDelete({ _id: post_id }).exec();
+      const post=await PostModel.findOneAndDelete({ _id: post_id }).exec();
       await CommentModel.deleteMany({post_id:post_id}).exec();
+      await UserModel.findOneAndUpdate({_id:post?.user_id},{$pull:{postList:post_id}})
     } catch (err) {
       console.error(err);
       return false;

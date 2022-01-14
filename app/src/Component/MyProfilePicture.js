@@ -7,11 +7,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import ButtonStory from './Buttons/ButtonStory';
 import ButtonMySettings from './Buttons/ButtonMySettings';
-import { useQuery, gql } from '@apollo/client';
-import Loading from '../Util/Loading';
-import ErrorMessage from '../Util/ErrorMessage'
-import { AuthContext } from '../Context/auth-context';
-import { useContext } from 'react';
+
 import ButtonFriend from "./Buttons/ButtonFriend"
 import ButtonInBox from './Buttons/ButtonInboxMessage';
 
