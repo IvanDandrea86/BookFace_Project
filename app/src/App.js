@@ -6,6 +6,7 @@ import Footer from "./Component/Footer";
 //Pages
 import PageLoginSubscribe from "./Pages/RegisterLogin/RegisterLogin";
 import Home from "./Pages/Home/Home";
+import Chatbox from "./Pages/Chatbox/Chatbox";
 import Profile from "./Pages/Profile/Profile";
 import MyProfile from "./Pages/UserProfile/UserProfile";
 import NotFound from "./Pages/NotFound";
@@ -48,6 +49,7 @@ const App = () => {
         <Switch>
         <Route exact path="/" component={ErrorMessage} />
         <Route path="/home" component={Home} />
+        <Route path="/chatbox" component={Chatbox} /> 
         <Route path="/myprofile" component={MyProfile} />
         <Route path="/profile:id" component={Profile} />
         <Route path="/finding" component={FindingFriends} />
