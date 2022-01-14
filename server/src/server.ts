@@ -22,7 +22,6 @@ export const app = express();
 export const main = async () => {
   //Set Start Time
 let startTime= new Date();
-
 let nStartTime = Date.now()
 
 

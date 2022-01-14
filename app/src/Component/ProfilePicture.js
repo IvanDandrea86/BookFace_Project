@@ -43,7 +43,7 @@ export default function ProfilePicture({userid}) {
                     <Avatar sx={{ m: 2, bgcolor: 'primary.main', width: 28, height: 28, justify: "center", mx: "auto"}}>
                         <CameraAltIcon  sx={{width: 16, height: "auto", justify: "center"}} />
                     </Avatar>}>
-                    <Avatar sx={{width: 150, height: 150, justify: "center"}} alt="Paul" src="https://source.unsplash.com/random" />
+                <Avatar sx={{width: 150, height: 150, justify: "center"}} alt="Paul" src="https://source.unsplash.com/random" />
                 </Badge>
             </Grid>
 

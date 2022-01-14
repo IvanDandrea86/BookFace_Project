@@ -6,7 +6,7 @@ import Footer from "./Component/Footer";
 //Pages
 import PageLoginSubscribe from "./Pages/RegisterLogin/RegisterLogin";
 import Home from "./Pages/Home/Home";
-import Chatbox from "./Pages/Chatbox/Chatbox";
+
 import Profile from "./Pages/Profile/Profile";
 import MyProfile from "./Pages/UserProfile/UserProfile";
 import NotFound from "./Pages/NotFound";
@@ -15,9 +15,9 @@ import FindingFriends from "./Pages/SearchResult";
 import { grey } from "@mui/material/colors";
 import { AuthContext } from "./Context/auth-context";
 import ErrorMessage from "./Util/ErrorMessage";
-import Friends from './Component/Friends'
-import Chat from "./Component/Chat";
-import Message from "./Component/Message";
+
+import Chat from './Pages/Chatbox/Chatbox'
+
 
 
 
@@ -53,12 +53,11 @@ const App = () => {
         {context.auth ? (
         <Route exact path="/" component={ErrorMessage} /> ) : null}
         <Route path="/home" component={Home} />
-        <Route path="/chatbox" component={Chatbox} /> 
         <Route path="/myprofile" component={MyProfile} />
         <Route path="/profile/:id" component={Profile} />
-        <Route path="/friend" component={Friends} />
-        <Route path="/message" component={Message} />
-        <Route path="/chat" component={Chat} />
+        {/* <Route path="/friend" component={Friends} /> */}
+        <Route path="/message" component={Chat} />
+        
         
         <Route path="/finding" component={FindingFriends} />
         {context.auth ? ( <Route path="*" component={NotFound} />) : null}

@@ -1,5 +1,4 @@
 import  { SessionOptions } from "express-session"
-
 import connectRedis from "connect-redis";
 import session from "express-session";
 import Redis from "ioredis";
@@ -15,7 +14,6 @@ import {
   const RedisStore = connectRedis(session);
   //Client ioRedis
 export const redis= new Redis(`redis://${REDIS_HOST}:${REDIS_PORT}`)
-
 export const sessionConfig:SessionOptions | undefined={
     
         store: new RedisStore({ 

@@ -1,13 +1,43 @@
 
-import React from 'react';
+import React, {useContext, useState}from 'react';
 import './Chatbox.css';
-import { Avatar, Divider, Fab, Grid, IconButton, Input, List, ListItem, ListItemIcon, ListItemText, Paper, TextField, Typography } from '@mui/material';
+import { Avatar, Button, Divider, Fab, Grid, IconButton, Input, List, ListItem, ListItemIcon, ListItemText, Paper, TextField, Typography } from '@mui/material';
 import PublishIcon from '@mui/icons-material/Publish';
-
-
+import { AuthContext } from '../../Context/auth-context';
+import { gql, useQuery} from '@apollo/client';
+import Loading from '../../Util/Loading';
+import ErrorMessage from '../../Util/ErrorMessage'
+import UserElement from './UserElement';
+const Message= gql`
+query($user_id:String!)
+{findMessageByReciver(user_id:$user_id){
+  createdAt
+  content
+  sender_id
+  reciver_id
+}}
+`
 
 const Chat = () => {
-  
+    const context= useContext(AuthContext);
+    
+  let user=context.auth
+    
+    const {loading,error,data}=useQuery(Message,{variables:{
+        user_id:user
+    }}) 
+
+    if (loading) return <Loading/> ;
+    if (error) return <ErrorMessage/> ;
+    
+    const sendMessage =()=>{
+        console.log("click")
+    }
+    const   OpenMessage =async(prop)=>{
+      user=prop
+    }
+   
+    
   return (
       <div>
         <Grid container>
@@ -17,131 +47,50 @@ const Chat = () => {
         </Grid>
         <Grid container component={Paper} className="chatSection">
             <Grid item xs={3} className={"borderRight500"}>
-                <List>
-                    <ListItem button key="RemySharp">
-                        <ListItemIcon>
-                        <Avatar alt="Remy Sharp" src="" />
-                        </ListItemIcon>
-                        <ListItemText primary="User Name"></ListItemText>
-                    </ListItem>
-                </List>
-                <Divider />
-                <Grid item xs={12} style={{padding: '10px'}}>
-                    <TextField id="standard-basic" label="Search" variant="outlined" fullWidth />
-                </Grid>
-                <Divider />
+              
                 <Paper style={{maxHeight: 400, overflow: 'auto'}}>
                 <List className="list" >
-                    <ListItem button key="User Name">
-                        <ListItemIcon>
-                            <Avatar alt="" src="" />
+
+                   {data.findMessageByReciver.map((val)=>(
+                       <ListItem button key="User Name">
+                           <ListItemIcon>
+                            <Avatar alt="" src="https://source.unsplash.com/random" />
                         </ListItemIcon>
-                        <ListItemText primary="User Name">User Name</ListItemText>
-                    
-                    </ListItem>
-                    <ListItem button key="User Name">
-                        <ListItemIcon>
-                            <Avatar alt="" src="" />
-                        </ListItemIcon>
-                        <ListItemText primary="User Name"> User Name</ListItemText>
-                    </ListItem>
-                    <ListItem button key="User Name">
-                        <ListItemIcon>
-                            <Avatar alt="User Name" src="" />
-                        </ListItemIcon>
-                        <ListItemText primary="User Name">User Name</ListItemText>
-                    </ListItem>
-                    <ListItem button key="User Name">
-                        <ListItemIcon>
-                            <Avatar alt="User Name" src="" />
-                        </ListItemIcon>
-                        <ListItemText primary="User Name">User Name</ListItemText>
-                    </ListItem>
-                    <ListItem button key="User Name">
-                        <ListItemIcon>
-                            <Avatar alt="User Name" src="" />
-                        </ListItemIcon>
-                        <ListItemText primary="User Name">User Name</ListItemText>
-                    </ListItem>
-                    <ListItem button key="User Name">
-                        <ListItemIcon>
-                            <Avatar alt="User Name" src="" />
-                        </ListItemIcon>
-                        <ListItemText primary="User Name">User Name</ListItemText>
-                    </ListItem>
-                    <ListItem button key="User Name">
-                        <ListItemIcon>
-                            <Avatar alt="User Name" src="" />
-                        </ListItemIcon>
-                        <ListItemText primary="User Name">User Name</ListItemText>
-                    </ListItem>
-                    <ListItem button key="User Name">
-                        <ListItemIcon>
-                            <Avatar alt="User Name" src="" />
-                        </ListItemIcon>
-                        <ListItemText primary="User Name">User Name</ListItemText>
-                    </ListItem>
-                    <ListItem button key="User Name">
-                        <ListItemIcon>
-                            <Avatar alt="User Name" src="" />
-                        </ListItemIcon>
-                        <ListItemText primary="User Name">User Name</ListItemText>
-                    </ListItem>
-                    <ListItem button key="User Name">
-                        <ListItemIcon>
-                            <Avatar alt="User Name" src="" />
-                        </ListItemIcon>
-                        <ListItemText primary="User Name">User Name</ListItemText>
-                    </ListItem>
-                    <ListItem button key="User Name">
-                        <ListItemIcon>
-                            <Avatar alt="User Name" src="" />
-                        </ListItemIcon>
-                        <ListItemText primary="User Name">User Name</ListItemText>
-                    </ListItem>
+                       <Button
+                       onClick={OpenMessage(val.sender_id)}>   
+                       <UserElement 
+                       userData={val}
+                       />
+                       </Button>
+                          </ListItem>
+                       ))}
                 </List>
                 </Paper>
             </Grid>
             <Grid item xs={9}>
                 <List className="messageArea" >
+                {data.findMessageByReciver.filter((val) => {
+            return val.sender_id.includes(user)}).map(val => (
                     <ListItem key="1">
                         <Grid container>
                             <Grid item xs={12}>
-                                <ListItemText align="right" primary="Hey how are you ?"></ListItemText>
+                                <ListItemText align="right" primary={val.content}></ListItemText>
                             </Grid>
                             <Grid item xs={12}>
-                                <ListItemText align="right" secondary="09:30"></ListItemText>
+                                <ListItemText align="right" secondary={val.createdAt}></ListItemText>
                             </Grid>
                         </Grid>
                     </ListItem>
-                    <ListItem key="2">
-                        <Grid container>
-                            <Grid item xs={12}>
-                                <ListItemText align="left" primary="Hey, Iam Good! And you ?"></ListItemText>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <ListItemText align="left" secondary="09:31"></ListItemText>
-                            </Grid>
-                        </Grid>
-                    </ListItem>
-                    <ListItem key="3">
-                        <Grid container>
-                            <Grid item xs={12}>
-                                <ListItemText align="right" primary="I am good, Thanks!"></ListItemText>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <ListItemText align="right" secondary="10:30"></ListItemText>
-                            </Grid>
-                        </Grid>
-                    </ListItem>
+                    ))}
                 </List>
                 <Divider />
                 <Grid container style={{padding: '20px'}}>
                     <Grid item xs={11}>
-                        <TextField id="standard-basic" label="Type Something" fullWidth />
+                        <TextField  label="Answare" fullWidth />
                     </Grid>
                     <Grid xs={1} align="right">
-                        <Fab color="primary" aria-label="add"><PublishIcon /></Fab>
+                        <Fab color="primary" aria-label="add" onClick={sendMessage}><PublishIcon 
+                        /></Fab>
                     </Grid>
                 </Grid>
             </Grid>

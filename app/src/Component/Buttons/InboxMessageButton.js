@@ -12,7 +12,7 @@ return (
           disableElevation
           disableFocusRipple
           disableRipple 
-          href="/friend"
+          href="/message"
           variant="contained" 
             value={value}
           color="warning"
