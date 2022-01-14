@@ -38,7 +38,7 @@ const App = () => {
     <Router>
 
        
-      <div className="App" >
+      <div className="App" style={{backgroundColor: "#fcfcfc"}}>
         <Switch>
           {!context.auth ? (
             <Route exact path="/">

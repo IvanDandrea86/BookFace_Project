@@ -33,13 +33,14 @@ export function PostProfile({ profilePic, idpost, timestamp, message })
     if (error) return <ErrorMessage />;
 
     const image= "https://picsum.photos/id/" + Math.floor(Math.random()*1000) + "/600/400/"
+    const imagesmall= "https://picsum.photos/id/" + Math.floor(Math.random()*1000) + "/600/400/"
     const profilepic = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80";
     
     return (        
         <Grid container sx={{width: "100%", justifyContent: "center", alignItems: "center"}}>
             <div item className='post' sx={{width: "100%", flexDirection:"column", flexWrap:"wrap", justifyContent: "center", alignItems: "center"}} >
                 <div className="post_top" sx={{flexDirection:"column", flexWrap:"wrap", justifyContent: "center"}}>
-                    <Avatar src={profilepic }
+                    <Avatar src={imagesmall}
                         className="post_avatar" />
                     <div className="post_topInfo"> 
                     <h3>{data.findUserById.firstname }  {data.findUserById.lastname} </h3>

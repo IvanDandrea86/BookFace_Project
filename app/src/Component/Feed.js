@@ -51,7 +51,7 @@ function Feed() {
         {data.findAllPost.filter((val)=>{
             return data.findUserById.friendList.includes(val.user_id)}).map(val =>
         (
-        <Grid item className="post_container" sx={{my: 6 }}>
+        <Grid item className="post_container" sx={{my: 0.5 }}>
        <PostProfile
       
              message={val.content}

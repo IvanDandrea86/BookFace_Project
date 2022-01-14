@@ -2,13 +2,15 @@ import React from 'react';
 import UserPost from './Post';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import dayjs from 'dayjs'
+
 
 
 
 
  function MyPosts({data}) {
 
-    
+    const dayjs = require('dayjs');
 
     return (
         
@@ -21,11 +23,12 @@ import Grid from '@mui/material/Grid';
         <Grid item className = "post_container"
         sx = {
             { my: 6 } } > { /*REELS?*/ }
-        < UserPost profilePic = "https://picsum.photos/id/1025/300/300"
-        message={val.content}
-        timestamp={data.findUserById.createdAt}
-       firstname= {data.findUserById.firstname}
-       lastname= {data.findUserById.lastname}
+        < UserPost 
+            profilePic = "https://picsum.photos/id/1025/300/300"
+            message={val.content}
+            timestamp={dayjs(data.findUserById.createdAt).format('DD MMMM YYYY, hh:mm:ss A')}
+            firstname= {data.findUserById.firstname}
+            lastname= {data.findUserById.lastname}
      
         /> 
         </Grid>
