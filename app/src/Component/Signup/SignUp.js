@@ -83,30 +83,24 @@ export default function SignUp() {
     setPasswordError(false);
     setConfirmPasswordError(false);
 
-    if(firstname === '') {
-      setFirstNameError(true)
-    }
-
-    if(lastname === '') {
-      setLastNameError(true)
-    }
+  
 
     if(email === '') {
       setEmailError(true)
-    }
-
-    if(password === '') {
-      setPasswordError(true)
+      setHelperEmail('This field is empty')
     }
 
     if(confirmPassword === '') {
       setConfirmPasswordError(true)
+      setHelperEmail('This field is empty')
     }
 
     if(!(confirmPassword === password)) {
       setPasswordError(true);
       setConfirmPasswordError(true)
+      setHelperConfirmPass('Password ar different ')
     }
+
    const {data}= await  register(
      {
        variables:{
@@ -117,20 +111,29 @@ export default function SignUp() {
      },
     }
     )
-   
-      if (data.createUser.user == null)
-   
-      {history.push("/")
-      history.go(+1)}
+      if (data.createUser.user == null) {
+        console.log(data.createUser.errors)
+        if(data.createUser.errors.field ==="password" )
+        {
+          console.log(data.createUser.errors.message)
+          setHelperPass(data.createUser.errors.message)
+          setPasswordError(true)
+        }
+        else if(data.createUser.errors.field ==="email"){  
+          
+          console.log(data.createUser.errors.message)
+          setHelperEmail(data.createUser.errors.message)
+          setEmailError(true)
+        }
+      }
+        
       else 
       {
       history.push("/home")
-      history.go(+1)}
-
+      history.go(+1)
       window.location.reload(false);
     }
-  
-
+    }
   const handleEmailChange = (e) => {
     setEmail(e);
     if (
@@ -141,6 +144,7 @@ export default function SignUp() {
     ) {
       setEmailError(true);
       setHelperEmail("Insert a valid email format [*@.*]");
+
     } else {
       setEmailError(false);
       setHelperEmail("");
@@ -155,6 +159,7 @@ export default function SignUp() {
       !e.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)
     ) {
       setPasswordError(true);
+      setPasswordColor('danger')
       setHelperPass(
         "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
       );

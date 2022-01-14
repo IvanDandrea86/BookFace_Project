@@ -26,7 +26,6 @@ export const apolloLoader=async():Promise<void>=>{
             res.header('Access-Control-Allow-Origin', ALLOW_ORIGIN)
             const { data } = response;  // graphql response's data
             const { headers = {} } = request; // http request headers
-            
             return response
         }
         
