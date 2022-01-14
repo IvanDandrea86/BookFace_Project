@@ -21,12 +21,13 @@ export default function ButtonAddCard() {
 
   return (
       <Button 
+        size="small"
+        sx={{width: "80%"}} 
         disabled={dis}
         onClick={handleClick}
         variant="contained" 
         endIcon={pending}
-        color="primary"
-        sx={{borderRadius:8}}>
+        color="primary">
         {add}
       </Button>
     

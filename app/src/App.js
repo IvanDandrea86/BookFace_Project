@@ -15,6 +15,8 @@ import FindingFriends from "./Pages/SearchResult";
 import { grey } from "@mui/material/colors";
 import { AuthContext } from "./Context/auth-context";
 import ErrorMessage from "./Util/ErrorMessage";
+import Message from "./Component/Message";
+import AcceptFriends from "./Pages/AcceptFriends";
 
 import Chat from './Pages/Chatbox/Chatbox'
 
@@ -37,7 +39,7 @@ const App = () => {
     <Router>
 
        
-      <div className="App" styles={{ backgroundColor: bg_grey }}>
+      <div className="App" >
         <Switch>
           {!context.auth ? (
             <Route exact path="/">
@@ -55,10 +57,11 @@ const App = () => {
         <Route path="/home" component={Home} />
         <Route path="/myprofile" component={MyProfile} />
         <Route path="/profile/:id" component={Profile} />
+        <Route path="/message" component={Message} />
+        <Route path="/requests" component={AcceptFriends} />
+        <Route path="/chat" component={Chat} />
         {/* <Route path="/friend" component={Friends} /> */}
         <Route path="/message" component={Chat} />
-        
-        
         <Route path="/finding" component={FindingFriends} />
         {context.auth ? ( <Route path="*" component={NotFound} />) : null}
         

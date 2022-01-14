@@ -20,7 +20,7 @@ export default function ButtonSendMessage() {
 
   return (
     <div>
-      <Button variant="outlined" startIcon={<EmailIcon />} sx={{mb:0.5, width: "100%" }} onClick={handleClickOpen}>
+      <Button variant="outlined" startIcon={<EmailIcon />} sx={{width: "100%" }} onClick={handleClickOpen}>
         Send message
       </Button>
       <Dialog open={open} onClose={handleClose}>

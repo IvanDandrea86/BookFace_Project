@@ -1,17 +1,17 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-export default function ButtonAcceptFriend() {
+export default function ButtonRefuseFriend() {
 
   const [dis, setDis] = React.useState(false);
-  const [add, setAdd] = React.useState("Accept friend");
-  const [pending, setPending] = React.useState(<AddCircleIcon />);
+  const [refuse, setRefuse] = React.useState("Refuse");
+  const [pending, setPending] = React.useState(<CancelIcon />);
 
   const handleClick = () => {
     setDis(true);
-    setAdd("Accepted!");
+    setRefuse("Refused!");
     setPending(<CheckCircleIcon />);
     setTimeout(() => {
 
@@ -26,7 +26,7 @@ export default function ButtonAcceptFriend() {
         endIcon={pending}
         color="primary"
         sx={{mb:1, width:"80%", m:0.5, display:"flex", justifyContent:"space-between"}}>
-        {add}
+        {refuse}
       </Button>
     
   );

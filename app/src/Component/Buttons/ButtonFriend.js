@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import Button from '@mui/material/Button';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 
 
@@ -12,16 +13,14 @@ const value =4
 
 return (
     
-        <Button
-          disableElevation
-          disableFocusRipple
-          disableRipple 
-          href="/friend"
+        <Button Button 
+          startIcon={<GroupAddIcon />} 
+          sx={{width: "100%", bgcolor:"#42a5f5"}} 
+          href="/requests"
           variant="contained" 
-            value={value}
-          color="primary"
-          sx={{borderRadius:8}}>
-        You have {value} Friend Request
+          value={value}
+          >
+            {value} Friend Request
         </Button>
     );
 

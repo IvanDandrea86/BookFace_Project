@@ -93,33 +93,34 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem 
-        href="/home">
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
+      <MenuItem type="button" href="/myprofile">
+        
+        <AccountCircle 
+        size="large"
+        aria-label="account of current user"
+        aria-controls="primary-search-account-menu"
+        aria-haspopup="true"
+        color="inherit"
+        href="/myprofile" 
+        sx={{mr:2}}/>
+    
 
-        <p>Profile</p>
-      </MenuItem>
-     
-      <MenuItem 
-        href="/">
-        <IconButton
-          size="large"
-          aria-label=""
-          color="inherit"
-          onClick={logoutEvent}
+      <p>Profile</p>
+    </MenuItem>
+   
+    <MenuItem type="button" onClick={logoutEvent}
         >
-         
-        </IconButton>
-        <p>Logout</p>
-      </MenuItem>
+      
+       <ExitToAppIcon 
+       size="large"
+       aria-label=""
+       color="inherit"
+       onClick={logoutEvent}
+       href="/"
+       sx={{mr:2}}/>
+
+      <p>Logout</p>
+    </MenuItem>
     </Menu>
   );
 

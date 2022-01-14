@@ -1,5 +1,5 @@
 import React from 'react';
-import AddFriendCard from '../Component/AddFriendCard';
+import AcceptFriendCard from '../Component/AcceptFriendCard';
 import ButtonAddCard from '../Component/Buttons/ButtonAddCard';
 import ButtonFriendCard from '../Component/Buttons/ButtonFriendCard';
 import ButtonVisit from '../Component/Buttons/ButtonVisit';
@@ -12,39 +12,46 @@ import ErrorMessage from '../Util/ErrorMessage'
 import { SearchContext } from '../Context/search-context';
 import {useContext} from 'react'
 import { AuthContext } from '../Context/auth-context';
+import ButtonAcceptFriend from '../Component/Buttons/ButtonAcceptFriend';
+import ButtonRefuseFriend from '../Component/Buttons/ButtonRefuseFriend';
 
 
-
-const NewFriends =gql `
-    {findAllUser
-        {_id,
-        firstname
-        lastname
-        friendList}
+const RESQUESTFRIENDS =gql `
+ query($user_id:String!) {
+  findFriendRequestRecived(user_id:$user_id)
+    {_id
+  status
+  userSender
+  createdAt
     }
+}
 `;
-const Finding = () => {
-  const value= useContext(SearchContext)
-  const context =useContext(AuthContext)
-  
-  
 
-  const { loading, error, data } = useQuery(NewFriends);
-    if (loading) return <Loading />;
-    if (error) return <ErrorMessage />;
+
+
+const Finding = () => {
+
+  const context=useContext(AuthContext)
+    const { loading, error, data } = useQuery(RESQUESTFRIENDS, {
+        variables: {
+            user_id: context.auth
+        }
+    });
+    if (loading) return <Loading/> ;
+    if (error) return <ErrorMessage/> ;
+    
     return (
         <Grid container spacing={0.5}>
 
-          {data.findAllUser.filter((val) => {
-            return val.firstname.toLowerCase().includes((value.query).toLowerCase())}).map(val => (
+          {data.findFriendRequestRecived.map((val) => (
             <Grid item key={val._id} xs={12} sm={4} md={3} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-            <AddFriendCard firstname={val.firstname} lastname={val.lastname} button={<ButtonVisit valueId ={val._id} />} bouton={ val.friendList.includes(context.auth)? <ButtonFriendCard/>: <ButtonAddCard /> } />
+            <AcceptFriendCard datasender={val} sx={{wdth:"100%"}} firstname="Prenom" lastname="Nom" status={val.status} button={<ButtonAcceptFriend />} bouton={<ButtonRefuseFriend />}  />
             </Grid>
           ))}
       </Grid>
       );
 };
-function FindingFriends() {
+function AcceptFriends() {
     return (
         <Box sx={{ width: "90%", flexGrow: 1, mx: "auto", my:6 }}>
         <Finding />  
@@ -52,4 +59,4 @@ function FindingFriends() {
     )
 }
 
-export default  FindingFriends
+export default  AcceptFriends

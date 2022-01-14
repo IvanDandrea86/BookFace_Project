@@ -57,7 +57,7 @@ export default function ButtonStory() {
 
   return (
     <div>
-      <Button variant="contained" startIcon={<PanoramaIcon />} sx={{mixBlendMode: 0.5, width: "50%" }} onClick={handleClickOpen}>
+      <Button variant="contained" startIcon={<PanoramaIcon />} sx={{mixBlendMode: 0.5, width: "100%" }} onClick={handleClickOpen}>
         New story
       </Button>
       <Dialog open={open} onClose={handleClose}>

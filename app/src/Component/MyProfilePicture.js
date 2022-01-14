@@ -9,7 +9,7 @@ import ButtonStory from './Buttons/ButtonStory';
 import ButtonMySettings from './Buttons/ButtonMySettings';
 
 import ButtonFriend from "./Buttons/ButtonFriend"
-import ButtonInBox from './Buttons/InboxMessageButton';
+import ButtonInBox from './Buttons/ButtonInboxMessage';
 
 
 
@@ -29,11 +29,11 @@ export default function ProfilePicture({data}) {
                     <Avatar sx={{ m: 2, bgcolor: 'primary.main', width: 28, height: 28, justify: "center", mx: "auto"}}>
                         <CameraAltIcon  sx={{width: 16, height: "auto", justify: "center"}} />
                     </Avatar>}>
-                    <Avatar sx={{width: 150, height: 150, justify: "center"}} alt="Paul" src="https://source.unsplash.com/random" />
+                    <Avatar sx={{width: 150, height: 150, justify: "center"}} alt="Paul" src="https://picsum.photos/id/1025/300/300" />
                 </Badge>
             </Grid>
 
-            <Grid item xs={12} sm={12} md={8} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+            <Grid item xs={12} sm={12} md={8} sx={{my: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 {/** Nom user + buttons pour poster et updater profil */}
                 <Typography variant="h3" gutterBottom component="div" sx={{ml: 1, justify: "left"}}>
                   {data.findUserById.firstname}

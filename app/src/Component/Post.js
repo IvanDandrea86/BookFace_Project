@@ -1,5 +1,5 @@
 import { Avatar } from '@mui/material';
-import React  from 'react'
+import React from 'react'
 import './Post.css';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import AddCommentIcon from '@mui/icons-material/AddComment';
@@ -13,6 +13,7 @@ import IconButton from '@mui/material/IconButton';
 function Post({ profilePic, firstname,lastname, timestamp, message }) 
 {
     const image= "https://picsum.photos/id/" + Math.floor(Math.random()*1000) + "/800/600/"
+
     
     return (        
         <Grid container sx={{width: "100%", justifyContent: "center", alignItems: "center"}}>
@@ -36,7 +37,10 @@ function Post({ profilePic, firstname,lastname, timestamp, message })
             
                     <Grid container sx={{width:"100%", display: "flex", flexDirection:"row", justifyContent:"space-between"}}>
                         <Grid item sx={{ ml:1, display: "flex", justifyContent:"flex-start", flexDirection:"row", alignItems:"center"}}>
-                            <IconButton size="large" sx={{  m: 0.5, bgcolor: "#dedede", justifyContent: "center" }}>
+                            <IconButton 
+                            size="large" 
+                            sx={{  m: 0.5, justifyContent: "center" }}
+                            color = "primary">
                                 <ThumbUpIcon  sx={{width: 16, height: "auto", justify: "center"}} />
                             </IconButton>
                             <IconButton  size="large" sx={{ bgcolor: "#dedede", m: 0.5, justifyContent: "center"}}>
