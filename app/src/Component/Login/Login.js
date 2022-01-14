@@ -59,17 +59,27 @@ export default function Login() {
         password: password,
       },
     });
+
     if (data.login.user == null) {
-
-    } else {
+      console.log(data.login.errors)
+      if(data.login.errors.field ==="Password")
+      {
+        console.log(data.login.errors.message)
+        setHelperPass(data.login.errors.message)
+      }
+        else if(data.login.errors.field ==="Email")
+      {
+        console.log(data.login.errors.message)
+        setHelperEmail(data.login.errors.message)
+      }
+      }
+     else {
       //LOGIN SUCCESS
-
       history.push("/home");
       history.go(+1);
       window.location.reload(false);
-    }
+    } 
   };
-
   const handleEmailChange = (e) => {
     setEmail(e);
     if (
