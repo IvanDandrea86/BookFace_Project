@@ -8,13 +8,8 @@
     height: 200px;
     box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
     border-radius: 10px;
-    transition: transform 100ms ease-in;
-    cursor: pointer;
 }
 
-.story:hover {
-    transform:  scale(1.07);
-}
 
 .story_avatar {
     margin: 10px;
@@ -23,8 +18,8 @@
 
 .story > h4 {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
+    margin: 20px;
+    bottom: 5px;
     color: white;
     padding: 5px;
 }
