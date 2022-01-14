@@ -28,7 +28,6 @@ findPostByUser(user_id:$user_id)
 `
 function MyProfile() {
     const context=useContext(AuthContext)
-   
     const { loading, error, data } = useQuery(FINDBYID, {
         variables: {
             user_id: context.auth
@@ -36,13 +35,12 @@ function MyProfile() {
     });
     if (loading) return <Loading/> ;
     if (error) return <ErrorMessage/> ;
-   
     return (
         <div className='profile'>
             {/** Ici ira le banner: pour le moment couleur/ on verra photo plus tard */}
             <BannerProfile />
             {/** Photo de profil + picto photo + nom + buttons "add story" + "modify my profile" */}
-           <MyProfilePicture message={data.findUserById.messagesRecived}/> 
+           <MyProfilePicture data={data}/> 
             {/** Some general info of the guy with pictos */}
             <MyInfo />
             {/** Storys in chronogical order */}

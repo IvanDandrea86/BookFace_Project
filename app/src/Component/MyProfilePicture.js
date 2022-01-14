@@ -16,27 +16,11 @@ import ButtonFriend from "./Buttons/ButtonFriend"
 import ButtonInBox from './Buttons/InboxMessageButton';
 
 
-const FINDBYID = gql `
-query($user_id:String!) {
-findUserById(user_id: $user_id){
-        lastname
-        firstname
-        }
-}
-`
 
 
-export default function ProfilePicture() {
-    const context=useContext(AuthContext)
+export default function ProfilePicture({data}) {
+  
 
-    const { loading, error, data } = useQuery(FINDBYID, {
-        variables: {
-            user_id: context.auth
-        }
-    });
-    if (loading) return <Loading/> ;
-    if (error) return <ErrorMessage/> ;
-    
 
 
   return (
@@ -60,7 +44,6 @@ export default function ProfilePicture() {
                   {" \t "}
                   {data.findUserById.lastname}
                 </Typography>
-
                  <Grid container spacing={1}>
                     <Grid item xs={12} sm={6} md={6} >
                         <ButtonStory/>
@@ -69,10 +52,10 @@ export default function ProfilePicture() {
                         <ButtonMySettings />
                     </Grid>
                     <Grid item xs={12} sm={6} md={6}>
-                        <ButtonFriend />
+                        <ButtonFriend friendRequest={data.findUserById.messagesRecived}/>
                     </Grid>
                     <Grid item xs={12} sm={6} md={6}>
-                        <ButtonInBox />
+                        <ButtonInBox messages={data.findUserById.messagesRecived}/>
                     </Grid>
                 </Grid>
               
