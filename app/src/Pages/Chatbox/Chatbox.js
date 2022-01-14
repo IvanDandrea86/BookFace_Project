@@ -45,9 +45,8 @@ const Chat = () => {
                 <Typography variant="h5" className="header-message"  color="primary" style={{padding: '10px'}}> Welcome to BookFace Chatbox</Typography>
             </Grid>
         </Grid>
-        <Grid container component={Paper} className="chatSection">
+        <Grid container  className="chatSection">
             <Grid item xs={3} className={"borderRight500"}>
-              
                 <Paper style={{maxHeight: 400, overflow: 'auto'}}>
                 <List className="list" >
 

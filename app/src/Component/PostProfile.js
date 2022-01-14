@@ -41,8 +41,9 @@ export function PostProfile({ profilePic, idpost, timestamp, message })
                 <div className="post_top" sx={{flexDirection:"column", flexWrap:"wrap", justifyContent: "center"}}>
                     <Avatar src={profilepic }
                         className="post_avatar" />
-                    <div className="post_topInfo">
-                        <h3>{data.findUserById.firstname} {data.findUserById.firstname}</h3>
+                    <div className="post_topInfo"> 
+                    <h3>{data.findUserById.firstname }  {data.findUserById.lastname} </h3>
+                    
                         <p>{timestamp}</p>
                     </div>         
                 </div>
