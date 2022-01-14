@@ -26,15 +26,14 @@ const ADDPOST_MUT = gql`
 `;
 
 export default function ButtonStory() {
+  const history=useHistory()
   const context=useContext(AuthContext)
 
-  const [register, { loading, error,data }] = useMutation(ADDPOST_MUT);
+  const [register ] = useMutation(ADDPOST_MUT);
   const [text,setText]=useState()  
   const [open, setOpen] = useState(false);
   
-  if (loading) return <Loading/>
-  if (error) return <ErrorMessage/>
-
+  
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -44,14 +43,16 @@ export default function ButtonStory() {
     setOpen(false);
   };
   const handleAdd = () => {
-    const {data}=   register(
+    const  {data, loading, error}=  register(
       {
         variables:{
           content:text,
           userId:context.auth
       },
-     }
-     )
+     })
+
+     if (loading) return <Loading/>
+     if (error) return <ErrorMessage/>
   };
 
   return (

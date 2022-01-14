@@ -19,6 +19,7 @@ export const seedMongoWithPosts=async(howmuch:number)=>{
             content:content
           });
           try{
+            await UserModel.findOneAndUpdate({_id:randomUser[0]._id},{$push:{postList:_id}})   
              await post.save();
             }
             catch(err){
