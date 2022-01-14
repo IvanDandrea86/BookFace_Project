@@ -81,7 +81,7 @@ function SearchBar() {
               alert("gotta submit");
             }}
             noValidate
-            sx={{ mt: 1 }}
+            sx={{ my: 1 }}
           >
             <StyledInputBase
               onChange={(e) => {handleChange(e.target.value)}}

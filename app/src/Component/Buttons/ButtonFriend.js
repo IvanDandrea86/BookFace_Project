@@ -16,7 +16,7 @@ return (
         <Button Button 
           startIcon={<GroupAddIcon />} 
           sx={{width: "100%", bgcolor:"#42a5f5"}} 
-          href="/friend"
+          href="/requests"
           variant="contained" 
           value={value}
           >
