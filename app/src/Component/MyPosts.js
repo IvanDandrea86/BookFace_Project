@@ -21,7 +21,7 @@ import Grid from '@mui/material/Grid';
         <Grid item className = "post_container"
         sx = {
             { my: 6 } } > { /*REELS?*/ }
-        < UserPost profilePic = "https://source.unsplash.com/random"
+        < UserPost profilePic = "https://picsum.photos/id/1025/300/300"
         message={val.content}
         timestamp={data.findUserById.createdAt}
        firstname= {data.findUserById.firstname}

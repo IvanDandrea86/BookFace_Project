@@ -17,6 +17,7 @@ import ErrorMessage from "./Util/ErrorMessage";
 import Friends from './Component/Friends'
 import Chat from "./Component/Chat";
 import Message from "./Component/Message";
+import AcceptFriends from "./Pages/AcceptFriends";
 
 
 
@@ -36,7 +37,7 @@ const App = () => {
     <Router>
 
        
-      <div className="App" styles={{ backgroundColor: bg_grey }}>
+      <div className="App" >
         <Switch>
           {!context.auth ? (
             <Route exact path="/">
@@ -56,6 +57,7 @@ const App = () => {
         <Route path="/profile/:id" component={Profile} />
         <Route path="/friend" component={Friends} />
         <Route path="/message" component={Message} />
+        <Route path="/requests" component={AcceptFriends} />
         <Route path="/chat" component={Chat} />
         
         <Route path="/finding" component={FindingFriends} />

@@ -4,10 +4,32 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import {useQuery,gql} from '@apollo/client';
+import Loading from '../Util/Loading';
+import ErrorMessage from '../Util/ErrorMessage'
 
-export default function AddFriendCard(props) {
+
+const SENDERIDENTITY =gql `
+ query($user_id:String!) {
+    findUserById(user_id:$user_id)
+    {_id
+    lastname
+    firstname
+    }
+}
+`;
+
+export default function AcceptFriendCard({props, datasender}) {
   
   const image= "https://picsum.photos/id/" + Math.floor(Math.random()*1000) + "/600/400/"
+
+  const { loading, error, data } = useQuery(SENDERIDENTITY, {
+    variables: {
+        user_id: datasender.userSender
+    }
+    });
+    if (loading) return <Loading/> ;
+    if (error) return <ErrorMessage/> ;
   
   return (
     <Card sx={{ width: "100%" }}>
@@ -19,10 +41,13 @@ export default function AddFriendCard(props) {
       />
       <CardContent>
       <Typography gutterBottom variant="subtitle2" component="div">
-          {props.lastname}
+          {data.findUserById.lastname}
         </Typography>
         <Typography gutterBottom variant="title1" component="div">
-          {props.firstname}
+          {data.findUserById.firstname}
+        </Typography>
+        <Typography gutterBottom variant="title1" component="div">
+          {props.status}
         </Typography>
         
       </CardContent>

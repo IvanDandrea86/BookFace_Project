@@ -10,14 +10,12 @@ export default function ButtonFriendCard() {
 
   return (
       <Button
-        disableElevation
-        disableFocusRipple
-        disableRipple 
+        size="small"
+        sx={{width: "80%"}} 
         onClick={handleClick}
         variant="contained" 
         endIcon={<DoneIcon />}
-        color="success"
-        sx={{borderRadius:8}}>
+        color="success">
         Friend
       </Button>
   );

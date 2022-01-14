@@ -136,7 +136,7 @@ const context =useContext(AuthContext)
 
   return (
     <div>
-      <Button variant="contained"  startIcon={<EditIcon />} sx={{mb:0.5, width: "50%" }} onClick={handleClickOpen}>
+      <Button variant="outlined" startIcon={<EditIcon />} sx={{width: "100%" }} onClick={handleClickOpen}>
         My Settings
       </Button>
       <Dialog

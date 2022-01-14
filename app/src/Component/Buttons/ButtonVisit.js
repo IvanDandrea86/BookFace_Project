@@ -10,23 +10,28 @@ export default function ButtonVisit({valueId}) {
  
 
   return (
+    
     <Link
+    sx={{width:"80%"}}
+    underline="none"
+    variant="button"
     to={{
-      pathname: `/profile/:${valueId}`,
-      state: { users: valueId }
-    }}
-  >
-      <Button
-        disableElevation
-        disableFocusRipple
-        disableRipple 
-        variant="contained" 
-        endIcon={<NavigateNextIcon  />}
-        color="primary"
-        sx={{borderRadius:8}}>
-        Visit Profile
-      </Button>
-       </Link>
+    pathname: `/profile/:${valueId}`,
+    state: { users: valueId }
+  }}
+>
+    <Button
+      underline="none"
+      size="small"
+      sx={{width: "100%", bgcolor:"#42a5f5", my:1}} 
+      variant="contained" 
+      endIcon={<NavigateNextIcon  />}
+      color="primary">
+       See profile
+    </Button>
+     </Link>
+  
       
   );
 }
+

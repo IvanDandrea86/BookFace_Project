@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import Button from '@mui/material/Button';
+import EmailIcon from '@mui/icons-material/Email';
 
 
 
@@ -9,15 +10,13 @@ const value =messages.length
 return (
     
         <Button
-          disableElevation
-          disableFocusRipple
-          disableRipple 
+          startIcon={<EmailIcon />} 
+          sx={{width: "100%", bgcolor:"#42a5f5"}} 
           href="/friend"
           variant="contained" 
             value={value}
-          color="warning"
-          sx={{borderRadius:8}}>
-        You have {value} message
+          color="warning">
+          {value} new message(s)
         </Button>
     );
 
