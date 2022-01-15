@@ -13,7 +13,7 @@ export const seedMongoWithMessages=async(howmuch:number)=>{
         const randomSender= await UserModel.aggregate([{ $sample: { size: 1 } }])
         const randomReciver= await UserModel.aggregate([{ $sample: { size: 1 } }])
         
-        const content =  faker.lorem.paragraph(10)
+        const content =  faker.lorem.sentence(Math.floor(Math.random() * 10)+1)
         let message = new MessageModel({
             _id,
             sender_id: randomSender[0]._id,

@@ -20,9 +20,11 @@ findUserById(user_id: $user_id){
         }
 findPostByUser(user_id:$user_id)
 {
+    _id
     content
     createdAt
     comments
+    
   }
 }
 `
@@ -35,6 +37,7 @@ function MyProfile() {
     });
     if (loading) return <Loading/> ;
     if (error) return <ErrorMessage/> ;
+
     return (
         <div className='profile'>
             {/** Ici ira le banner: pour le moment couleur/ on verra photo plus tard */}
@@ -44,7 +47,7 @@ function MyProfile() {
             {/** Some general info of the guy with pictos */}
             <MyInfo />
             {/** Storys in chronogical order */}
-            <MyPosts data={data}/>
+            <MyPosts data={data} post={data.findPostByUser}/>
         </div>
     )
 }

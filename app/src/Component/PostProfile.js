@@ -1,16 +1,15 @@
 import { Avatar } from '@mui/material';
 import React, {useContext} from 'react'
 import './Post.css';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import AddCommentIcon from '@mui/icons-material/AddComment';
-import SendIcon from '@mui/icons-material/Send';
+
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
+
 import {useQuery,gql} from '@apollo/client';
 import Loading from '../Util/Loading';
 import ErrorMessage from '../Util/ErrorMessage';
-
+import ChatPost from './ChatPost';
+import CommentPost from './CommentPost';
 
 const User=gql `
  query($user_id:String!) {
@@ -22,16 +21,16 @@ const User=gql `
     }
  }
 `
-export function PostProfile({ profilePic, idpost, timestamp, message }) 
+export function PostProfile({ profilePic, iduser, timestamp, message,idpost }) 
 {
+   
     const { loading, error, data } = useQuery(User,{
         variables:{
-            user_id:idpost
+            user_id:iduser
         }
     });
     if (loading) return <Loading />;
     if (error) return <ErrorMessage />;
-
     const image= "https://picsum.photos/id/" + Math.floor(Math.random()*1000) + "/600/400/"
     const imagesmall= "https://picsum.photos/id/" + Math.floor(Math.random()*1000) + "/600/400/"
     const profilepic = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80";
@@ -54,22 +53,23 @@ export function PostProfile({ profilePic, idpost, timestamp, message })
                     <img src={image} alt="" />
                 </div>
                 <Divider />
-                    <Grid container sx={{width:"100%", display: "flex", flexDirection:"row", justifyContent:"space-between"}}>
-                        <Grid item sx={{ ml:1, display: "flex", justifyContent:"flex-start", flexDirection:"row", alignItems:"center"}}>
-                            <IconButton size="large" sx={{  m: 0.5, bgcolor: "#dedede", justifyContent: "center"}}>
-                                <ThumbUpIcon  sx={{width: 16, height: "auto", justify: "center"}} />
-                            </IconButton>
-                            <IconButton size="large" sx={{ bgcolor: "#dedede", m: 0.5, justifyContent: "center"}}>
-                                <AddCommentIcon  sx={{width: 16, height: "auto", justify: "center"}} />
-                            </IconButton>
-                            <IconButton size="large"  sx={{ bgcolor: "#dedede", m: 0.5, justifyContent: "center"}}>
-                                <SendIcon  sx={{width: 16, height: "auto", justify: "center"}} />
-                            </IconButton>
-                        </Grid>
-                        <Grid item sx={{display: "flex", flexDirection:"row", flexWrap:"wrap", justifyContent: "flex-end"}}>
-                            <Avatar src={profilePic} sx={{ m:2, }}/>
-                        </Grid>
-                    </Grid>  
+                <Grid container sx={{width:"100%", display: "flex", flexDirection:"column", justifyContent:"space-between", flexWrap:"nowrap"}}>
+
+<Grid item sx={{ widht:"100%", display: "flex", justifyContent:"flex-start", flexDirection:"row", alignItems:"strech", width:"100%", flexWrap:"nowrap"}}>
+    
+    <CommentPost post={idpost}/>
+    
+</Grid>
+<Divider />
+
+<Grid item sx={{ display: "flex", justifyContent:"flex-end", flexDirection:"row", alignItems:"strech", width:"100%"}}>
+ <ChatPost idpost={idpost}/>
+
+    
+</Grid>
+
+
+</Grid> 
             </div>
         </Grid>
 

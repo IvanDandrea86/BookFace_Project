@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -9,10 +9,15 @@ import ApartmentIcon from '@mui/icons-material/Apartment';
 import WorkIcon from '@mui/icons-material/Work';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import UserConnected from './UserConnected';
+
 
 
 export default function MyInfo() {
+  const [country, setCountry] = useState ("Italy");
+  const [job, setJob] = useState ("Developer");
+  const [activities, setActivities] = useState ("Football");
+  const [status, setStatus] = useState ("Married");
+  
   
   return (
     <Box sx={{ width: '80%', bgcolor: 'background.paper', mx: "auto", mb: 1 }}>
@@ -33,25 +38,25 @@ export default function MyInfo() {
               <ListItemIcon>
                 <ApartmentIcon />
               </ListItemIcon>
-              <ListItemText primary={UserConnected.country} />
+              <ListItemText primary={country} />
           </ListItem>
           <ListItem disablePadding>
               <ListItemIcon>
                 <WorkIcon />
               </ListItemIcon>
-              <ListItemText primary={UserConnected.job} />
+              <ListItemText primary={job} />
           </ListItem>
           <ListItem disablePadding>
               <ListItemIcon>
                 <FavoriteIcon />
               </ListItemIcon>
-              <ListItemText primary={UserConnected.status} />
+              <ListItemText primary={status} />
           </ListItem>
           <ListItem disablePadding>
               <ListItemIcon>
                 <SportsEsportsIcon />
               </ListItemIcon>
-              <ListItemText primary={UserConnected.activities} />
+              <ListItemText primary={activities} />
           </ListItem>
         </List>
       </nav>

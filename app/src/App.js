@@ -6,16 +6,15 @@ import Footer from "./Component/Footer";
 //Pages
 import PageLoginSubscribe from "./Pages/RegisterLogin/RegisterLogin";
 import Home from "./Pages/Home/Home";
-
 import Profile from "./Pages/Profile/Profile";
 import MyProfile from "./Pages/UserProfile/UserProfile";
-import NotFound from "./Pages/NotFound";
-import FindingFriends from "./Pages/SearchResult";
+import NotFound from "./Pages/404/NotFound";
+import FindingFriends from "./Pages/Search/SearchResult";
 //Theme
 import { grey } from "@mui/material/colors";
 import { AuthContext } from "./Context/auth-context";
 import ErrorMessage from "./Util/ErrorMessage";
-import Message from "./Component/Message";
+
 import AcceptFriends from "./Pages/AcceptFriends";
 
 import Chat  from "./Pages/Chatbox/Chatbox";
@@ -49,7 +48,9 @@ const App = () => {
         {context.auth ? (
             <Header />
             ) : null}
-        </Switch>
+             </Switch>       
+  
+       
         <Switch>
         {context.auth ? (
         <Route exact path="/" component={ErrorMessage} /> ) : null}
@@ -61,11 +62,12 @@ const App = () => {
         <Route path="/message" component={Chat} />
         <Route path="/finding" component={FindingFriends} />
         {context.auth ? ( <Route path="*" component={NotFound} />) : null}
+        </Switch>
+     
         
-         </Switch>
-        <Footer /> 
+ 
       </div>
-
+      <Footer /> 
     </Router>
     
   );

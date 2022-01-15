@@ -53,6 +53,33 @@ redis-server
 - Update Personal Info (WIP)
 - Like Comment (WIP)
 - Like Post
+
+
+## Some Snapshot
+---
+### Login
+![Login](./snapshot/Signin.png)
+### Register
+![Register](./snapshot/Signup.png)
+### Post
+![Post](./snapshot/Post_Comment.png)
+### Profile
+![Profile](./snapshot/Profile.png)
+### Search
+![Search](./snapshot/Search.png)
+### Reels
+![Reels](./snapshot/Reels.png)
+
+
+
+
+
+
+
+
+
+
+
 ## Note
 
 Must overload module "express-session"

@@ -119,7 +119,7 @@ export default function SignUp() {
         if(data.createUser.errors.field ==="password" )
         {
            setHelperPass(data.createUser.errors.message)
-          setPasswordError(true)
+            setPasswordError(true)
         }
         else if(data.createUser.errors.field ==="email"){  
           
@@ -160,13 +160,13 @@ export default function SignUp() {
       !e.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)
     ) {
       setPasswordError(true);
-      setPasswordColor('danger')
       setHelperPass(
         "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
       );
     } else {
       setPasswordError(false);
-      setHelperPass("");
+      setHelperPass("")
+
       setPasswordColor("success");
     }
   };
@@ -207,6 +207,7 @@ export default function SignUp() {
           <Box
             component="form"
             noValidate
+            label="signup"
             onSubmit={handleSubmit}
             sx={{ mt: 3 }}
           >
@@ -267,8 +268,8 @@ export default function SignUp() {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
-                  type="password"
+                  label="password"
+                  type="Password"
                   value={password}
                   id="passwordNewConfirm"
                   error={passwordError}
