@@ -68,7 +68,7 @@ redis-server
 ### Search
 ![Search](./snapshot/Search.png)
 ### Reels
-![Reels](./snapshot/Reels.png)
+![Reels](./snapshot/ReelsPost.png)
 
 
 
