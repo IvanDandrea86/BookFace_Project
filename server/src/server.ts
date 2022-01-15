@@ -30,7 +30,7 @@ let nStartTime = Date.now()
     console.error(err);
   });
   //Seed with FakeData
-    startSeed(60)
+  startSeed(60)
 
   //CORS middelware
   app.use(

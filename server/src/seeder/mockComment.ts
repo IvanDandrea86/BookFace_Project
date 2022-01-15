@@ -10,7 +10,7 @@ export const seedMongoWithComments=async(howmuch:number)=>{
    
     for(let i=0; i<howmuch;i+=1){
         const _id = new ObjectId();
-        const content = faker.lorem.paragraph(2)
+        const content = faker.lorem.sentences(Math.floor(Math.random() * 10)+1)
         const randomPost = await PostModel.aggregate([{ $sample: { size: 1 } }])
         const randomUser = await UserModel.aggregate([{ $sample: { size: 1 } }]) 
         let post = new CommentModel({

@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
+
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
@@ -11,7 +11,7 @@ import ApartmentIcon from '@mui/icons-material/Apartment';
 import WorkIcon from '@mui/icons-material/Work';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import UserConnected from './UserConnected';
+
 import PersonlStatus from './PersonalStatus';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -20,9 +20,9 @@ export default function MyInfoForm() {
     
 
     // Variables pour le changement de données
-  const [country, setCountry] = useState (UserConnected.country);
-  const [job, setJob] = useState (UserConnected.job);
-  const [activities, setActivities] = useState (UserConnected.activities);
+  const [country, setCountry] = useState ("Italy");
+  const [job, setJob] = useState ("Developer");
+  const [activities, setActivities] = useState ("Football");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -51,9 +51,9 @@ export default function MyInfoForm() {
                             sx={{width:"100%"}}
                             onChange={(e) => {
                                 setCountry(e.target.value);
-                                UserConnected.email = e.target.value;
+;
                                 }}
-                            defaultValue={UserConnected.country}
+                            defaultValue={country}
                             label="Country"
                             variant="standard"
                             />
@@ -68,9 +68,8 @@ export default function MyInfoForm() {
                             sx={{width:"100%"}}
                             onChange={(e) => {
                                 setJob(e.target.value);
-                                UserConnected.job = e.target.value;
                                 }}
-                            defaultValue={UserConnected.job}
+                            defaultValue={job}
                             label="Job"
                             variant="standard"
                             />
@@ -93,9 +92,9 @@ export default function MyInfoForm() {
                             sx={{width:"100%"}}
                             onChange={(e) => {
                                 setActivities(e.target.value);
-                                UserConnected.activities = e.target.value;
+                          
                                 }}
-                            defaultValue={UserConnected.activities}
+                            defaultValue={activities}
                             label="Activities"
                             variant="standard"
                             />

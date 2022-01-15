@@ -22,7 +22,7 @@ export default function ButtonAddCard() {
   return (
       <Button 
         size="small"
-        sx={{width: "80%"}} 
+        sx={{width: "20%"}} 
         disabled={dis}
         onClick={handleClick}
         variant="contained" 

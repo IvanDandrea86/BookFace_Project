@@ -1,17 +1,17 @@
 import React from 'react';
-import AddFriendCard from '../Component/AddFriendCard';
-import ButtonAddCard from '../Component/Buttons/ButtonAddCard';
-import ButtonFriendCard from '../Component/Buttons/ButtonFriendCard';
-import ButtonVisit from '../Component/Buttons/ButtonVisit';
+import AddFriendCard from '../../Component/AddFriendCard';
+import ButtonAddCard from '../../Component/Buttons/ButtonAddCard';
+import ButtonFriendCard from '../../Component/Buttons/ButtonFriendCard';
+import ButtonVisit from '../../Component/Buttons/ButtonVisit';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import {useQuery,gql} from '@apollo/client';
-import Loading from '../Util/Loading';
-import ErrorMessage from '../Util/ErrorMessage'
+import Loading from '../../Util/Loading';
+import ErrorMessage from '../../Util/ErrorMessage'
 
-import { SearchContext } from '../Context/search-context';
+import { SearchContext } from '../../Context/search-context';
 import {useContext} from 'react'
-import { AuthContext } from '../Context/auth-context';
+import { AuthContext } from '../../Context/auth-context';
 
 
 

@@ -37,7 +37,7 @@ function MyProfile() {
     });
     if (loading) return <Loading/> ;
     if (error) return <ErrorMessage/> ;
-    console.log(data.findPostByUser)
+
     return (
         <div className='profile'>
             {/** Ici ira le banner: pour le moment couleur/ on verra photo plus tard */}

@@ -12,7 +12,8 @@ export default function ButtonVisit({valueId}) {
   return (
     
     <Link
-    sx={{width:"80%"}}
+    style={{ textDecoration: 'none' }}
+    sx={{width: "100%", bgcolor:"#42a5f5", my:1}} 
     underline="none"
     variant="button"
     to={{

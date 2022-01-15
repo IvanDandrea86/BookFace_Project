@@ -8,7 +8,7 @@ import CommentPost from './CommentPost';
 
 
 function Post({ profilePic, firstname,lastname, timestamp, message ,postID}) 
-{console.log(postID)
+{
     const image= "https://picsum.photos/id/" + Math.floor(Math.random()*1000) + "/800/600/" 
     return (        
         <Grid container sx={{width: "100%", justifyContent: "center", alignItems: "center"}}>

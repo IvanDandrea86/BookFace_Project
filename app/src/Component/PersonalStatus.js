@@ -4,14 +4,14 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import UserConnected from './UserConnected';
+
 
 export default function PersonlStatus() {
   const [status, setStatus] = React.useState('Single');
 
   const handleChange = (event) => {
     setStatus(event.target.value);
-    UserConnected.status = event.target.value;
+ 
   };
 
   return (
