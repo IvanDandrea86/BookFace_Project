@@ -18,12 +18,12 @@ function Copyright(props) {
 
   export default  function Footer() {
     return (
-        <div className="myfooter" >
+        <Box className="myfooter"  >
             <Box color="#FFFFFF" sx={{ bgcolor: 'primary.main', p: 2, position:"absolute", bottom:0, width:"100%" }} component="footer">
                 <Copyright />
                 <Typography sx={{ mt:2}} color="#FFFFFF" variant="body2" align="center" href="https://picsum.photos/">Thanks to picsum.photos</Typography>
             </Box>
-        </div>
+        </Box>
     )
 }
 
