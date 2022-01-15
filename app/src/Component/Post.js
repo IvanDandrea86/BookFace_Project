@@ -37,22 +37,17 @@ function Post({ profilePic, firstname,lastname, timestamp, message })
             
                     <Grid container sx={{width:"100%", display: "flex", flexDirection:"row", justifyContent:"space-between"}}>
                         <Grid item sx={{ ml:1, display: "flex", justifyContent:"flex-start", flexDirection:"row", alignItems:"center"}}>
+
                             <IconButton 
                             size="large" 
                             sx={{  m: 0.5, justifyContent: "center" }}
                             color = "primary">
                                 <ThumbUpIcon  sx={{width: 16, height: "auto", justify: "center"}} />
                             </IconButton>
+                            
                             <IconButton  size="large" sx={{ bgcolor: "#dedede", m: 0.5, justifyContent: "center"}}>
                                 <AddCommentIcon  sx={{width: 16, height: "auto", justify: "center"}} />
                             </IconButton>
-                            <IconButton size="large"  sx={{ bgcolor: "#dedede", m: 0.5, justifyContent: "center"}}>
-                                <SendIcon  sx={{width: 16, height: "auto", justify: "center"}} />
-                            </IconButton>
-
-                        </Grid>
-                        <Grid item sx={{display: "flex", flexDirection:"row", flexWrap:"wrap", justifyContent: "flex-end"}}>
-                            <Avatar src={profilePic} sx={{ m:2, }}/>
                         </Grid>
                     </Grid>
 
