@@ -29,6 +29,8 @@ export default function PrimarySearchAppBar() {
   const [logout] = useMutation(LOGOUT_MUT);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  
   const logoutEvent = async (event) => {
     event.preventDefault();
      await logout()
