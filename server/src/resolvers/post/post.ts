@@ -11,15 +11,15 @@ import { UserModel } from "../../entities/user.entity";
 export default class PostResolver {
   @Query(() => Post, { name: "findPostById" })
   async findPostById(@Arg("post_id") post_id: string) {
-    return await PostModel.findOne({ _id: post_id });
+    return await PostModel.findOne({ _id: post_id }).sort({createdAt:"desc"});
   }
   @Query(() => [Post], { name: "findPostByUser" })
   async findPostByUser(@Arg("user_id") user_id: string): Promise<Post[]> {
-    return PostModel.find({ user_id: user_id });
+    return PostModel.find({ user_id: user_id }).sort({createdAt:"desc"});
   }
   @Query(() => [Post], { name: "findAllPost" })
   async findAllPost(): Promise<Post[]> {
-    return await PostModel.find({});
+    return await PostModel.find({}).sort({createdAt:"desc"});
   }
 
   @Mutation(() => Post, { name: "addPost" })

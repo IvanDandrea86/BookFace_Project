@@ -61,15 +61,15 @@ export default function Login() {
     });
 
     if (data.login.user == null) {
-      console.log(data.login.errors)
+
       if(data.login.errors.field ==="Password")
       {
-        console.log(data.login.errors.message)
+    
         setHelperPass(data.login.errors.message)
       }
         else if(data.login.errors.field ==="Email")
       {
-        console.log(data.login.errors.message)
+
         setHelperEmail(data.login.errors.message)
       }
       }

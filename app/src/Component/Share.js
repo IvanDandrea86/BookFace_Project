@@ -62,7 +62,7 @@ function Share ({ profilePic, image, firstname,lastname })
                 <div className="share_bottom" sx={{display: "flex", flexDirection:"column", flexWrap:"wrap", justifyContent: "center"}}>
                    <form item sx= {{mb: 1,  display: 'flex', flexDirection: 'row' , alignItems: 'center', flexwrap: 'wrap', justifyContent:"space-between"}}>
                     <input sx={{display:"flex", flexwrap:"wrap"}}
-                    className='share_input' placeholder={"What's on your mind?"}
+                    className='share_input' placeholder={"Hey "+firstname+" what's on your mind?"}
                     value={text}
                     onChange={(e)=>setText(e.target.value)}>
                     </input>
