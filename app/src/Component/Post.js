@@ -12,9 +12,7 @@ import IconButton from '@mui/material/IconButton';
 
 function Post({ profilePic, firstname,lastname, timestamp, message }) 
 {
-    const image= "https://picsum.photos/id/" + Math.floor(Math.random()*1000) + "/800/600/"
-
-    
+    const image= "https://picsum.photos/id/" + Math.floor(Math.random()*1000) + "/800/600/" 
     return (        
         <Grid container sx={{width: "100%", justifyContent: "center", alignItems: "center"}}>
             <div item className='post' sx={{width: "100%", flexDirection:"column", flexWrap:"wrap", justifyContent: "center", alignItems: "center"}} >
@@ -33,11 +31,8 @@ function Post({ profilePic, firstname,lastname, timestamp, message })
                     <img src={image} alt="" />
                 </div>
                 <Divider />
-
-            
                     <Grid container sx={{width:"100%", display: "flex", flexDirection:"row", justifyContent:"space-between"}}>
                         <Grid item sx={{ ml:1, display: "flex", justifyContent:"flex-start", flexDirection:"row", alignItems:"center"}}>
-
                             <IconButton 
                             size="large" 
                             sx={{  m: 0.5, justifyContent: "center" }}
@@ -49,9 +44,7 @@ function Post({ profilePic, firstname,lastname, timestamp, message })
                                 <AddCommentIcon  sx={{width: 16, height: "auto", justify: "center"}} />
                             </IconButton>
                         </Grid>
-                    </Grid>
-
-                
+                    </Grid>      
             </div>
         </Grid>
 

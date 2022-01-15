@@ -44,7 +44,6 @@ export function PostProfile({ profilePic, idpost, timestamp, message })
                         className="post_avatar" />
                     <div className="post_topInfo"> 
                     <h3>{data.findUserById.firstname }  {data.findUserById.lastname} </h3>
-                    
                         <p>{timestamp}</p>
                     </div>         
                 </div>
