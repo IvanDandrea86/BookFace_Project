@@ -19,13 +19,14 @@ const SENDERIDENTITY =gql `
 }
 `;
 
-export default function AcceptFriendCard({props, datasender}) {
-  
+export default function AcceptFriendCard(props) {
+  console.log(props.datasender.userSender
+    )
   const image= "https://picsum.photos/id/" + Math.floor(Math.random()*1000) + "/600/400/"
 
   const { loading, error, data } = useQuery(SENDERIDENTITY, {
     variables: {
-        user_id: datasender.userSender
+        user_id: props.datasender.userSender
     }
     });
     if (loading) return <Loading/> ;
@@ -46,9 +47,7 @@ export default function AcceptFriendCard({props, datasender}) {
         <Typography gutterBottom variant="title1" component="div">
           {data.findUserById.firstname}
         </Typography>
-        <Typography gutterBottom variant="title1" component="div">
-          {props.status}
-        </Typography>
+      
         
       </CardContent>
       <CardActions sx={{display:"flex", justifyContent: "center", flexDirection:"column", width:"100%"}}>
