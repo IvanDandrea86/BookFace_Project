@@ -10,7 +10,7 @@ import dayjs from 'dayjs'
 
  function MyPosts({data}) {
 
-    const dayjs = require('dayjs');
+  
 
     return (
         

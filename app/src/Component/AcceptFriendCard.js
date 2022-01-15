@@ -20,8 +20,7 @@ const SENDERIDENTITY =gql `
 `;
 
 export default function AcceptFriendCard(props) {
-  console.log(props.datasender.userSender
-    )
+  
   const image= "https://picsum.photos/id/" + Math.floor(Math.random()*1000) + "/600/400/"
 
   const { loading, error, data } = useQuery(SENDERIDENTITY, {

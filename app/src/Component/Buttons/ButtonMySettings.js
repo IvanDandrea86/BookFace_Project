@@ -17,46 +17,50 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import MyInfoForm from '../MyInfoForm';
 
-import { useQuery,gql } from '@apollo/client';
+import {gql, useMutation } from '@apollo/client';
 import Loading from '../../Util/Loading';
 import ErrorMessage from '../../Util/ErrorMessage';
+
 
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../../Context/auth-context';
 
 
-
-
-
-
 const Transition = React.forwardRef(function Transition(props, ref) {
   
-
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-
+const Update_mut = gql`
+mutation (
+  $_id:String!
+  $email: String!
+  $firstname: String!
+  $lastname: String!
+) {
+  updateUser(
+    _id: $_id
+    email: $email
+    firstname: $firstname
+    lastname: $lastname
+  ) {
+  _id
+  }
+}
+`;
 
 export default function ButtonMySettings() {
-
-
+  const history=useHistory()
   const [email, setEmail] = useState ('');
-  const [password, setPassword] = useState ('');
-  const [confirmPassword, setConfirmPassword] = useState ('');
   const[lastname, setLastName]=useState('')
   const [emailError, setEmailError] = useState (false);
   const[firstname, setFirstName]=useState('')
-  const [passwordError, setPasswordError] = useState (false);
-  const [confirmPasswordError, setConfirmPasswordError] = useState (false);
-  const [passwordColor, setPasswordColor] = useState ('primary');
   const [emailColor, setEmailColor] = useState ('primary');
-  const [confirmPasswordColor, setConfirmPasswordColor] = useState ('primary');
-  const [helperPass, setHelperPass] = useState("");
   const [helperEmail, setHelperEmail] = useState("");
-  const [helperConfirmPass, setHelperConfirmPass] = useState("");
+  const[lastNameError,setLastNameError]=useState(false)
+  const[firstNametError,setFirstNameError]=useState(false)
+  const [update]=useMutation(Update_mut)
  
-
-
    const handleEmailChange=(e)=>{
     setEmail(e)
     if(e==="" || !e.match(
@@ -73,44 +77,50 @@ export default function ButtonMySettings() {
     }
   }
 
-  const handlePasswordChange=(e)=>{
-    setPassword(e)
-    if(e==="" || !e.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)){
-      setPasswordError(true)
-      setHelperPass(
-        "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
-      );
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setFirstNameError(false);
+    setLastNameError(false);
+    setEmailError(false);
+   
+
+  
+
+    if(email === '') {
+      setEmailError(true)
+      setHelperEmail('This field is empty')
     }
-    else{
-      setPasswordError(false)
-      setHelperPass("");
-      setPasswordColor('success')
+
+  
+
+   
+
+   const {data,loading,error}= await  update(
+     {
+       variables:{
+        _id:context.auth,
+        email:email,
+       lastname:lastname,
+       firstname:firstname
+     },
     }
+    )
+    if (loading) return <Loading/>
+    if (error) return <ErrorMessage/> 
+    
+  if(data){
+   
+    history.push("/myprofile")
+      history.go(+1)
+      window.location.reload(false);
+  }
+  
   }
 
 
 
-  const handlePasswordConfirmChange=(e,password)=>{
-    setConfirmPassword(e)
-    if(e===''){
-      setConfirmPasswordError(true)
-       setHelperPass(
-        "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
-      );
-    }
-    else if(e!==password) {
-      setConfirmPasswordError(true)
-      setHelperConfirmPass(
-        "Passwords must be the same ");
-      
-    }
-    else {
-      setConfirmPasswordError(false)
-      setHelperConfirmPass(
-      " ");
-      setConfirmPasswordColor('success')  
-    }
-  }
+
+  
 
    
     const [open, setOpen] = React.useState(false);
@@ -124,12 +134,7 @@ export default function ButtonMySettings() {
     };
 
     
-  //On update les données du user
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-  };
-
+ 
 const context =useContext(AuthContext)
  
  
@@ -172,7 +177,7 @@ const context =useContext(AuthContext)
                             First name
                             </Typography>
                             <Typography variant="h5" gutterBottom component="div" style={{borderBottom: "1px solid #ffffff"}} sx={{py:2}}>
-                           
+                           {firstname}
                             </Typography>
                         </div>
                         <div>
@@ -180,7 +185,7 @@ const context =useContext(AuthContext)
                             Last Name
                             </Typography>
                             <Typography variant="h5" gutterBottom component="div" style={{borderBottom: "1px solid #ffffff"}} sx={{py:2}}>
-                        
+                            {lastname}
                             </Typography>
                             
                         </div>
@@ -189,7 +194,7 @@ const context =useContext(AuthContext)
                             Email address
                             </Typography>
                             <Typography variant="h5" gutterBottom component="div" style={{borderBottom: "1px solid #ffffff"}} sx={{py:2}}>
-                    
+                            {email}
                             </Typography>
                             
                         </div>
@@ -210,7 +215,7 @@ const context =useContext(AuthContext)
                       sx={{width:"100%"}}
                       onChange={(e) => {
                         setFirstName(e.target.value);
-                        //setFirstNameError(false);}
+                     
                       }}
                       autoComplete="given-name"
                       name="firstName"
@@ -228,7 +233,7 @@ const context =useContext(AuthContext)
                     sx={{width:"100%"}}
                     onChange={(e) => {
                       setLastName(e.target.value);
-                      // setLastNameError(false);
+             
                     }}
                       required
                       fullWidth
@@ -256,47 +261,12 @@ const context =useContext(AuthContext)
                     helperText= {helperEmail}
                     />
                     </ListItem>
-
-                    <ListItem>
-                    <TextField
-                    sx={{width:"100%"}}
-                    onChange={(e) => handlePasswordChange(e.target.value)}
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    value={password}
-                    id="passwordNewConfirm"
-                    error={passwordError}
-                    color={passwordColor}
-                    autoComplete="new-password"
-                    helperText= {helperPass}
-                    />
-                    </ListItem>
-                    <ListItem>
-                    <TextField
-                    sx={{width:"100%"}}
-                    required
-                    fullWidth
-                    onChange={(e) => handlePasswordConfirmChange(e.target.value,password)}
-                    name="password_confirm"
-                    label="Confirm password"
-                    type="password"
-                    value={confirmPassword}
-                    id="password_confirm"
-                    error={confirmPasswordError}
-                    autoComplete="new-password"
-                    color={confirmPasswordColor}
-                    helperText= {helperConfirmPass}
-                    />
-                    </ListItem>
                     <ListItem>
                         <Button
-
                             type="submit"
                             variant="contained"
                             sx={{bgcolor: "primary.main", width:"100%" }}
+                            onClick={handleSubmit}
                              >
                             Save changes
                             </Button>

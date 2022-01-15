@@ -70,9 +70,8 @@ export default function SignUp() {
 
 
 
-  const [register, { loading, error, data }] = useMutation(REGISTER_MUT);
-   if (loading) return <Loading/>
-   if (error) return <ErrorMessage/> 
+  const [register] = useMutation(REGISTER_MUT);
+   
     
 
   const handleSubmit = async (event) => {
@@ -101,7 +100,7 @@ export default function SignUp() {
       setHelperConfirmPass('Password ar different ')
     }
 
-   const {data}= await  register(
+   const {data,loading,error}= await  register(
      {
        variables:{
         email:email,
@@ -111,17 +110,19 @@ export default function SignUp() {
      },
     }
     )
+    if (loading) return <Loading/>
+    if (error) return <ErrorMessage/> 
+    
+      
       if (data.createUser.user == null) {
-        console.log(data.createUser.errors)
+      
         if(data.createUser.errors.field ==="password" )
         {
-          console.log(data.createUser.errors.message)
-          setHelperPass(data.createUser.errors.message)
+           setHelperPass(data.createUser.errors.message)
           setPasswordError(true)
         }
         else if(data.createUser.errors.field ==="email"){  
           
-          console.log(data.createUser.errors.message)
           setHelperEmail(data.createUser.errors.message)
           setEmailError(true)
         }
