@@ -18,6 +18,11 @@ export default class CommentResolver {
   async findCommentByUser(@Arg("user_id") user_id: string) {
     return CommentModel.find({ user_id: user_id });
   }
+  @Query(() => [Comment], { name: "findCommentByPost" })
+  async findCommentByPost(@Arg("post_id") post_id: string) {
+    return CommentModel.find({ post_id: post_id });
+  }
+
 
   @Query(() => [Comment], { name: "findAllComment" })
   async findAllComment() {

@@ -1,6 +1,6 @@
 import { Avatar} from '@mui/material';
 import  React, {useState,useContext} from 'react';
-
+import { useHistory } from "react-router-dom";
 import './Share.css';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
@@ -24,19 +24,15 @@ const ADDPOST_MUT = gql`
 }}
 `;
 
-function Share ({ profilePic, image, firstname,lastname }) 
+function Share ({ profilePic, firstname,lastname }) 
 {
+    const history = useHistory();
     const context=useContext(AuthContext)
-
-    const [register, { loading, error,data }] = useMutation(ADDPOST_MUT);
+    const [register] = useMutation(ADDPOST_MUT);
     const [text,setText]=useState()  
     
-    if (loading) return <Loading/>
-    if (error) return <ErrorMessage/> 
-
-  
     const handleAdd = () => {
-        const {data}= register(
+        const {data,loading,error}= register(
           {
             variables:{
               content:text,
@@ -44,6 +40,16 @@ function Share ({ profilePic, image, firstname,lastname })
           },
          }
          )
+         if (loading) return <Loading/>
+         if (error) return <ErrorMessage/> 
+         if(data !=null){
+
+            }
+            history.push('/home')
+            history.go(+1);
+            window.location.reload(false);
+        
+         
       };
     return (
              

@@ -8,8 +8,9 @@ import dayjs from 'dayjs'
 
 
 
- function MyPosts({data}) {
+ function MyPosts({data,post}) {
 
+    
   
 
     return (
@@ -29,6 +30,7 @@ import dayjs from 'dayjs'
             timestamp={dayjs(data.findUserById.createdAt).format('DD MMMM YYYY, hh:mm:ss A')}
             firstname= {data.findUserById.firstname}
             lastname= {data.findUserById.lastname}
+            postID={val._id}
      
         /> 
         </Grid>

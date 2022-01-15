@@ -3,13 +3,30 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import AddCommentIcon from '@mui/icons-material/AddComment';
-import Divider from '@mui/material/Divider';
-import CommentPost from './CommentPost';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import OneComment from './OneComment';
+import {gql,useQuery}from '@apollo/client'
+import Loading from '../Util/Loading';
+import ErrorMessage from '../Util/ErrorMessage'
 
-export default function ChatPost() {
+const COMMENTBYPOST_MUT=gql`
+query($post_id:String!)
+  {findCommentByPost(post_id:$post_id){
+    user_id
+    content}}
+
+`
+
+export default function ChatPost({idpost})
+{
+const  {data,loading,error}=useQuery(COMMENTBYPOST_MUT,{
+    variables:{
+      post_id:idpost
+    }
+  })
+  if (loading) return <Loading/> ;
+  if (error) return <ErrorMessage/> ;
+
   return (
     
       <Accordion sx={{width:"100%"}}>
@@ -23,9 +40,10 @@ export default function ChatPost() {
           <Typography>See all comments</Typography>
         </AccordionSummary>
         <AccordionDetails>
+          {data.findCommentByPost.map((val)=>
+          <OneComment comment={val}/>
           
-          <OneComment />
-
+          )}
         </AccordionDetails>
       </Accordion>
 

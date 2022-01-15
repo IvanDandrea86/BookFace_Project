@@ -17,8 +17,10 @@ const FINDPOSTQUERY =gql `
     firstname
     friendList
     createdAt  
+
     }
     findAllPost{
+        post_id
         user_id 
        content
        createdAt
@@ -34,6 +36,7 @@ function Feed() {
     });
     if (loading) return <Loading />;
     if (error) return <ErrorMessage />;
+    
     return (
     <Container className='feed' sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>  
         <Grid item className="post_container" sx={{my: 6}}>
@@ -42,7 +45,6 @@ function Feed() {
         <Grid item className="post_container" sx={{my: 6}}>
         <Share 
          profilePic="https://source.unsplash.com/random"
-         timestamp='date'
          firstname= {data.findUserById.firstname}
          lastname= {data.findUserById.lastname}
          />
@@ -55,7 +57,8 @@ function Feed() {
        <PostProfile
              message={val.content}
              timestamp={dayjs(val.createdAt).format('DD MMMM YYYY, hh:mm:ss A')}
-             idpost= {val.user_id}            
+             iduser= {val.user_id}  
+             idpost={val.post_id}          
         /> 
         </Grid>
         )     
