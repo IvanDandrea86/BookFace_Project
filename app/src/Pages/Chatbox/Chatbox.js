@@ -31,7 +31,7 @@ const Chat = () => {
     if (error) return <ErrorMessage/> ;
     
     const sendMessage =()=>{
-        console.log("click")
+
     }
     const   OpenMessage =async(prop)=>{
       user=prop

@@ -8,7 +8,7 @@ import {useQuery,gql} from '@apollo/client';
 import Loading from '../Util/Loading';
 import ErrorMessage from '../Util/ErrorMessage';
 import { AuthContext } from '../Context/auth-context';
-
+import dayjs from 'dayjs'
 
 const FINDPOSTQUERY =gql `
  query($user_id:String!) {
@@ -45,17 +45,16 @@ function Feed() {
          timestamp='date'
          firstname= {data.findUserById.firstname}
          lastname= {data.findUserById.lastname}
-        
          />
         </Grid>
+        
         {data.findAllPost.filter((val)=>{
             return data.findUserById.friendList.includes(val.user_id)}).map(val =>
         (
         <Grid item className="post_container" sx={{my: 0.5 }}>
        <PostProfile
-      
              message={val.content}
-             timestamp={val.createdAt}
+             timestamp={dayjs(val.createdAt).format('DD MMMM YYYY, hh:mm:ss A')}
              idpost= {val.user_id}            
         /> 
         </Grid>

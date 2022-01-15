@@ -48,7 +48,7 @@ export default function ProfilePicture({data}) {
                         <ButtonMySettings />
                     </Grid>
                     <Grid item xs={12} sm={6} md={6}>
-                        <ButtonFriend friendRequest={data.findUserById.messagesRecived}/>
+                        <ButtonFriend />
                     </Grid>
                     <Grid item xs={12} sm={6} md={6}>
                         <ButtonInBox messages={data.findUserById.messagesRecived}/>
