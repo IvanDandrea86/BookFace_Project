@@ -12,9 +12,7 @@ import CommentPost from './CommentPost';
 
 function Post({ profilePic, firstname,lastname, timestamp, message }) 
 {
-    const image= "https://picsum.photos/id/" + Math.floor(Math.random()*1000) + "/800/600/"
-
-    
+    const image= "https://picsum.photos/id/" + Math.floor(Math.random()*1000) + "/800/600/" 
     return (        
         <Grid container sx={{width: "100%", justifyContent: "center", alignItems: "center"}}>
             <div item className='post' sx={{width: "100%", flexDirection:"column", flexWrap:"wrap", justifyContent: "center", alignItems: "center"}} >
@@ -32,6 +30,7 @@ function Post({ profilePic, firstname,lastname, timestamp, message })
                 <div className="post_image" sx={{width: "100%", flexWrap:"wrap", justifyContent: "end", flexDirection:"column"}}>
                     <img src={image} alt="" />
                 </div>
+
                     {/** Ici commence la partie comment & like +++++ partie see all comments */}
                     <Grid container sx={{width:"100%", display: "flex", flexDirection:"column", justifyContent:"space-between", flexWrap:"nowrap"}}>
 
@@ -44,10 +43,13 @@ function Post({ profilePic, firstname,lastname, timestamp, message })
 
                         <Grid item sx={{ display: "flex", justifyContent:"flex-end", flexDirection:"row", alignItems:"strech", width:"100%"}}>
                          <ChatPost />
+
                             
                         </Grid>
 
+
                     </Grid> 
+
             </div>
         </Grid>
 
