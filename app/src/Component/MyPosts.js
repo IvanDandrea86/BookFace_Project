@@ -17,12 +17,12 @@ import dayjs from 'dayjs'
        
         <Container className = 'myPosts'
         sx = {
-            { display: 'flex', flexDirection: 'column', justifyContent: 'center', mb: 6 } } >
+            { display: 'flex', flexDirection: 'column', justifyContent: 'center' } } >
 
     {data.findPostByUser.map((val)=>(
         <Grid item className = "post_container"
         sx = {
-            { my: 6 } } > { /*REELS?*/ }
+            { my: 0.5 } } > { /*REELS?*/ }
         < UserPost 
             profilePic = "https://picsum.photos/id/1025/300/300"
             message={val.content}
