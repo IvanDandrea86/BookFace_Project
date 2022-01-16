@@ -1,0 +1,24 @@
+{
+  "name": "bookface_project",
+  "version": "1.0.0",
+  "description": "Graphql Express React Apollo Redis",
+  "main": "index.js",
+  "scripts": {
+    "build_app":"cd app;npm install;  npm run  build",
+    "build_server":"cd server;npm install; npm run build",
+    "install":"npm run build_app;npm run build_server",
+    "start":"npm run install; node ./server/dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IvanDandrea86/BookFace_Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IvanDandrea86/BookFace_Project/issues"
+  },
+  "homepage": "https://github.com/IvanDandrea86/BookFace_Project#readme"
+}
