@@ -43,6 +43,7 @@
         "path": "^0.12.7",
         "redis": "^4.0.1",
         "reflect-metadata": "^0.1.13",
+        "tsc": "^2.0.4",
         "type-graphql": "^1.1.1",
         "typedi": "^0.10.0"
     },
