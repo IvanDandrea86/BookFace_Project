@@ -13,7 +13,7 @@
     "build_server": "cd server; npm install",
     "install_server": "cd server ; npm run  build",
     "build": "npm run build_app ; npm run build_server; npm run install_server;npm run install_app",
-    "start": "npm run build ; node ./server/dist/index.js"
+    "start": " node ./server/dist/index.js"
   },
   "repository": {
     "type": "git",
