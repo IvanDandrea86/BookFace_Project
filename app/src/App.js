@@ -58,7 +58,6 @@ const App = () => {
         <Route path="/myprofile" component={MyProfile} />
         <Route path="/profile/:id" component={Profile} />
         <Route path="/requests" component={AcceptFriends} />
-    
         <Route path="/message" component={Chat} />
         <Route path="/finding" component={FindingFriends} />
         {context.auth ? ( <Route path="*" component={NotFound} />) : null}

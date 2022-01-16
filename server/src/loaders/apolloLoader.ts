@@ -28,7 +28,7 @@ export const apolloLoader=async():Promise<void>=>{
         apolloServer.applyMiddleware({app,
             cors:{
                 credentials:true,
-                origin:ALLOW_ORIGIN ,
+                origin:'http://localhost:3000',
             }
             });
     })
