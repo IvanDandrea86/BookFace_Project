@@ -18,17 +18,7 @@ export const apolloLoader=async():Promise<void>=>{
             req,
             res,
 
-        }),
-        formatResponse:(response,query)=>{
-            const { context } = query;
-            const { res, req: request } = context; // http response and request
-            // now you can set http response headers
-            res.header('Access-Control-Allow-Origin', ALLOW_ORIGIN)
-            const { data } = response;  // graphql response's data
-            const { headers = {} } = request; // http request headers
-            return response
-        }
-        
+        })    
     }); 
     await apolloServer.start()
     .then(()=>{
@@ -37,7 +27,8 @@ export const apolloLoader=async():Promise<void>=>{
         console.log(startTime,`\n🚀 Graphql running at:http://localhost:${PORT}/graphql`); 
         apolloServer.applyMiddleware({app,
             cors:{
-                credentials:true
+                credentials:true,
+                origin:ALLOW_ORIGIN ,
             }
             });
     })

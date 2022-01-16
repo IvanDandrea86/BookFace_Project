@@ -53,7 +53,10 @@ export default function ButtonStory() {
 
      if (loading) return <Loading/>
      if (error) return <ErrorMessage/>
-  };
+     history.push('/myprofile')
+     history.go(+1);
+     window.location.reload(false);
+  }
 
   return (
     <div>

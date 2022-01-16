@@ -23,17 +23,10 @@
 
 ## Install
 ---
-### Start the Server 
-```
-cd server
-npm run watch
-npm run start
-```
-### Run the Client App
-```
-cd app
-npm run start
 
+```
+npm run install
+npm run start
 ```
 ### Install & Run Redis
 

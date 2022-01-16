@@ -4,6 +4,7 @@ import { runConnection } from "./loaders/dbLoader";
 import { apolloLoader } from "./loaders/apolloLoader";
 import express from "express";
 import cors from 'cors';
+import path from 'path'
 import {
   ALLOW_ORIGIN,
   PORT,
@@ -11,7 +12,9 @@ import {
 } from "./constants/const";
 import session from "express-session";
 import {sessionConfig} from './config/sessionConfig';
-import { startSeed } from "./seeder";
+import {Request,Response} from 'express'
+
+// import { startSeed } from "./seeder";
 
 
 dotenv.config();
@@ -30,7 +33,7 @@ let nStartTime = Date.now()
     console.error(err);
   });
   //Seed with FakeData
-  startSeed(60)
+  // startSeed(60)
 
   //CORS middelware
   app.use(
@@ -45,6 +48,13 @@ let nStartTime = Date.now()
   app.use(
     session(sessionConfig)
   );
+  
+    console.log(__dirname)
+    app.use('/static', express.static(path.join(__dirname, '../../app/build/static')));
+  app.get('*', ( req:Request,res:Response)=>{
+    res.sendFile('index.html', {root: path.join(__dirname, '../../app/build/')});
+  });
+  
 
   //Start Apollo Server for graphql
   apolloLoader().catch((err) => {
