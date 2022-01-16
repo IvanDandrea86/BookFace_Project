@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config()
-export const PORT = process.env.PORT ? process.env.PORT : 4000
+export const PORT = process.env.PORT || 4000
 export const __prod__ = process.env.NODE_ENV === 'production';
 export const SECRET = process.env.SECRET;
 export const REDIS_URL = process.env.REDIS_URL;

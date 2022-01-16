@@ -61,7 +61,7 @@ let nStartTime = Date.now()
     console.error(err);
   });
 
-  app.listen( process.env.PORT || 4000, () => {
+  app.listen( PORT, () => {
   console.log(startTime,`\n🚀 Server running at: http://localhost:${PORT}`);
   });
 
