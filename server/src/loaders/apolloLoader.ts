@@ -2,7 +2,7 @@ import {app} from '../server';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import {resolvers} from '../resolvers/index';
-import {PORT,ALLOW_ORIGIN} from '../constants/const'
+import {PORT, ALLOW_ORIGIN} from '../constants/const'
 import { MyContext } from 'src/types/types';
 
 
