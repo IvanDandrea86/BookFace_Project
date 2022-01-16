@@ -48,14 +48,11 @@ let nStartTime = Date.now()
     session(sessionConfig)
   );
   
-    
-  // app.use(express.static(path.resolve(__dirname, '../../app/build')));
-  // app.get('*', ( req:Request,res:Response)=>{
-  //   res.sendFile('index.html', {root: path.join(__dirname, '../../app/build/')});
-  // });
-  // app.get('/favicon.ico', ( req:Request,res:Response)=>{
-  //   res.sendFile('favicon.ico', {root: path.join(__dirname, '../../app/build/')});
-  // });
+  
+  app.use(express.static(path.join(__dirname, '/public')));
+  app.get('*', ( req:Request,res:Response)=>{
+    res.sendFile( path.join(__dirname, '/public','index.html'));
+  });
   
 
   //Start Apollo Server for graphql
