@@ -49,12 +49,12 @@ let nStartTime = Date.now()
   );
   
     
-    app.use(express.static(path.join(__dirname, '../../app/build/')));
+    app.use(express.static(path.join(__dirname, '../../build/')));
   app.get('*', ( req:Request,res:Response)=>{
-    res.sendFile('index.html', {root: path.join(__dirname, '../../app/build/')});
+    res.sendFile('index.html', {root: path.join(__dirname, '../../build/')});
   });
   app.get('/favicon.ico', ( req:Request,res:Response)=>{
-    res.sendFile('favicon.ico', {root: path.join(__dirname, '../../app/build/')});
+    res.sendFile('favicon.ico', {root: path.join(__dirname, '../../build/')});
   });
   
 
