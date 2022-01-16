@@ -9,9 +9,9 @@
   },
   "scripts": {
     "build_app": "cd app ; npm install ",
-    "install_app": "cd app ; npm build",
+    "install_app": "cd app ; npm run build",
     "build_server": "cd server; npm install",
-    "install_server": "cd server ; npm build",
+    "install_server": "cd server ; npm run  build",
     "build": "npm run build_app ; npm run build_server; npm run install_server;npm run install_app",
     "start": "npm run build ; node ./server/dist/index.js"
   },
