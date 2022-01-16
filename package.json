@@ -8,11 +8,11 @@
     "npm": "6.x"
   },
   "scripts": {
-    "build_app": "cd app ; npm install react-scripts;npm run build",
-    "install_app": "cd app ; npm install",
-    "build_server": "cd server; npm install tsc && npm  build",
-    "install_server": "cd server ; npm install",
-    "build": "npm run build_app ; npm run build_server",
+    "build_app": "cd app ; npm install ",
+    "install_app": "cd app ; npm build",
+    "build_server": "cd server; npm install",
+    "install_server": "cd server ; npm build",
+    "build": "npm run build_app ; npm run build_server; npm run install_server;npm run install_app",
     "start": "npm run build ; node ./server/dist/index.js"
   },
   "repository": {
