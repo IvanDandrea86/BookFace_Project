@@ -49,13 +49,13 @@ let nStartTime = Date.now()
   );
   
     
-  app.use(express.static(path.resolve(__dirname, '../../app/build')));
-  app.get('*', ( req:Request,res:Response)=>{
-    res.sendFile('index.html', {root: path.join(__dirname, '../../app/build/')});
-  });
-  app.get('/favicon.ico', ( req:Request,res:Response)=>{
-    res.sendFile('favicon.ico', {root: path.join(__dirname, '../../app/build/')});
-  });
+  // app.use(express.static(path.resolve(__dirname, '../../app/build')));
+  // app.get('*', ( req:Request,res:Response)=>{
+  //   res.sendFile('index.html', {root: path.join(__dirname, '../../app/build/')});
+  // });
+  // app.get('/favicon.ico', ( req:Request,res:Response)=>{
+  //   res.sendFile('favicon.ico', {root: path.join(__dirname, '../../app/build/')});
+  // });
   
 
   //Start Apollo Server for graphql
