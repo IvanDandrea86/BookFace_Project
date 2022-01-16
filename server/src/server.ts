@@ -7,7 +7,6 @@ import cors from 'cors';
 import path from 'path'
 import {
   ALLOW_ORIGIN,
-  PORT,
   __prod__,
 } from "./constants/const";
 import session from "express-session";
@@ -49,10 +48,13 @@ let nStartTime = Date.now()
     session(sessionConfig)
   );
   
-    console.log(__dirname)
-    app.use('/static', express.static(path.join(__dirname, '../../app/build/static')));
+    
+  app.use(express.static(path.resolve(__dirname, '../../app/build')));
   app.get('*', ( req:Request,res:Response)=>{
     res.sendFile('index.html', {root: path.join(__dirname, '../../app/build/')});
+  });
+  app.get('/favicon.ico', ( req:Request,res:Response)=>{
+    res.sendFile('favicon.ico', {root: path.join(__dirname, '../../app/build/')});
   });
   
 
@@ -60,9 +62,9 @@ let nStartTime = Date.now()
   apolloLoader().catch((err) => {
     console.error(err);
   });
-
-  app.listen( PORT, () => {
-  console.log(startTime,`\n🚀 Server running at: http://localhost:${PORT}`);
+let port= process.env.PORT || 4000
+  app.listen( port, () => {
+  console.log(startTime,`\n🚀 Server running at: http://localhost:${port}`);
   });
 
   let nEndTime = Date.now()
