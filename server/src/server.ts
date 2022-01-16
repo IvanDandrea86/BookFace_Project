@@ -49,7 +49,7 @@ let nStartTime = Date.now()
     session(sessionConfig)
   );
   
-    console.log(__dirname)
+    
     app.use('/static', express.static(path.join(__dirname, '../../app/build/static')));
   app.get('*', ( req:Request,res:Response)=>{
     res.sendFile('index.html', {root: path.join(__dirname, '../../app/build/')});
@@ -61,7 +61,7 @@ let nStartTime = Date.now()
     console.error(err);
   });
 
-  app.listen( PORT, () => {
+  app.listen( process.env.PORT || 3000, () => {
   console.log(startTime,`\n🚀 Server running at: http://localhost:${PORT}`);
   });
 
