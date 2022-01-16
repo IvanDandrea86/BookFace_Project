@@ -60,9 +60,9 @@ let nStartTime = Date.now()
   apolloLoader().catch((err) => {
     console.error(err);
   });
-
-  app.listen( process.env.PORT || 3000, () => {
-  console.log(startTime,`\n🚀 Server running at: http://localhost:${PORT}`);
+let port= process.env.PORT || 3000
+  app.listen( port, () => {
+  console.log(startTime,`\n🚀 Server running at: http://localhost:${port}`);
   });
 
   let nEndTime = Date.now()
